@@ -1,0 +1,16 @@
+.content {
+    margin-top: 64px;
+}
+
+.navbar {
+    position: fixed;
+}
+
+.scrollfeed{
+    max-width: 32rem;
+    max-height: 100%;
+}
+
+.eventcard {
+    width: 32rem;
+}
