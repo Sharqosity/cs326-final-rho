@@ -1,9 +1,6 @@
-.content {
-    margin-top: 64px;
-}
-
-.navbar {
+.fixed-top {
     position: fixed;
+    top: 0;
 }
 
 .scrollfeed{
