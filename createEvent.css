@@ -1,3 +1,7 @@
-.vertical-spaced {
-    margin-top: 5 !important;
+.content {
+    margin-top: 64px;
 }
+fixed-top {
+    position: fixed;
+}
+
