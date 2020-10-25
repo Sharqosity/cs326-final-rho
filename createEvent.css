@@ -1,7 +1,7 @@
 .content {
     margin-top: 64px;
 }
-fixed-top {
+.fixed-top {
     position: fixed;
+    top: 0;
 }
-
