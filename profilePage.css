@@ -30,11 +30,6 @@
   overflow-y: hidden;
 }
 
-.navbar-default {
-    background-color: rgb(129, 47, 47);
-    border-color: #E7E7E7;
-}
-
 
 
 .scrollable{
@@ -67,4 +62,9 @@
 
 .image-logo:hover{
     transform:scale(1.75);
+}
+
+.map{
+    width:1000px;
+    height:700px;
 }
