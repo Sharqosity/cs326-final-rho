@@ -30,6 +30,10 @@
   overflow-y: hidden;
 }
 
+.navbar-default {
+    background-color: rgb(129, 47, 47);
+    border-color: #E7E7E7;
+}
 
 
 
