@@ -37,7 +37,7 @@ Screenshot:
 
 
 ### Event Popup Page
-Purpose:
+Purpose: The event popup opens when the user clicks on an event. It will expand the card to display more information, such as the full description.
 
 Wireframe:
 ![alt text](https://github.com/Sharqosity/cs326-final-rho/blob/main/docs/Wireframes/eventPopup.png)
@@ -46,7 +46,7 @@ Screenshot:
 ![alt text](https://github.com/Sharqosity/cs326-final-rho/blob/main/docs/Screenshots/eventPage.png)
 
 ### Feed/Main Event Page
-Purpose:
+Purpose: The feed is the home screen on the website. This is the main page for users to discover upcoming events happening on campus. They can view a quick summary of these events in a vertical feed, with the option to join.
 
 Wireframe:
 ![alt text](https://github.com/Sharqosity/cs326-final-rho/blob/main/docs/Wireframes/mainPage.png)
@@ -79,8 +79,8 @@ Screenshot:
 
 ## Division Of Labor
 * Wireframes: Done collaboratively over 1 video call.
-* Aidan: createEvent page (CSS and HTML).
+* Aidan: createEvent page and navbar design (CSS and HTML).
 * George: eventPopup and mainPage(CSS and HTML). 
-* Prateek: profilePage and mapPage(CSS and HTML). 
+* Prateek: profilePage, mapPage, and card design(CSS and HTML). 
 
 
