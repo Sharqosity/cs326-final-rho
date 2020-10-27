@@ -20,3 +20,9 @@
 
 
 
+## Division Of Labor
+*Bullet 1
+  Wireframes: Done collaboratively over 1 video call.
+*Bullet 2
+ Aidan: createEvent css and html
+
