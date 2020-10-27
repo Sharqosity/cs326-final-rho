@@ -21,9 +21,9 @@
 
 
 ## Division Of Labor
-*Wireframes: Done collaboratively over 1 video call.
-*Aidan: createEvent page (CSS and HTML) 
-*George: eventPopup and mainPage(CSS and HTML) 
-*Prateek: profilePage and mapPage(CSS and HTML) 
+* Wireframes: Done collaboratively over 1 video call.
+* Aidan: createEvent page (CSS and HTML).
+* George: eventPopup and mainPage(CSS and HTML). 
+* Prateek: profilePage and mapPage(CSS and HTML). 
 
 
