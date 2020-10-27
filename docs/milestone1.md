@@ -21,8 +21,9 @@
 
 
 ## Division Of Labor
-*Bullet 1
-  Wireframes: Done collaboratively over 1 video call.
-*Bullet 2
- Aidan: createEvent css and html
+*Wireframes: Done collaboratively over 1 video call.
+*Aidan: createEvent page (CSS and HTML) 
+*George: eventPopup and mainPage(CSS and HTML) 
+*Prateek: profilePage and mapPage(CSS and HTML) 
+
 
