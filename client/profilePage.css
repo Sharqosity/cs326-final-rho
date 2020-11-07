@@ -11,18 +11,15 @@
     height:335px;
 }
 .card{
-    
     display: inline-block;
-    width:450px;
-    height: 300px;
+    width:400px;
+    height: 250px;
     border-radius: 4px;
     background: #fff; 
     box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
       transition: .1s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
   padding : 0px !important;
   cursor: pointer;
-
-
 }
 
 .scrolling-wrapper {
@@ -35,7 +32,7 @@
 .scrollable{
     overflow-y: auto;
     max-height: 100px;
-    width: 300px;
+    width: 350px;
   }
 
 

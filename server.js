@@ -2,7 +2,6 @@ import {createServer} from 'http';
 import {parse} from 'url';
 import {join} from 'path';
 import {writeFile, readFileSync, existsSync} from 'fs';
-import { ESRCH } from 'constants';
 import {DB} from './database.js';
 
 let database = new DB();
@@ -13,13 +12,19 @@ createServer(async (req, res) => {
     if (parsed.pathname === '/user/new') {
         database.newUser();
         
-    } else if (parsed.pathname === '/joinEvent') {
+    } else if (parsed.pathname === 'user/joinEvent') {
         database.joinEvent();
 
-    } else if (parsed.pathname === '/user/create') {
+    }else if (parsed.pathname === 'user/unjoinEvent') {
+        database.unjoinEvent();
+
+    }else if (parsed.pathname === '/user/create') {
         database.userCreate();
 
-    } else if (parsed.pathname === '/user/edit') {
+    } else if (parsed.pathname === '/user/getEvent') {
+        database.getEvent(5);
+    }
+     else if (parsed.pathname === '/user/edit') {
         database.userEdit();
 
     } else if (parsed.pathname === '/user/delete') {
@@ -41,8 +46,9 @@ createServer(async (req, res) => {
         // If the client did not request an API endpoint, we assume we need to fetch and serve a file.
         // This is terrible security-wise, since we don't check the file requested is in the same directory.
         // This will do for our purposes.
-        const filename = parsed.pathname === '/' ? "index.html" : parsed.pathname.replace('/', '');
-        const path = join("client/", filename);
+        const filename = parsed.pathname === '/' ? "profilePage.html" : parsed.pathname.replace('/', '');
+        // const path = join("client/", filename);
+        const path = join(filename);
         console.log("trying to serve " + path + "...");
         if (existsSync(path)) {
             if (filename.endsWith("html")) {

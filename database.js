@@ -12,6 +12,9 @@ export class DB{
     joinEvent(){
         //post so nothing has to happen for now 
     }
+    unjoinEvent(){
+        //post so nothing has to happen for now 
+    }
     userCreate(){
         //post
     }
