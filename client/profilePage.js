@@ -3,19 +3,35 @@
 //1. Need to fetch the resources for the cards from the server , then added to the 
 // rows quickly  
 
-function CancelButton(eventid){
+function DeleteButton(eventid){
 
-    //postrequests
+const deleteEvent= {"eid": eventid };
+fetch('http://localhost:8080/user/deleteEvent', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json',},
+        body: JSON.stringify(deleteEvent),
+ });
+postMyEventsCards();
+postJoinedCards();
+//postrequests
 }
 
 function EditButton(eventid){
     //redirects to create page with filled in details.
-
+    postMyEventsCards();
+    postJoinedCards();    
 }
 
 function LeaveButton(eventid){
 
-
+ const leaveEvent= {"owner":"Aidan" , "eid": eventid };
+fetch('http://localhost:8080/user/unjoinEvent', {
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json',},
+        body: JSON.stringify(leaveEvent),
+ });
+    postMyEventsCards();
+    postJoinedCards();
 }
 
 function postMyEventsCards(){
@@ -23,6 +39,7 @@ function postMyEventsCards(){
     const row = document.getElementById('my_events');
     row.innerHTML='';
     const myeventsurl = 'http://localhost:8080/user/getmyevents';
+    // const myeventsurl = '/user/getmyevents';
     fetch(myeventsurl)
     .then(response=> response.json())
     .then( data=> { 
@@ -69,15 +86,20 @@ function postMyEventsCards(){
             cardtxtdiv.appendChild(cardtxt);
 
             const capacity= document.createElement('p');
-            const str= "Capacity: ";
+            const str2= "Capacity: ";
             capacity.classList.add('card-text');
-            capacity.appendChild(document.createTextNode(str.concat(data[i].capacity)));
+            capacity.appendChild(document.createTextNode(str2.concat(data[i].capacity)));
 
             const buttons= document.createElement('div');
             const button1= document.createElement('button');
             button1.classList.add('btn');
             button1.classList.add('btn-primary');
             button1.appendChild(document.createTextNode("Delete"));
+            button1.onclick= function(){
+                DeleteButton(data[i].eventid);
+            }
+
+
 
             const button2= document.createElement('button');
             button2.classList.add('btn');
@@ -137,14 +159,15 @@ function postJoinedCards(){
             dandt.classList.add('card-subtitle');
             dandt.classList.add('mb-2');
             dandt.classList.add('text-muted');
-            dandt.appendChild(document.createTextNode(data[i].date.concat(' ', data[i].time)));
+            dandt.appendChild(document.createTextNode(data[i].date.concat(' @', data[i].time)));
 
 
             const location= document.createElement('h6');
             location.classList.add('card-subtitle');
             location.classList.add('mb-2');
             location.classList.add('text-muted');
-            location.appendChild(document.createTextNode(data[i].location));
+            const str= "@";
+            location.appendChild(document.createTextNode(str.concat(data[i].location)));
 
             const cardtxtdiv= document.createElement('div');
             cardtxtdiv.classList.add('scrollable');
@@ -154,8 +177,9 @@ function postJoinedCards(){
             cardtxtdiv.appendChild(cardtxt);
 
             const capacity= document.createElement('p');
+            const str2= "Capacity: ";
             capacity.classList.add('card-text');
-            capacity.appendChild(document.createTextNode(data[i].capacity));
+            capacity.appendChild(document.createTextNode(str2.concat(data[i].capacity)));
 
             const buttons= document.createElement('div');
             const button1= document.createElement('button');

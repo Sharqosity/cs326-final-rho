@@ -12,8 +12,9 @@ export class DB{
     joinEvent(){
         //post so nothing has to happen for now 
     }
-    unjoinEvent(){
+    unjoinEvent(owner,eventid){
         //post so nothing has to happen for now 
+        console.log("asked to remove"+owner+"from"+ eventid.toString());
     }
     userCreate(){
         //post
@@ -21,8 +22,8 @@ export class DB{
     userEdit(){
         //post
     }
-    userDelete(){
-        //post
+    userDelete(eventid){
+        console.log("asked to remove"+ eventid.toString()); 
     }
     getEvent(eventid){
         
@@ -38,7 +39,7 @@ export class DB{
         ];
         return JSON.stringify(events);
     }
-    userGetJoinedevents(){
+    userGetJoinedEvents(){
         //get
         const events = [
             {"eventid":5,"owner":"Prateek","title":"311 HW2","date":"11/21/20","time":"4:00PM","location":" Dubois library","description":"Doing the HW2 homework","capacity":"7/10"},
