@@ -17,8 +17,11 @@ postJoinedCards();
 }
 
 function EditButton(eventid){
+    if(window.localStorage.getItem('editedeventid')!==null){
+        window.localStorage.removeItem('editedeventid');
+    }
     //redirects to create page with filled in details.
-
+    window.localStorage.setItem('editedeventid',eventid);
 }
 
 function LeaveButton(eventid){
@@ -105,6 +108,9 @@ function postMyEventsCards(){
             button2.classList.add('btn');
             button2.classList.add('btn-primary');
             button2.appendChild(document.createTextNode("Edit"));
+            button2.onclick=function(){
+                EditButton(data[i].eventid);
+            }
             // button2.onclick= "location.href='createEvent.html'";
             buttonfil.appendChild(button2);
 
