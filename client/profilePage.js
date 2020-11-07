@@ -18,8 +18,7 @@ postJoinedCards();
 
 function EditButton(eventid){
     //redirects to create page with filled in details.
-    postMyEventsCards();
-    postJoinedCards();    
+
 }
 
 function LeaveButton(eventid){
@@ -99,14 +98,18 @@ function postMyEventsCards(){
                 DeleteButton(data[i].eventid);
             }
 
-
+            const buttonfil= document.createElement('a');
+            buttonfil.href= 'createEvent.html';
 
             const button2= document.createElement('button');
             button2.classList.add('btn');
             button2.classList.add('btn-primary');
             button2.appendChild(document.createTextNode("Edit"));
+            // button2.onclick= "location.href='createEvent.html'";
+            buttonfil.appendChild(button2);
+
             buttons.appendChild(button1);
-            buttons.appendChild(button2);
+            buttons.appendChild(buttonfil);
 
             listitem4.appendChild(title);
             listitem4.appendChild(dandt);
@@ -186,6 +189,9 @@ function postJoinedCards(){
             button1.classList.add('btn');
             button1.classList.add('btn-primary');
             button1.appendChild(document.createTextNode("Leave"));
+            button1.onclick= function(){
+                LeaveButton(data[i].eventid);
+            }
 
             buttons.appendChild(button1);
             
