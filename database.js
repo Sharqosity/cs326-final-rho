@@ -26,7 +26,10 @@ export class DB{
         console.log("asked to remove"+ eventid.toString()); 
     }
     getEvent(eventid){
-        
+        //get
+        // this is a post in our server.js 
+        let event = {"eventid":1,"owner ":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"};
+        return JSON.stringify(event);
     }
     userGetMyEvents(){
         //get
