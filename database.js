@@ -79,6 +79,6 @@ export class DB{
                 {"owner":"Aidan","title":" Soccer ","date":"11/26/20","time":"4:20PM","location":"East Soccer Fields","description":"5v5 pickup soccer game","capacity":"6/10"}
             ]
         }
-        return  JSON.stringify(events);
+        return  JSON.stringify(event_dict);
     }
 }
