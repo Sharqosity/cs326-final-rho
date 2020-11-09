@@ -25,20 +25,24 @@ Part 2:
 Screenshot 1:
 
 This is the main page of the application that shows all the different events that have been posted. This page READs all the different events that are available. 
-   https://github.com/Sharqosity/cs326-final-rho/blob/main/Milestone2_images/Screen%20Shot%202020-11-08%20at%208.14.48%20PM.png
-
+   
+![alt text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Milestone2_images/Screen%20Shot%202020-11-08%20at%208.14.48%20PM.png)
 
 Screenshot 2:
 
 This page displays the map and where different events may be happening. It READs the events from the server. 
+![alt text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Milestone2_images/Screen%20Shot%202020-11-08%20at%208.15.02%20PM.png)
 
 
 Screenshot 3:
 
 This is the create event page which allows the user to create a new event. This CREATEs new events. If the user is editing an event then it will READ that event first and UPDATE it afterward.
+![alt text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Milestone2_images/Screen%20Shot%202020-11-08%20at%208.15.14%20PM.png)
 
 
 Screenshot 4:
 
 This page is a summary of the different events that the user has created as well as the joined. It READs the different events associated with the user and displays them.
+
+![alt text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Milestone2_images/Screen%20Shot%202020-11-08%20at%208.15.26%20PM.png)
 
