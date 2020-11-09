@@ -5,7 +5,9 @@ function joinEvent(id) {
         id: id
     };
 
-    fetch('http://localhost:8080/user/joinEvent', {
+    // const fetchurl = 'http://localhost:8080/user/joinEvent';
+    const fetchurl = '/user/joinEvent';
+    fetch(fetchurl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -18,7 +20,8 @@ function getEvents() {
 
     const feedCol = document.getElementById('feedCol');
     feedCol.innerHTML = '';
-    const feedurl = 'http://localhost:8080/globalgetfeed';
+    // const feedurl = 'http://localhost:8080/globalgetfeed';
+    const feedurl = '/globalgetfeed';
     fetch(feedurl).then(response=> response.json())
     .then(data => {
 
