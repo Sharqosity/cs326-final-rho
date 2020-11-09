@@ -11,7 +11,7 @@ function populateDropdown(){
     console.log("hello");
     const row = document.getElementById('dropdownmenus');
     row.innerHTML='';
-    const myeventsurl = 'http://localhost:8080/globalgetfeed/bylocation';
+    const myeventsurl = '/globalgetfeed/bylocation';
     // const myeventsurl = '/user/getmyevents';
     fetch(myeventsurl)
     .then(response=> response.json())
