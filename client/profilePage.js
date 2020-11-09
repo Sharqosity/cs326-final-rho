@@ -6,7 +6,8 @@
 function DeleteButton(eventid){
 
 const deleteEvent= {"eid": eventid };
-fetch('http://localhost:8080/user/deleteEvent', {
+// fetch('http://localhost:8080/user/deleteEvent', {
+    fetch('/user/deleteEvent', {
         method: 'POST', 
         headers: {'Content-Type': 'application/json',},
         body: JSON.stringify(deleteEvent),
@@ -26,8 +27,9 @@ function EditButton(eventid){
 
 function LeaveButton(eventid){
 
- const leaveEvent= {"owner":"Aidan" , "eid": eventid };
-fetch('http://localhost:8080/user/unjoinEvent', {
+const leaveEvent= {"owner":"Aidan" , "eid": eventid };
+fetch('/user/unjoinEvent', {
+// fetch('http://localhost:8080/user/unjoinEvent', {
         method: 'POST', 
         headers: {'Content-Type': 'application/json',},
         body: JSON.stringify(leaveEvent),
@@ -40,7 +42,8 @@ function postMyEventsCards(){
     // clear the row 
     const row = document.getElementById('my_events');
     row.innerHTML='';
-    const myeventsurl = 'http://localhost:8080/user/getmyevents';
+    // const myeventsurl = 'http://localhost:8080/user/getmyevents';
+    const myeventsurl = '/user/getmyevents';
     // const myeventsurl = '/user/getmyevents';
     fetch(myeventsurl)
     .then(response=> response.json())
@@ -139,7 +142,8 @@ function postJoinedCards(){
     // clear the row 
     const row = document.getElementById('joined_events');
     row.innerHTML='';
-    const myeventsurl = 'http://localhost:8080/user/getjoinedevents';
+    // const myeventsurl = 'http://localhost:8080/user/getjoinedevents';
+    const myeventsurl = '/user/getjoinedevents';
     fetch(myeventsurl)
     .then(response=> response.json())
     .then( data=> { 
