@@ -6,7 +6,8 @@ function editSetUp(){
         //now a get request for the actual information contained in that specific id 
 
         //with a real server we would obviously pass in an actual value for what event
-        const eventurl = 'http://localhost:8080/user/getmyevents';
+        //const eventurl = 'http://localhost:8080/user/getmyevents';
+        const eventurl = '/user/getmyevents';
         fetch(eventurl)
         .then(response=> response.json())
         .then( data=> { 
@@ -61,7 +62,8 @@ function createEvent(){
     newEvent['eventid'] = -1;
 
 
-    fetch('http://localhost:8080/user/createEvent', {
+    //'http://localhost:8080/user/createEvent'
+    fetch('/user/createEvent', {
         method: 'POST', 
         headers: {'Content-Type': 'application/json',},
         body: JSON.stringify(newEvent),

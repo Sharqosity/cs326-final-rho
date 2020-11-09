@@ -68,7 +68,10 @@ app.get('*', (req, res) => {
     res.send(JSON.stringify({ result : 'command-not-found' }));
 });
 
-
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8080;
+}
 app.listen(port, () => {
     console.log(`app listening at http://localhost:${port}`);
 });
