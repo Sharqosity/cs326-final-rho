@@ -47,7 +47,7 @@ This page is a summary of the different events that the user has created as well
 ![alt text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Milestone2_images/Screen%20Shot%202020-11-08%20at%208.15.26%20PM.png)
 
 ## Division Of Labor
-* Wireframes: Done collaboratively over 1 video call.
-* Aidan: createEvent page and server.
+* Server and api: Done collaboratively over 1 video call.
+* Aidan: createEvent page.
 * George: eventPopup and mainPage. 
-* Prateek: profilePage, mapPage and server. 
+* Prateek: profilePage, mapPage. 
