@@ -25,7 +25,7 @@ Part 2:
 Screenshot 1:
 
 This is the main page of the application that shows all the different events that have been posted. This page READs all the different events that are available. 
-
+   https://github.com/Sharqosity/cs326-final-rho/blob/main/Milestone2_images/Screen%20Shot%202020-11-08%20at%208.14.48%20PM.png
 
 
 Screenshot 2:
