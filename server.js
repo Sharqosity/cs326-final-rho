@@ -20,6 +20,16 @@ app.post('/user/new',(req,res)=>{
     // res.send("new user created"); 
 });
 
+app.post('/user/login', (req, res) => {
+    database.userLogin();
+    console.log('login');
+});
+
+app.post('/user/register',(req,res)=>{
+    database.userRegister();
+    console.log("user created");
+});
+
 app.post('/user/joinEvent',(req,res)=>{
     database.joinEvent();
     console.log("found");
@@ -67,6 +77,10 @@ app.get('/globalgetfeed/bylocation',(req,res)=>{
 app.get('*', (req, res) => {
     res.send(JSON.stringify({ result : 'command-not-found' }));
 });
+
+
+
+
 
 let port = process.env.PORT;
 if (port == null || port == "") {
