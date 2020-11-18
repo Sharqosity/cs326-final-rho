@@ -74,9 +74,23 @@ app.get('/globalgetfeed/bylocation',(req,res)=>{
     res.end(database.globalGetFeedByLocation());
 });
 
+app.get('/profileOrLogin', (req, res) => {
+    console.log("trying to login or view profile");
+    //res.sendFile('client/mapPage.html',{ 'root' : __dirname });
+    let loggedIn = false;
+    if(loggedIn){
+        res.redirect('/index.html');
+    }else{
+        res.redirect('/login.html');
+    }
+    
+});
+
 app.get('*', (req, res) => {
     res.send(JSON.stringify({ result : 'command-not-found' }));
 });
+
+
 
 
 

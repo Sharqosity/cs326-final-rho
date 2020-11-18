@@ -91,4 +91,10 @@ export class DB{
         };
         return  JSON.stringify(event_dict);
     }
+    userLogin(){
+
+    }
+    userRegiser(){
+        
+    }
 }
