@@ -1,4 +1,6 @@
 
+
+
 function editSetUp(){
     let edit_event_id = window.localStorage.getItem('editedeventid');
     //signifies that we are editing an event instead of creating one
@@ -52,12 +54,12 @@ function editSetUp(){
 
 function createEvent(){
     let newEvent = {};
-    newEvent['title'] = document.getElementById('title').value
-    newEvent['date'] = document.getElementById('date').value
-    newEvent['time'] = document.getElementById('time').value
+    newEvent['title'] = document.getElementById('title').value;
+    newEvent['date'] = document.getElementById('date').value;
+    newEvent['time'] = document.getElementById('time').value;
     newEvent['location'] = "placeholder Location";
-    newEvent['description'] = document.getElementById('description').value
-    newEvent['capacity'] = document.getElementById('capacity').value
+    newEvent['description'] = document.getElementById('description').value;
+    newEvent['capacity'] = document.getElementById('capacity').value;
     newEvent['owner'] = "placeholder ownder";
     newEvent['eventid'] = -1;
 

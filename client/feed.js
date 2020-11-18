@@ -26,7 +26,7 @@ function getEvents() {
     .then(data => {
 
         for (const item of data) {
-            console.log(item)
+            
             const row = document.createElement('div');
             row.classList.add('row-md-4');
 
@@ -83,12 +83,12 @@ function getEvents() {
             //TODO: logic for already joined event (gray out button, say 'joined')
             const btndiv = document.createElement('div');
             const btn = document.createElement('button');
-            const btntext = document.createTextNode('Join')
+            const btntext = document.createTextNode('Join');
             btn.type = 'button';
             btn.classList.add('btn');
             btn.classList.add('btn-primary');
 
-            btn.addEventListener('click', () => {joinEvent(item.id)});
+            btn.addEventListener('click', () => {joinEvent(item.id);});
 
             btn.appendChild(btntext);
             btndiv.appendChild(btn);

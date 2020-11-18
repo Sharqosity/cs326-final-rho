@@ -1,15 +1,15 @@
 'use strict';
 
 
-function loginSetup() {
-    document.getElementById("loginButton").addEventListener('click', () => {
+function regSetup() {
+    document.getElementById("registerButton").addEventListener('click', () => {
         const body = {
             username: document.getElementById("username").value,
             password: document.getElementById("password").value
         };
 
     
-        const fetchurl = '/user/login';
+        const fetchurl = '/user/register';
         
         const res = fetch(fetchurl, {
             method: 'POST',
@@ -22,7 +22,8 @@ function loginSetup() {
         console.log(res);
 
         if (true) { //res is OK
-            //redirect to profile?  
+            //redirect to login 
+            window.location.replace('./login.html'); 
         } else {
             //print error message
         }
@@ -35,4 +36,4 @@ function loginSetup() {
 
 
 
-window.addEventListener('load', loginSetup);
+window.addEventListener('load', regSetup);
