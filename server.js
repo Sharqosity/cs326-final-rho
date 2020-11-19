@@ -16,6 +16,7 @@ import {DB} from './database.js';
 const url = process.env.DATABASE_URL;
 
 let database = new DB(pgp()(url));
+//let database = new DB('hi');
 
 app.post('/user/new',(req,res)=>{
     database.newUser();
@@ -44,7 +45,11 @@ app.post('/user/unjoinEvent',(req,res)=>{
 });
 
 app.post('/user/createEvent',(req,res)=>{
-    database.userCreate();
+    //console.log('create event');
+    //console.log(req.body);
+    database.userCreate(1,req.body);
+    //res.end();
+    //database.userCreate();
 });
 
 app.post('/user/editEvent',(req,res)=>{

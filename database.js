@@ -33,16 +33,16 @@ export class DB{
     userRegister(){
         
     }
-    joinEvent(user_id, event_id){
+    async joinEvent(user_id, event_id){
         //add an entry in joined_events conatining the user and event id
         await this.connectAndRun(db => db.none("INSERT INTO joined_events VALUES($1, $2);", [user_id, event_id]));
 
     }
-    unjoinEvent(user_id,event_id){
+    async unjoinEvent(user_id,event_id){
         //delete the joined_events entry containing the appropriate user and event id's
         await this.connectAndRun(db => db.none("DELETE FROM joined_events WHERE user_id = $1 and event_id = $2;", [user_id, event_id]));
     }
-    userCreate(user_id, event_info){
+    async userCreate(user_id, event_info){
         //create a new event 
         // event_info should be a dictionary with the appropriate fields for us to get the information
         //don't supply an event id, we choose assign it sequentially 
@@ -50,20 +50,18 @@ export class DB{
         [user_id, -1, event_info.title, event_info.date, event_info.time, event_info.location, event_info.description, event_info.capacity]));
         //we insert event_id as -1 so that we can then adjust it to be whatever the next value should be
         await this.connectAndRun(db => db.none("UPDATE events SET event_id = 1+(SELECT MAX(event_id) FROM events) WHERE event_id = -1;"));
-        //now we need to update the created_events table with the appropriate value
-        await this.connectAndRun(db => db.none("INSERT INTO created_events(user_id, event_id) SELECT user_id, event_id FROM events WHERE event_id = (SELECT MAX(event_id) FROM events);"))
     }
-    userEdit(event_id, event_info){
+    async userEdit(event_id, event_info){
         //edit an event
         await this.connectAndRun(db => db.none("UPDATE events SET title = $1, date = $2, time = $3, location = $4, description = $5, capacity = $6 WHERE event_id = $7;",
         [event_info.title,event_info.date,event_info.time,event_info.location,event_info.description,event_info.capacity,event_id]));
     }
-    userDelete(event_id){
+    async userDelete(event_id){
         //delete the event from the events table
         //we should have this cascade to the created and joined events
         await this.connectAndRun(db => db.none("DELETE FROM events WHERE event_id = $1;",[event_id]));
     }
-    getEvent(event_id){
+    async getEvent(event_id){
         //get
         // this was a post in our server.js 
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE event_id = $1;",[event_id])));
@@ -71,7 +69,7 @@ export class DB{
         let event = {"eventid":1,"owner ":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"};
         return JSON.stringify(event);
     }
-    userGetMyEvents(user_id){
+    async userGetMyEvents(user_id){
         //get
         //Owner Title date time location description capacity
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE user_id = $1;",[user_id])));
@@ -83,7 +81,7 @@ export class DB{
         ];
         return JSON.stringify(events);
     }
-    userGetJoinedEvents(user_id){
+    async userGetJoinedEvents(user_id){
         //get
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE event_id IN (SELECT event_id FROM joined_events WHERE user_id = $1);",[user_id])));
         const events = [
@@ -95,7 +93,7 @@ export class DB{
         ];
         return JSON.stringify(events);
     }
-    globalGetFeed(){
+    async globalGetFeed(){
         //get
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events;")));
         const events = [
@@ -110,7 +108,7 @@ export class DB{
         ];
         return JSON.stringify(events);
     }
-    globalGetFeedByLocation(location){
+    async globalGetFeedByLocation(location){
         //get
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = $1;",[location])));
         const event_dict = {
