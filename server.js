@@ -1,8 +1,20 @@
+'use strict';
+require('dotenv').config();
 import pgp from "pg-promise";
 import express from 'express';
-const app= express();
+const expressSession = require('express-session');  // for managing session state
+const passport = require('passport');               // handles authentication
+const LocalStrategy = require('passport-local').Strategy; // username/password strategy
+const minicrypt = require('./miniCrypt');
+
+
+const app = express();
+const mc = new minicrypt();
+
 
 app.use(express.json());
+app.use(express.urlencoded({'extended' : true})); // allow URLencoded data
+
 app.use('/', express.static('./client'));
 
 
@@ -16,6 +28,54 @@ import {DB} from './database.js';
 const url = process.env.DATABASE_URL;
 
 let database = new DB(pgp()(url));
+
+// Session configuration
+const session = {
+    secret : process.env.SECRET || 'SECRET', // set this encryption key in Heroku config (never in GitHub)!
+    resave : false,
+    saveUninitialized: false
+};
+
+const strategy = new LocalStrategy(
+    async (username, password, done) => {
+	if (!findUser(username)) {
+	    // no such user
+	    return done(null, false, { 'message' : 'Wrong username' });
+	}
+	if (!validatePassword(username, password)) {
+	    // invalid password
+	    // should disable logins after N messages
+	    // delay return to rate-limit brute-force attacks
+	    await new Promise((r) => setTimeout(r, 2000)); // two second delay
+	    return done(null, false, { 'message' : 'Wrong password' });
+	}
+	// success!
+	// should create a user object here, associated with a unique identifier
+	return done(null, username);
+});
+
+app.use(expressSession(session));
+passport.use(strategy);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Convert user object to a unique identifier.
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+// Convert a unique identifier to a user object.
+passport.deserializeUser((uid, done) => {
+    done(null, uid);
+});
+
+function findUser(username) {
+    if (database.getUser(username) === {}) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 
 app.post('/user/new',(req,res)=>{
     database.newUser();
