@@ -9,7 +9,7 @@ function regSetup() {
         };
 
     
-        const fetchurl = '/user/register';
+        const fetchurl = '/register';
         
         const res = fetch(fetchurl, {
             method: 'POST',
@@ -21,12 +21,6 @@ function regSetup() {
 
         console.log(res);
 
-        if (true) { //res is OK
-            //redirect to login 
-            window.location.replace('./login.html'); 
-        } else {
-            //print error message
-        }
         
     });
 }

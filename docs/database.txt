@@ -1,10 +1,9 @@
 users: 
-- user_id INT
 - username varchar(32);
 - salt varchar(20)
 - hashed_password varchar(255)
 
-CREATE TABLE users (user_id INT, username VARCHAR(32), salt VARCHAR(20), hashed_password varchar(255), PRIMARY KEY(user_id));
+CREATE TABLE users (username VARCHAR(32), salt VARCHAR(20), hashed_password varchar(255), PRIMARY KEY(username));
 
 events:
 - user_id INT
@@ -25,3 +24,7 @@ joined_events:
 - event_id INT
 
 CREATE TABLE joined_events (user_id INT, event_id INT, FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE, FOREIGN KEY(event_id) REFERENCES events(event_id) ON DELETE CASCADE);
+
+
+
+create user manually: INSERT INTO users(username, salt, hashed_password)  VALUES('george', 'salt', 'hashed_pw');

@@ -30,8 +30,9 @@ export class DB{
     userLogin(){
 
     }
-    userRegister(){
-        
+    userRegister(username, salt, hash){
+        await this.connectAndRun(db => db.none("INSERT INTO users VALUES($1, $2, $3);",
+        [username, salt,hash]));
     }
     joinEvent(user_id, event_id){
         //add an entry in joined_events conatining the user and event id
@@ -71,6 +72,13 @@ export class DB{
         let event = {"eventid":1,"owner ":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"};
         return JSON.stringify(event);
     }
+
+    getUser(username) {
+        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM users WHERE username = $1;", [username])));
+
+    }
+
+
     userGetMyEvents(user_id){
         //get
         //Owner Title date time location description capacity

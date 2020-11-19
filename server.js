@@ -6,6 +6,7 @@ const expressSession = require('express-session');  // for managing session stat
 const passport = require('passport');               // handles authentication
 const LocalStrategy = require('passport-local').Strategy; // username/password strategy
 const minicrypt = require('./miniCrypt');
+const path = require('path');
 
 
 const app = express();
@@ -16,6 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({'extended' : true})); // allow URLencoded data
 
 app.use('/', express.static('./client'));
+app.use(express.static(__dirname + '/client'));
+
 
 
 
@@ -39,15 +42,15 @@ const session = {
 const strategy = new LocalStrategy(
     async (username, password, done) => {
 	if (!findUser(username)) {
-	    // no such user
-	    return done(null, false, { 'message' : 'Wrong username' });
+        // no such user
+        return done(null, false, { 'message' : 'Wrong username' });
 	}
 	if (!validatePassword(username, password)) {
-	    // invalid password
-	    // should disable logins after N messages
-	    // delay return to rate-limit brute-force attacks
-	    await new Promise((r) => setTimeout(r, 2000)); // two second delay
-	    return done(null, false, { 'message' : 'Wrong password' });
+        // invalid password
+        // should disable logins after N messages
+        // delay return to rate-limit brute-force attacks
+        await new Promise((r) => setTimeout(r, 2000)); // two second delay
+        return done(null, false, { 'message' : 'Wrong password' });
 	}
 	// success!
 	// should create a user object here, associated with a unique identifier
@@ -58,6 +61,7 @@ app.use(expressSession(session));
 passport.use(strategy);
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 // Convert user object to a unique identifier.
 passport.serializeUser((user, done) => {
@@ -76,21 +80,101 @@ function findUser(username) {
     }
 }
 
+function validatePassword(name, pwd) {
+    if (!findUser(name)) {
+        return false;
+    }
+    //Check password
+	const user = database.getUser(name);
+	const res = mc.check(pwd, user['salt'], user['hashed_pw']);
+    return res;
+}
 
-app.post('/user/new',(req,res)=>{
-    database.newUser();
-    // res.send("new user created"); 
+function addUser(name, pwd) {
+    if (findUser(name)) {
+        return false;
+    }
+	// TODO SAVE THE SALT AND HASH
+    const userInfo = mc.hash(pwd);
+    const salt = userInfo[0];
+    const hashed_pw = userInfo[1];
+    database.userRegister(name, salt, hashed_pw);
+
+    return true;
+}
+
+function checkLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+	// If we are authenticated, run the next route.
+	next();
+    } else {
+	// Otherwise, redirect to the login page.
+	res.redirect('/login');
+    }
+}
+
+
+// Handle post data from login.js
+app.post('/login',
+    passport.authenticate('local' , {     // use username/password authentication
+    'successRedirect' : '/profile',   // when we login, go to /private 
+    'failureRedirect' : '/login'      // otherwise, back to login
+}));
+
+app.get('/login', (req, res) => res.sendFile('login.html', { root: path.join(__dirname, '../client') }));
+
+// Handle logging out (takes us back to the login page).
+app.get('/logout', (req, res) => {
+    req.logout(); // Logs us out!
+    res.redirect('/login'); // back to login
 });
 
-app.post('/user/login', (req, res) => {
-    database.userLogin();
-    console.log('login');
+app.post('/register',
+    (req, res) => {
+        const username = req.body['username'];
+        const password = req.body['password'];
+        if (addUser(username, password)) {
+            res.redirect('/login');
+        } else {
+            res.redirect('/register');
+        }
 });
 
-app.post('/user/register',(req,res)=>{
-    database.userRegister();
-    console.log("user created");
+// Register URL
+app.get('/register', (req, res) => res.sendFile('register.html', { root: path.join(__dirname, '../client') }));
+
+
+//Profile
+app.get('/profile',
+	checkLoggedIn, // If we are logged in (notice the comma!)...
+	(req, res) => {             // Go to the user's page.
+        res.sendFile('profile.html', { root: path.join(__dirname, '../client') });
 });
+
+//Create event
+app.get('/createEvent',
+	checkLoggedIn, // If we are logged in (notice the comma!)...
+	(req, res) => {             // Go to the create event page.
+        res.sendFile('createEvent.html', { root: path.join(__dirname, '../client') });
+});
+
+//feed URL
+app.get('/feed', (req, res) => res.sendFile('feed.html', { root: path.join(__dirname, '../client') }));
+
+//map page URL
+app.get('/map', (req, res) => res.sendFile('mapPage.html', { root: path.join(__dirname, '../client') }));
+
+
+//main page (redirects to feed)
+app.get('/',(req,res)=>{
+    res.redirect('/feed');
+});
+
+
+
+
+
+
 
 app.post('/user/joinEvent',(req,res)=>{
     database.joinEvent();
@@ -98,8 +182,8 @@ app.post('/user/joinEvent',(req,res)=>{
 });
 
 app.post('/user/unjoinEvent',(req,res)=>{
-    const owner= req.body.owner;
-    const eventid= req.body.eid;
+    const owner = req.body.owner;
+    const eventid = req.body.eid;
     database.unjoinEvent(owner,eventid);
 });
 
@@ -124,9 +208,8 @@ app.get('/user/getmyevents',(req,res)=>{
     res.end(database.userGetMyEvents());
 });
 
-app.get('/',(req,res)=>{
-    res.redirect('/profileOrLogin');
-});
+
+
 app.get('/user/getjoinedevents',(req,res)=>{
     res.end(database.userGetJoinedEvents());
 });
@@ -140,18 +223,6 @@ app.get('/globalgetfeed/bylocation',(req,res)=>{
 });
 
 
-app.get('/profileOrLogin', (req, res) => {
-    console.log("trying to login or view profile");
-    //res.sendFile('client/mapPage.html',{ 'root' : __dirname });
-    let loggedIn = true;
-    if(loggedIn){
-        res.redirect('/profilePage.html');
-    }else{
-        res.redirect('/login.html');
-    }
-    
-});
-
 app.get('*', (req, res) => {
     res.send(JSON.stringify({ result : 'command-not-found' }));
 });
@@ -163,7 +234,7 @@ app.get('*', (req, res) => {
 
 
 let port = process.env.PORT;
-if (port == null || port == "") {
+if (port === null || port === "") {
   port = 8080;
 }
 app.listen(port, () => {

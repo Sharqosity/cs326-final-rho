@@ -8,8 +8,8 @@ function loginSetup() {
             password: document.getElementById("password").value
         };
 
-    
-        const fetchurl = '/user/login';
+
+        const fetchurl = '/login';
         
         const res = fetch(fetchurl, {
             method: 'POST',
@@ -21,11 +21,6 @@ function loginSetup() {
 
         console.log(res);
 
-        if (true) { //res is OK
-            //redirect to profile?  
-        } else {
-            //print error message
-        }
         
     });
 }
