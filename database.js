@@ -53,11 +53,15 @@ export class DB{
         //now we need to update the created_events table with the appropriate value
         await this.connectAndRun(db => db.none("INSERT INTO created_events(user_id, event_id) SELECT user_id, event_id FROM events WHERE event_id = (SELECT MAX(event_id) FROM events);"))
     }
-    userEdit(){
+    userEdit(event_id, event_info){
         //edit an event
+        await this.connectAndRun(db => db.none("UPDATE events SET title = $1, date = $2, time = $3, location = $4, description = $5, capacity = $6 WHERE event_id = $7;",
+        [event_info.title,event_info.date,event_info.time,event_info.location,event_info.description,event_info.capacity,event_id]));
     }
-    userDelete(eventid){
-        console.log("asked to remove"+ eventid.toString()); 
+    userDelete(event_id){
+        //delete the event from the events table
+        //we should have this cascade to the created and joined events tables.
+        await this.connectAndRun(db => db.none("DELETE FROM events WHERE event_id = $1;",[event_id]));
     }
     getEvent(eventid){
         //get
