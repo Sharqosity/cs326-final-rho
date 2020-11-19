@@ -1,41 +1,78 @@
-
+import pgp from "pg-promise";
 
 export class DB{
-    
+
     constructor(db){
         //creates or loads database
         this.db = db;
     }
 
-
+    async connectAndRun(task) {
+        let connection = null;
+    
+        try {
+            connection = await db.connect();
+            return await task(connection);
+        } catch (e) {
+            throw e;
+        } finally {
+            try {
+                connection.done();
+            } catch(ignored) {
+    
+            }
+        }
+    }
+    //is this used for anything?
     newUser(){
         //post so nothing has to happen for now 
     }
-    joinEvent(){
-        //post so nothing has to happen for now 
+    userLogin(){
+
     }
-    unjoinEvent(owner,eventid){
-        //post so nothing has to happen for now 
-        console.log("asked to remove"+owner+"from"+ eventid.toString());
+    userRegister(){
+        
     }
-    userCreate(){
-        //post
+    async joinEvent(user_id, event_id){
+        //add an entry in joined_events conatining the user and event id
+        await this.connectAndRun(db => db.none("INSERT INTO joined_events VALUES($1, $2);", [user_id, event_id]));
+
     }
-    userEdit(){
-        //post
+    async unjoinEvent(user_id,event_id){
+        //delete the joined_events entry containing the appropriate user and event id's
+        await this.connectAndRun(db => db.none("DELETE FROM joined_events WHERE user_id = $1 and event_id = $2;", [user_id, event_id]));
     }
-    userDelete(eventid){
-        console.log("asked to remove"+ eventid.toString()); 
+    async userCreate(user_id, event_info){
+        //create a new event 
+        // event_info should be a dictionary with the appropriate fields for us to get the information
+        //don't supply an event id, we choose assign it sequentially 
+        await this.connectAndRun(db => db.none("INSERT INTO events VALUES($1, $2, $3, $4, $5, $6, $7, $8);",
+        [user_id, -1, event_info.title, event_info.date, event_info.time, event_info.location, event_info.description, event_info.capacity]));
+        //we insert event_id as -1 so that we can then adjust it to be whatever the next value should be
+        await this.connectAndRun(db => db.none("UPDATE events SET event_id = 1+(SELECT MAX(event_id) FROM events) WHERE event_id = -1;"));
     }
-    getEvent(eventid){
+    async userEdit(event_id, event_info){
+        //edit an event
+        await this.connectAndRun(db => db.none("UPDATE events SET title = $1, date = $2, time = $3, location = $4, description = $5, capacity = $6 WHERE event_id = $7;",
+        [event_info.title,event_info.date,event_info.time,event_info.location,event_info.description,event_info.capacity,event_id]));
+    }
+    async userDelete(event_id){
+        //delete the event from the events table
+        //we should have this cascade to the created and joined events
+        await this.connectAndRun(db => db.none("DELETE FROM events WHERE event_id = $1;",[event_id]));
+    }
+    async getEvent(event_id){
         //get
-        // this is a post in our server.js 
+        // this was a post in our server.js 
+        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE event_id = $1;",[event_id])));
+
         let event = {"eventid":1,"owner ":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"};
         return JSON.stringify(event);
     }
-    userGetMyEvents(){
+    async userGetMyEvents(user_id){
         //get
         //Owner Title date time location description capacity
+        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE user_id = $1;",[user_id])));
         const events = [
             {"eventid":1,"owner ":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"},
             {"eventid":2,"owner":"George","title":"Frisbee club","date":"11/20/20","time":"4:20pm","location":"Campus pond","description":"Lets toss the disc some.","capacity":"7/15"},
@@ -44,8 +81,9 @@ export class DB{
         ];
         return JSON.stringify(events);
     }
-    userGetJoinedEvents(){
+    async userGetJoinedEvents(user_id){
         //get
+        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE event_id IN (SELECT event_id FROM joined_events WHERE user_id = $1);",[user_id])));
         const events = [
             {"eventid":5,"owner":"Prateek","title":"311 HW2","date":"11/21/20","time":"4:00PM","location":" Dubois library","description":"Doing the HW2 homework","capacity":"7/10"},
             {"eventid":6,"owner":"Aidan","title":" Soccer ","date":"11/26/20","time":"4:20PM","location":"East Soccer Fields","description":"5v5 pickup soccer game","capacity":"6/10"},
@@ -55,8 +93,9 @@ export class DB{
         ];
         return JSON.stringify(events);
     }
-    globalGetFeed(){
+    async globalGetFeed(){
         //get
+        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events;")));
         const events = [
             {"eventid":1,"owner":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"},
             {"eventid":2,"owner":"George","title":"Frisbee club","date":"11/20/20","time":"4:20pm","location":"Campus pond","description":"Lets toss the disc some.","capacity":"7/15"},
@@ -69,8 +108,9 @@ export class DB{
         ];
         return JSON.stringify(events);
     }
-    globalGetFeedByLocation(){
+    async globalGetFeedByLocation(location){
         //get
+        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = $1;",[location])));
         const event_dict = {
             "isenberg":[
                 {"eventid":4,"owner":"George","title":"Pokemon Go","date":"12/17/20","time":"2:20pm","location":"Isenberg","description":"We will be trying to catch Mew","capacity":"30/40"},
@@ -92,11 +132,5 @@ export class DB{
             ]
         };
         return  JSON.stringify(event_dict);
-    }
-    userLogin(){
-
-    }
-    userRegiser(){
-        
     }
 }

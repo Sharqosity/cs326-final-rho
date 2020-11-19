@@ -22,9 +22,24 @@ function getEvents() {
     feedCol.innerHTML = '';
     // const feedurl = 'http://localhost:8080/globalgetfeed';
     const feedurl = '/globalgetfeed';
-    fetch(feedurl).then(response=> response.json())
-    .then(data => {
+    fetch(feedurl).then(function(response) {
+        if (!response.ok) {
+            const empty = document.createElement('h5');
 
+            const emptyText = document.createTextNode('Error getting upcoming events.');
+            empty.appendChild(emptyText);
+            feedCol.appendChild(empty); 
+        }
+        return response;
+    }).then(response => response.json())
+    .then(data => {
+        if (JSON.stringify(data) === {}) {
+            const empty = document.createElement('h5');
+
+            const emptyText = document.createTextNode('There are no upcoming events!');
+            empty.appendChild(emptyText);
+            feedCol.appendChild(empty);
+        }
         for (const item of data) {
             
             const row = document.createElement('div');
