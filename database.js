@@ -48,6 +48,10 @@ export class DB{
         //don't supply an event id, we choose assign it sequentially 
         await this.connectAndRun(db => db.none("INSERT INTO events VALUES($1, $2, $3, $4, $5, $6, $7, $8);",
         [user_id, -1, event_info.title, event_info.date, event_info.time, event_info.location, event_info.description, event_info.capacity]));
+        //we insert event_id as -1 so that we can then adjust it to be whatever the next value should be
+        await this.connectAndRun(db => db.none("UPDATE events SET event_id = 1+(SELECT MAX(event_id) FROM events) WHERE event_id = -1;"));
+        //now we need to update the created_events table with the appropriate value
+        await this.connectAndRun(db => db.none("INSERT INTO created_events(user_id, event_id) SELECT user_id, event_id FROM events WHERE event_id = (SELECT MAX(event_id) FROM events);"))
     }
     userEdit(){
         //edit an event
