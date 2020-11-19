@@ -1,28 +1,56 @@
 
 
 export class DB{
-    
+
     constructor(db){
         //creates or loads database
         this.db = db;
     }
 
-
+    async connectAndRun(task) {
+        let connection = null;
+    
+        try {
+            connection = await db.connect();
+            return await task(connection);
+        } catch (e) {
+            throw e;
+        } finally {
+            try {
+                connection.done();
+            } catch(ignored) {
+    
+            }
+        }
+    }
+    //is this used for anything?
     newUser(){
         //post so nothing has to happen for now 
     }
-    joinEvent(){
-        //post so nothing has to happen for now 
+    userLogin(){
+
     }
-    unjoinEvent(owner,eventid){
-        //post so nothing has to happen for now 
-        console.log("asked to remove"+owner+"from"+ eventid.toString());
+    userRegister(){
+        
     }
-    userCreate(){
-        //post
+    joinEvent(user_id, event_id){
+        //add an entry in joined_events conatining the user and event id
+        await this.connectAndRun(db => db.none("INSERT INTO joined_events VALUES($1, $2);", [user_id, event_id]));
+
+    }
+    unjoinEvent(user_id,event_id){
+        //delete the joined_events entry containing the appropriate user and event id's
+        await this.connectAndRun(db => db.none("DELETE FROM joined_events WHERE user_id = $1 and event_id = $2;", [user_id, event_id]));
+    }
+    userCreate(user_id, event_info){
+        //create a new event 
+        // event_info should be a dictionary with the appropriate fields for us to get the information
+        //don't supply an event id, we choose assign it sequentially 
+        await this.connectAndRun(db => db.none("INSERT INTO events VALUES($1, $2, $3, $4, $5, $6, $7, $8);",
+        [user_id, -1, event_info.title, event_info.date, event_info.time, event_info.location, event_info.description, event_info.capacity]));
     }
     userEdit(){
-        //post
+        //edit an event
     }
     userDelete(eventid){
         console.log("asked to remove"+ eventid.toString()); 
@@ -92,11 +120,5 @@ export class DB{
             ]
         };
         return  JSON.stringify(event_dict);
-    }
-    userLogin(){
-
-    }
-    userRegiser(){
-        
     }
 }
