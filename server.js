@@ -1,4 +1,4 @@
-
+import pgp from "pg-promise";
 import express from 'express';
 const app= express();
 
@@ -51,7 +51,7 @@ app.post('/user/editEvent',(req,res)=>{
     database.userEdit();
 });
 
-app.post('/user/getEvent',(req,res)=>{
+app.get('/user/getEvent',(req,res)=>{
     database.getEvent(5);
 });
 
