@@ -60,12 +60,13 @@ export class DB{
     }
     userDelete(event_id){
         //delete the event from the events table
-        //we should have this cascade to the created and joined events tables.
+        //we should have this cascade to the created and joined events
         await this.connectAndRun(db => db.none("DELETE FROM events WHERE event_id = $1;",[event_id]));
     }
     getEvent(eventid){
         //get
         // this is a post in our server.js 
+        
         let event = {"eventid":1,"owner ":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"};
         return JSON.stringify(event);
     }
