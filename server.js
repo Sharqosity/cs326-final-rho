@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> 104b65a6409f9d6ba105288e6952992f9f09ce79
 import pgp from "pg-promise";
 import express from 'express';
 const app= express();
