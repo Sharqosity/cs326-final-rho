@@ -63,16 +63,18 @@ export class DB{
         //we should have this cascade to the created and joined events
         await this.connectAndRun(db => db.none("DELETE FROM events WHERE event_id = $1;",[event_id]));
     }
-    getEvent(eventid){
+    getEvent(event_id){
         //get
-        // this is a post in our server.js 
-        
+        // this was a post in our server.js 
+        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE event_id = $1;",[event_id])));
+
         let event = {"eventid":1,"owner ":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"};
         return JSON.stringify(event);
     }
-    userGetMyEvents(){
+    userGetMyEvents(user_id){
         //get
         //Owner Title date time location description capacity
+        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE user_id = $1;",[user_id])));
         const events = [
             {"eventid":1,"owner ":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"},
             {"eventid":2,"owner":"George","title":"Frisbee club","date":"11/20/20","time":"4:20pm","location":"Campus pond","description":"Lets toss the disc some.","capacity":"7/15"},
@@ -81,8 +83,9 @@ export class DB{
         ];
         return JSON.stringify(events);
     }
-    userGetJoinedEvents(){
+    userGetJoinedEvents(user_id){
         //get
+        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE event_id IN (SELECT event_id FROM joined_events WHERE user_id = $1);",[user_id])));
         const events = [
             {"eventid":5,"owner":"Prateek","title":"311 HW2","date":"11/21/20","time":"4:00PM","location":" Dubois library","description":"Doing the HW2 homework","capacity":"7/10"},
             {"eventid":6,"owner":"Aidan","title":" Soccer ","date":"11/26/20","time":"4:20PM","location":"East Soccer Fields","description":"5v5 pickup soccer game","capacity":"6/10"},
@@ -94,6 +97,7 @@ export class DB{
     }
     globalGetFeed(){
         //get
+        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events;")));
         const events = [
             {"eventid":1,"owner":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"},
             {"eventid":2,"owner":"George","title":"Frisbee club","date":"11/20/20","time":"4:20pm","location":"Campus pond","description":"Lets toss the disc some.","capacity":"7/15"},
@@ -106,8 +110,9 @@ export class DB{
         ];
         return JSON.stringify(events);
     }
-    globalGetFeedByLocation(){
+    globalGetFeedByLocation(location){
         //get
+        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = $1;",[location])));
         const event_dict = {
             "isenberg":[
                 {"eventid":4,"owner":"George","title":"Pokemon Go","date":"12/17/20","time":"2:20pm","location":"Isenberg","description":"We will be trying to catch Mew","capacity":"30/40"},
