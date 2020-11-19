@@ -2,9 +2,58 @@
 
 
 
+function createMap(){
+    let script= document.createElement('script');
+    script.src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBYiznhqifgK52B9Qj51nNR1NBZ_PCc3qg&callback=initMapPagemap';
+    script.defer=true;
+    document.head.appendChild(script);
+
+    window.initMapPagemap= function(){
+        let options={
+            zoom:16,
+            center:{lat:42.3868, lng:-72.5301}
+        }
+        let map=  new google.maps.Map(document.getElementById("map"),options);
+        let  a= 5;
+        let obj1 = { coords:{lat:42.3868, lng:-72.5301} , content: `<h4> The marker works ${a}</h4>`}
+        addMarker(obj1, map); 
+        //get the relevent dict,
+        //then populate with add marker
+    }  
+}
 
 
 
+
+
+function addMarker(eventobj,map){
+
+    var marker= new google.maps.Marker({
+        position:eventobj.coords,
+        map:map
+    });
+    var infoWindow= new google.maps.InfoWindow({
+        content: eventobj.content
+    });
+    marker.addListener('click',function(){
+        infoWindow.open(map,marker);
+    });
+
+}
+
+
+
+// // create map for createvent page
+// google.maps.event(addEventListener(map,'click',
+// addMarker({coords:event.latLng} )
+
+// ))
+
+// function addMarkers(){
+
+
+
+// }
 
 
 function populateDropdown(){
@@ -54,6 +103,7 @@ function populateDropdown(){
 }
 
 window.addEventListener('load', populateDropdown);
+window.addEventListener('load', createMap);
 
 
 

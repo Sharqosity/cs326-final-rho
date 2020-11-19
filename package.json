@@ -44,6 +44,10 @@
         "express-session": "^1.17.1",
         "passport": "^0.4.1",
         "passport-local": "^1.0.0",
+<<<<<<< HEAD
+        "pgp": "^0.1.0"
+=======
         "pg-promise": "^10.8.0"
+>>>>>>> 104b65a6409f9d6ba105288e6952992f9f09ce79
     }
 }

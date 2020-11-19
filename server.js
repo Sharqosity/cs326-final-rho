@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+
+=======
+>>>>>>> 104b65a6409f9d6ba105288e6952992f9f09ce79
 import pgp from "pg-promise";
 import express from 'express';
 const app= express();
@@ -102,11 +106,6 @@ app.get('*', (req, res) => {
 });
 
 
-
-
-
-
-
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 8080;
@@ -114,10 +113,6 @@ if (port == null || port == "") {
 app.listen(port, () => {
     console.log(`app listening at http://localhost:${port}`);
 });
-
-
-
-
 
 
 
