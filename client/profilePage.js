@@ -42,6 +42,7 @@ function postMyEventsCards(){
     // clear the row 
     const row = document.getElementById('my_events');
     row.innerHTML='';
+
     // const myeventsurl = 'http://localhost:8080/user/getmyevents';
     const myeventsurl = '/user/getmyevents';
     // const myeventsurl = '/user/getmyevents';
@@ -50,7 +51,8 @@ function postMyEventsCards(){
     .then( data=> { 
         for (let i= 0;i<data.length;i=i+1){
             const listitem1= document.createElement('div');
-            listitem1.classList.add('col-md-4');
+            listitem1.classList.add('col-md-3');
+    
 
             const listitem2= document.createElement('div');
             listitem2.classList.add('card');
@@ -149,7 +151,7 @@ function postJoinedCards(){
     .then( data=> { 
         for (let i= 0;i<data.length;i=i+1){
             const listitem1= document.createElement('div');
-            listitem1.classList.add('col-md-4');
+            listitem1.classList.add('col-md-3');
 
             const listitem2= document.createElement('div');
             listitem2.classList.add('card');
