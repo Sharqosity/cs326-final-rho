@@ -1,8 +1,10 @@
 
 
 export class DB{
-    constructor(){
+    
+    constructor(db){
         //creates or loads database
+        this.db = db;
     }
 
 

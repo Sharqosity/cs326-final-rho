@@ -13,7 +13,9 @@ app.use('/', express.static('./client'));
 // import {writeFile, readFileSync, existsSync} from 'fs';
 import {DB} from './database.js';
 
-let database = new DB();
+const url = process.env.DATABASE_URL;
+
+let database = new DB(pgp()(url));
 
 app.post('/user/new',(req,res)=>{
     database.newUser();
@@ -62,6 +64,9 @@ app.get('/user/getmyevents',(req,res)=>{
     res.end(database.userGetMyEvents());
 });
 
+app.get('/',(req,res)=>{
+    res.redirect('/profileOrLogin');
+});
 app.get('/user/getjoinedevents',(req,res)=>{
     res.end(database.userGetJoinedEvents());
 });
@@ -74,12 +79,13 @@ app.get('/globalgetfeed/bylocation',(req,res)=>{
     res.end(database.globalGetFeedByLocation());
 });
 
+
 app.get('/profileOrLogin', (req, res) => {
     console.log("trying to login or view profile");
     //res.sendFile('client/mapPage.html',{ 'root' : __dirname });
-    let loggedIn = false;
+    let loggedIn = true;
     if(loggedIn){
-        res.redirect('/index.html');
+        res.redirect('/profilePage.html');
     }else{
         res.redirect('/login.html');
     }

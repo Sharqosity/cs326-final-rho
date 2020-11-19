@@ -1,0 +1,30 @@
+users: 
+- user_id INT
+- salt varchar(20)
+- hashed_password varchar(255)
+
+CREATE TABLE users (user_id INT, salt VARCHAR(20), hashed_password varchar(255), PRIMARY KEY(user_id));
+
+events:
+- user_id INT
+- event_id INT
+- title varchar(48)
+- date varchar(20)
+- time varchar(20)
+- location varchar(100)
+- description varchar(1000)
+- capacity INT
+
+CREATE TABLE events (user_id INT, event_id INT, title VARCHAR(48), date VARCHAR(20), time VARCHAR(20), location VARCHAR(100), description VARCHAR(1000), capacity INT, PRIMARY KEY(event_id), FOREIGN KEY(user_id));
+
+joined_events:
+- user_id INT
+- event_id INT
+
+CREATE TABLE joined_events (user_id INT, event_id INT, FOREIGN KEY(user_id, event_id));
+
+created_events:
+- user_id INT
+- event_id INT
+
+CREATE TABLE created_events (user_id INT, event_id INT, FOREIGN KEY(user_id, event_id));
