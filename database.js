@@ -11,7 +11,7 @@ export class DB{
         let connection = null;
     
         try {
-            connection = await db.connect();
+            connection = await this.db.connect();
             return await task(connection);
         } catch (e) {
             throw e;
