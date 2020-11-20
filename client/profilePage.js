@@ -104,7 +104,7 @@ function postMyEventsCards(){
             button1.classList.add('btn-primary');
             button1.appendChild(document.createTextNode("Delete"));
             button1.onclick= function(){
-                DeleteButton(data[i].eventid);
+                DeleteButton(data[i].event_id);
             }
 
             const buttonfil= document.createElement('a');
@@ -115,7 +115,7 @@ function postMyEventsCards(){
             button2.classList.add('btn-primary');
             button2.appendChild(document.createTextNode("Edit"));
             button2.onclick=function(){
-                EditButton(data[i].eventid);
+                EditButton(data[i].event_id);
             }
             // button2.onclick= "location.href='createEvent.html'";
             buttonfil.appendChild(button2);
@@ -203,7 +203,7 @@ function postJoinedCards(){
             button1.classList.add('btn-primary');
             button1.appendChild(document.createTextNode("Leave"));
             button1.onclick= function(){
-                LeaveButton(data[i].eventid);
+                LeaveButton(data[i].event_id);
             }
 
             buttons.appendChild(button1);
