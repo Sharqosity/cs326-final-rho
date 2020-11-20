@@ -1,13 +1,26 @@
 'use strict';
-require('dotenv').config();
+//require('dotenv').config();
+import * as _dotenv from "dotenv";
 import pgp from "pg-promise";
 import express from 'express';
-const expressSession = require('express-session');  // for managing session state
-const passport = require('passport');               // handles authentication
-const LocalStrategy = require('passport-local').Strategy; // username/password strategy
-const minicrypt = require('./miniCrypt');
-const path = require('path');
+//const expressSession = require('express-session');  // for managing session state
+import * as _expressSession from "express-session";
+//const passport = require('passport');               // handles authentication
+import * as _passport from "passport";
+//const LocalStrategy = require('passport-local').Strategy; // username/password strategy
+import * as _LocalStrategy from 'passport-local';
+//onst minicrypt = require('./miniCrypt');
+import * as _minicrypt from "./miniCrypt.js";
+//const path = require('path');
+import * as _path from "path";
 
+const dotenv = _dotenv["default"];
+dotenv.config();
+const expressSession = _expressSession["default"];
+const passport = _passport["default"];
+const LocalStrategy = _LocalStrategy["default"].Strategy;
+const minicrypt = _minicrypt.foo();
+const path = _path["default"];
 
 const app = express();
 const mc = new minicrypt();
@@ -17,9 +30,10 @@ app.use(express.json());
 app.use(express.urlencoded({'extended' : true})); // allow URLencoded data
 
 app.use('/', express.static('./client'));
-app.use(express.static(__dirname + '/client'));
+//app.use(express.static(__dirname + '/client'));
 
-
+const __dirname = process.cwd();
+console.log(__dirname);
 
 
 // import {createServer} from 'http';
@@ -30,8 +44,8 @@ import {DB} from './database.js';
 
 const url = process.env.DATABASE_URL;
 
-let database = new DB(pgp()(url));
-//let database = new DB('hi');
+//let database = new DB(pgp()(url));
+let database = new DB('hi');
 
 // Session configuration
 const session = {
@@ -122,7 +136,7 @@ app.post('/login',
     'failureRedirect' : '/login'      // otherwise, back to login
 }));
 
-app.get('/login', (req, res) => res.sendFile('login.html', { root: path.join(__dirname, '../client') }));
+app.get('/login', (req, res) => res.sendFile('login.html', { root: path.join(__dirname, './client') }));
 
 // Handle logging out (takes us back to the login page).
 app.get('/logout', (req, res) => {
@@ -142,28 +156,28 @@ app.post('/register',
 });
 
 // Register URL
-app.get('/register', (req, res) => res.sendFile('register.html', { root: path.join(__dirname, '../client') }));
+app.get('/register', (req, res) => res.sendFile('register.html', { root: path.join(__dirname, './client') }));
 
 
 //Profile
 app.get('/profile',
 	checkLoggedIn, // If we are logged in (notice the comma!)...
 	(req, res) => {             // Go to the user's page.
-        res.sendFile('profile.html', { root: path.join(__dirname, '../client') });
+        res.sendFile('profile.html', { root: path.join(__dirname, './client') });
 });
 
 //Create event
 app.get('/createEvent',
 	checkLoggedIn, // If we are logged in (notice the comma!)...
 	(req, res) => {             // Go to the create event page.
-        res.sendFile('createEvent.html', { root: path.join(__dirname, '../client') });
+        res.sendFile('createEvent.html', { root: path.join(__dirname, './client') });
 });
 
 //feed URL
-app.get('/feed', (req, res) => res.sendFile('feed.html', { root: path.join(__dirname, '../client') }));
+app.get('/feed', (req, res) => res.sendFile('feed.html', { root: path.join(__dirname, './client') }));
 
 //map page URL
-app.get('/map', (req, res) => res.sendFile('mapPage.html', { root: path.join(__dirname, '../client') }));
+app.get('/map', (req, res) => res.sendFile('mapPage.html', { root: path.join(__dirname, './client') }));
 
 
 //main page (redirects to feed)
@@ -236,7 +250,7 @@ app.get('*', (req, res) => {
 
 
 let port = process.env.PORT;
-if (port === null || port === "") {
+if (port === null || port === "" || port === undefined) { 
   port = 8080;
 }
 app.listen(port, () => {

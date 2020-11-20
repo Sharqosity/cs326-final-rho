@@ -130,4 +130,5 @@ function getEvents() {
 
 
 window.addEventListener('load', getEvents);
+console.log('hello ');
 
