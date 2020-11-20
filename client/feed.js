@@ -42,7 +42,7 @@ function leaveEvent(id) {
 function getEvents() {
 
     //First fetch the events we are in so we can check with all global events after.
-    const myEvents;
+    const myEvents = {};
     const joinedEventsURL = '/user/getmyevents';
     fetch(joinedEventsURL).then(response => response.json()).then(data => {
         myEvents = data;
