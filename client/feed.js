@@ -58,7 +58,7 @@ async function getMyEvents() {
 }
 
 async function getEvents() {
-
+    console.log('getEvents in feed called! --------');
     //First fetch the events we are in so we can check with all global events after.
     
     const myEvents = await getMyEvents();
@@ -159,6 +159,7 @@ async function getEvents() {
             errorTextDiv.classList.add('errorText');
 
             //Check if we are in the event, to make the button
+            console.log('item.event_id: ' + item.event_id);
             let joined = false;
             for (const joinedEvent of myEvents) {
                 if (item.event_id === joinedEvent.event_id) {
@@ -177,13 +178,8 @@ async function getEvents() {
             }
 
 
-            
-
-
-
             btn.appendChild(btntext);
             btndiv.appendChild(btn);
-
 
 
             cardBody.appendChild(title);
@@ -191,8 +187,9 @@ async function getEvents() {
             cardBody.appendChild(loc);
             cardBody.appendChild(desc);
             cardBody.appendChild(cap);
-            cardBody.appendChild(btndiv);
             cardBody.appendChild(errorTextDiv);
+            cardBody.appendChild(btndiv);
+           
 
             cardTextLeft.appendChild(cardBody);
             card.appendChild(cardTextLeft);
