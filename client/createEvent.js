@@ -102,6 +102,7 @@ function editSetUp(){
             document.getElementById('time').value = event['time'];
             document.getElementById('description').value = event['description'];
             document.getElementById('capacity').value = event['capacity'];
+            document.getElementById('location').value = event['location'];
             placeMarker({lat: event['latitude'],lng: event['longitude']},map);
             //this is so that we know the use update later on
             replace_id = edit_event_id;
@@ -116,7 +117,7 @@ function createEvent(){
     newEvent['title'] = document.getElementById('title').value;
     newEvent['date'] = document.getElementById('date').value;
     newEvent['time'] = document.getElementById('time').value;
-    newEvent['location'] = "placeholder Location";
+    newEvent['location'] = document.getElementById('location').value;
     newEvent['description'] = document.getElementById('description').value;
     newEvent['capacity'] = document.getElementById('capacity').value;
     newEvent['owner'] = "placeholder ownder";
