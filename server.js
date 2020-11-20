@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 104b65a6409f9d6ba105288e6952992f9f09ce79
 import pgp from "pg-promise";
 import express from 'express';
 const app= express();
@@ -19,7 +15,7 @@ import {DB} from './database.js';
 
 const url = process.env.DATABASE_URL;
 
-let database = new DB(pgp()(url));
+let database = new DB(url);
 //let database = new DB('hi');
 
 app.post('/user/new',(req,res)=>{
