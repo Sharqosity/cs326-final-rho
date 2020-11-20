@@ -63,7 +63,9 @@ function editSetUp(){
             console.log(data);
             let event = null;
             edit_event_id = parseInt(edit_event_id);
+            console.log(edit_event_id);
             data.forEach(element => {
+                console.log(element['event_id']);
                 if(element['event_id'] === edit_event_id){
                     event = element;
                     console.log('matched!');
