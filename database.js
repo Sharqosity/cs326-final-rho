@@ -118,7 +118,7 @@ export class DB{
         return JSON.stringify(events);
         */
     }
-    async globalGetFeedByLocation(longitude, latitude){
+    async globalGetFeedByLocation(location){
         //get
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = $1;",[location])));
         

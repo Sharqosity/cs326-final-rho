@@ -240,26 +240,25 @@ app.post('/user/deleteEvent',(req,res)=>{
     database.userDelete(eventid);
 });
 
-app.get('/user/getmyevents',(req,res)=>{
-
-    res.end(database.userGetMyEvents());
+app.get('/user/getmyevents', async (req,res)=>{
+    res.end(await database.userGetMyEvents(req.user.username));
 });
 
 
 
-app.get('/user/getjoinedevents',(req,res)=>{
-    res.end(database.userGetJoinedEvents());
+app.get('/user/getjoinedevents', async (req,res)=>{
+    res.send(await database.userGetJoinedEvents(req.user.username));
 });
 
-app.get('/globalgetfeed',(req,res)=>{
-    res.send(database.globalGetFeed());
-    res.end();
+app.get('/globalgetfeed',async (req,res)=>{
+    res.send(await database.globalGetFeed());
 });
 
-app.get('/globalgetfeed/bylocation',(req,res)=>{
-    res.end(database.globalGetFeedByLocation());
+/*
+app.get('/globalgetfeed/bylocation',async (req,res)=>{
+    res.end(await database.globalGetFeedByLocation());
 });
-
+*/
 
 app.get('*', (req, res) => {
     res.send(JSON.stringify({ result : 'command-not-found' }));
