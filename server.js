@@ -107,8 +107,8 @@ function validatePassword(name, pwd) {
     return res;
 }
 
-function addUser(name, pwd) {
-    if (findUser(name)) {
+async function addUser(name, pwd) {
+    if (await findUser(name)) {
         return false;
     }
 	// TODO SAVE THE SALT AND HASH
