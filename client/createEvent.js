@@ -53,6 +53,8 @@ function editSetUp(){
     let edit_event_id = window.localStorage.getItem('editedeventid');
     //signifies that we are editing an event instead of creating one
     if(edit_event_id !== null){
+        //make the 'create' button say 'update'
+        document.getElementById('submit').innerHTML = 'Update';
         //now a get request for the actual information contained in that specific id 
 
         //with a real server we would obviously pass in an actual value for what event
