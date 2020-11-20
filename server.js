@@ -202,8 +202,10 @@ app.get('/',(req,res)=>{
 
 
 
-app.post('/user/joinEvent',(req,res)=>{
-    const username = req.user.username; //how do we get the username?
+app.post('/user/joinEvent',
+    checkLoggedIn,
+    (req,res)=>{
+    const username = req.user; //how do we get the username?
     console.log(username);
     const id = req.body.id;
 
@@ -211,14 +213,18 @@ app.post('/user/joinEvent',(req,res)=>{
     console.log("found");
 });
 
-app.post('/user/unjoinEvent',(req,res)=>{
+app.post('/user/unjoinEvent',
+    checkLoggedIn,
+    (req,res)=>{
     const owner = req.body.owner;
     const eventid = req.body.eid;
     database.unjoinEvent(owner,eventid);
 });
 
-app.post('/user/createEvent',(req,res)=>{
-    const username = req.user.username; //how do we get the username?
+app.post('/user/createEvent',
+    checkLoggedIn,
+    (req,res)=>{
+    const username = req.user; //how do we get the username?
     console.log(username);
     console.log(req.user);
     console.log(req.params.userID);
@@ -227,7 +233,9 @@ app.post('/user/createEvent',(req,res)=>{
     //redirect to created event on success?
 });
 
-app.post('/user/editEvent',(req,res)=>{
+app.post('/user/editEvent',
+    checkLoggedIn,
+    (req,res)=>{
     database.userEdit();
 });
 
@@ -241,13 +249,13 @@ app.post('/user/deleteEvent',(req,res)=>{
 });
 
 app.get('/user/getmyevents', async (req,res)=>{
-    res.end(await database.userGetMyEvents(req.user.username));
+    res.end(await database.userGetMyEvents(req.user));
 });
 
 
 
 app.get('/user/getjoinedevents', async (req,res)=>{
-    res.send(await database.userGetJoinedEvents(req.user.username));
+    res.send(await database.userGetJoinedEvents(req.user));
 });
 
 app.get('/globalgetfeed',async (req,res)=>{
