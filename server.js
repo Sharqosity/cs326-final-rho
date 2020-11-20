@@ -232,6 +232,7 @@ app.post('/user/deleteEvent',(req,res)=>{
 });
 
 app.get('/user/getmyevents',(req,res)=>{
+
     res.end(database.userGetMyEvents());
 });
 
@@ -242,7 +243,7 @@ app.get('/user/getjoinedevents',(req,res)=>{
 });
 
 app.get('/globalgetfeed',(req,res)=>{
-    res.end(database.globalGetFeed());
+    res.send(database.globalGetFeed());
 });
 
 app.get('/globalgetfeed/bylocation',(req,res)=>{
