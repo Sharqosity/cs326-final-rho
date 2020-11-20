@@ -148,6 +148,7 @@ app.post('/register',
     (req, res) => {
         const username = req.body['username'];
         const password = req.body['password'];
+        console.log('$1 : $2',[username,password]);
         if (addUser(username, password)) {
             res.redirect('/login');
         } else {
