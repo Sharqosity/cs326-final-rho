@@ -18,6 +18,7 @@ function createMap(){
         fetch(feedurl)
         .then(response=> response.json())
         .then(data=> {
+            console.log(data);
             for(let i=0;i<data.length;i++){
                 const title= data[i].title;
                 const date= data[i].date;
@@ -32,9 +33,6 @@ function createMap(){
         )
     }  
 }
-
-
-
 
 
 function addMarker(eventobj,map){
