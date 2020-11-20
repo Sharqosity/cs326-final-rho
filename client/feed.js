@@ -41,9 +41,17 @@ function leaveEvent(id) {
 async function getMyEvents() {
     const joinedEventsURL = '/user/getmyevents';
 
-    fetch(joinedEventsURL).then(response => response.json()).then(data => {
+    const res = await fetch(joinedEventsURL);
+    const json = await res.json();
+    console.log('json: ');
+    console.log(json);
+    return json;
+    
+    /*
+    .then(response => response.json()).then(data => {
         return data;
     });
+    */
 }
 
 async function getEvents() {
