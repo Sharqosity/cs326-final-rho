@@ -244,6 +244,7 @@ app.get('/user/getjoinedevents',(req,res)=>{
 
 app.get('/globalgetfeed',(req,res)=>{
     res.send(database.globalGetFeed());
+    res.end();
 });
 
 app.get('/globalgetfeed/bylocation',(req,res)=>{
