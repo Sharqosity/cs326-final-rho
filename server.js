@@ -56,11 +56,11 @@ const session = {
 
 const strategy = new LocalStrategy(
     async (username, password, done) => {
-	if (!findUser(username)) {
+	if (! await findUser(username)) {
         // no such user
         return done(null, false, { 'message' : 'Wrong username' });
 	}
-	if (!validatePassword(username, password)) {
+	if (! await validatePassword(username, password)) {
         // invalid password
         // should disable logins after N messages
         // delay return to rate-limit brute-force attacks
@@ -98,12 +98,13 @@ async function findUser(username) {
     }
 }
 
-function validatePassword(name, pwd) {
-    if (!findUser(name)) {
+async function validatePassword(name, pwd) {
+    let temp = await findUser(name)
+    if (!temp) {
         return false;
     }
     //Check password
-	const user = database.getUser(name);
+	const user = JSON.parse(await database.getUser(name));
 	const res = mc.check(pwd, user['salt'], user['hashed_pw']);
     return res;
 }
