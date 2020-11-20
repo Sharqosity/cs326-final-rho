@@ -1,5 +1,5 @@
 
-// import pgp from "pg-promise";
+import pgp from "pg-promise";
 import express from 'express';
 const app= express();
 
