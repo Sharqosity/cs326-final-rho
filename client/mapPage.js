@@ -113,8 +113,10 @@ function populateDropdown(){
     });
 }
 
-window.addEventListener('load', populateDropdown);
+
 window.addEventListener('load', createMap);
+window.addEventListener('load', populateDropdown);
+
 
 
 
