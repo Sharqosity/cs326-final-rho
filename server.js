@@ -203,12 +203,12 @@ app.post('/user/joinEvent',
         //console.log(event);
         const parsedEvent = JSON.parse(event)[0];
         const currentJoined = await database.getEventCurrentJoined(id);
-        console.log(currentJoined);
+        console.log(currentJoined[0].count);
         console.log(parsedEvent.capacity);
         console.log(typeof parsedEvent.capacity);
-        if (currentJoined < parsedEvent.capacity) {
+        if (currentJoined[0].count < parsedEvent.capacity) {
             database.joinEvent(username, id);
-            res.redirect('/feed');
+            //res.redirect('/feed');
         } else {
             //TODO: send res not ok
         }
@@ -220,7 +220,7 @@ app.post('/user/leaveEvent',
         const owner = req.body.owner;
         const eventid = req.body.eid;
         database.leaveEvent(owner, eventid);
-        res.redirect('/feed');
+        //res.redirect('/feed');
     });
 
 app.post('/user/createEvent',

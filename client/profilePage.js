@@ -28,12 +28,15 @@ function EditButton(eventid){
 
 function LeaveButton(eventid){
 
-const leaveEvent= {"owner":"Aidan" , "eid": eventid };
-fetch('/user/unjoinEvent', {
+//const leaveEvent= {"owner":"Aidan" , "eid": eventid };
+const body = {
+    id: eventid
+};
+fetch('/user/leaveEvent', {
 // fetch('http://localhost:8080/user/unjoinEvent', {
         method: 'POST', 
         headers: {'Content-Type': 'application/json',},
-        body: JSON.stringify(leaveEvent),
+        body: JSON.stringify(body),
  });
     postMyEventsCards();
     postJoinedCards();
