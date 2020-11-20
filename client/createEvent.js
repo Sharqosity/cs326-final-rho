@@ -95,7 +95,7 @@ function editSetUp(){
             time += String((parseInt(temp[0])+timeDiff)) + ":" + String(parseInt(temp[1]));
             */
             document.getElementById('title').value = event['title'];
-            document.getElementById('date') = event['date'];
+            document.getElementById('date').value = event['date'];
             document.getElementById('time').value = event['time'];
             document.getElementById('description').value = event['description'];
             document.getElementById('capacity').value = event['capacity'];
