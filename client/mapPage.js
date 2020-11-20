@@ -50,6 +50,7 @@ function addMarker(eventobj,map){
     marker.addListener('click',function(){
         infoWindow.open(map,marker);
     });
+    console.log("addedmarker");
 
 }
 
