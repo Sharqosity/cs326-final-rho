@@ -194,12 +194,13 @@ app.get('/', (req, res) => {
 app.post('/user/joinEvent',
     checkLoggedIn,
     async (req, res) => {
-        const username = req.user; //how do we get the username?
-        // console.log(username);
+        const username = req.user;
         const id = req.body.id;
 
         const event = await database.getEvent(id);
         //check if we need to do [0] here
+        console.log('event: ');
+        console.log(event);
         const parsedEvent = JSON.parse(event[0]);
         const currentJoined = await database.getEventCurrentJoined(id);
         console.log(typeof currentJoined);
