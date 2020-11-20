@@ -60,6 +60,7 @@ function editSetUp(){
         fetch(eventurl)
         .then(response=> response.json())
         .then( data=> { 
+            console.log(data);
             let event = null;
             edit_event_id = parseInt(edit_event_id);
             data.forEach(element => {
