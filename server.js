@@ -33,7 +33,7 @@ app.use('/', express.static('./client'));
 //app.use(express.static(__dirname + '/client'));
 
 const __dirname = process.cwd();
-console.log(__dirname);
+//console.log(__dirname);
 
 
 // import {createServer} from 'http';
@@ -44,8 +44,8 @@ import {DB} from './database.js';
 
 const url = process.env.DATABASE_URL;
 
-//let database = new DB(pgp()(url));
-let database = new DB('hi');
+let database = new DB(pgp()(url));
+//let database = new DB('hi');
 
 // Session configuration
 const session = {
@@ -167,8 +167,14 @@ app.get('/profile',
 });
 
 //Create event
+/*
 app.get('/createEvent',
 	checkLoggedIn, // If we are logged in (notice the comma!)...
+	(req, res) => {             // Go to the create event page.
+        res.sendFile('createEvent.html', { root: path.join(__dirname, './client') });
+});
+*/
+app.get('/createEvent',
 	(req, res) => {             // Go to the create event page.
         res.sendFile('createEvent.html', { root: path.join(__dirname, './client') });
 });
@@ -206,7 +212,7 @@ app.post('/user/unjoinEvent',(req,res)=>{
 });
 
 app.post('/user/createEvent',(req,res)=>{
-    const username = ''; //how do we get the username?
+    const username = 'george'; //how do we get the username?
     const body = req.body;
     database.userCreate(username, body);
     //redirect to created event on success?
