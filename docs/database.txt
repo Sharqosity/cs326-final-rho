@@ -27,4 +27,5 @@ CREATE TABLE joined_events (username VARCHAR(32), event_id INT, FOREIGN KEY(user
 
 
 
-create user manually: INSERT INTO users(username, salt, hashed_password)  VALUES('george', 'salt', 'hashed_pw');
+Delete tables: DROP TABLES users, events, joined_events CASCADE;
+Create user manually: INSERT INTO users(username, salt, hashed_password)  VALUES('george', 'salt', 'hashed_pw');

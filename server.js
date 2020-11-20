@@ -177,7 +177,10 @@ app.get('/',(req,res)=>{
 
 
 app.post('/user/joinEvent',(req,res)=>{
-    database.joinEvent();
+    const username = ''; //how do we get the username?
+    const id = req.body[id];
+
+    database.joinEvent(username, id);
     console.log("found");
 });
 
@@ -188,7 +191,10 @@ app.post('/user/unjoinEvent',(req,res)=>{
 });
 
 app.post('/user/createEvent',(req,res)=>{
-    database.userCreate();
+    const username = ''; //how do we get the username?
+    const body = req.body;
+    database.userCreate(username, body);
+    //redirect to created event on success?
 });
 
 app.post('/user/editEvent',(req,res)=>{
