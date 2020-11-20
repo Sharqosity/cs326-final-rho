@@ -4,8 +4,8 @@
 function loginSetup() {
     document.getElementById("loginButton").addEventListener('click', () => {
         const body = {
-            'username': document.getElementById("username").value,
-            'password': document.getElementById("password").value
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value
         };
 
 
@@ -30,4 +30,4 @@ function loginSetup() {
 
 
 
-window.addEventListener('load', loginSetup);
+//window.addEventListener('load', loginSetup);
