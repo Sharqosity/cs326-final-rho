@@ -106,9 +106,9 @@ async function validatePassword(name, pwd) {
     //Check password
     const user = JSON.parse(await database.getUser(name));
     console.log(user);
-    console.log(user['salt']);
-    console.log(typeof user['salt']);
-	const res = mc.check(pwd, user['salt'], user['hashed_pw']);
+    console.log(user.salt);
+    console.log(typeof user.salt);
+	const res = mc.check(pwd, user.salt, user.hashed_pw);
     return res;
 }
 
