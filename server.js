@@ -87,8 +87,8 @@ passport.deserializeUser((uid, done) => {
     done(null, uid);
 });
 
-function findUser(username) {
-    let temp = database.getUser(username);
+async function findUser(username) {
+    let temp = await database.getUser(username);
     console.log(temp);
     if (temp === {}) {
         return false;
