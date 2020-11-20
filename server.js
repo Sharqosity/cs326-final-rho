@@ -88,7 +88,9 @@ passport.deserializeUser((uid, done) => {
 });
 
 function findUser(username) {
-    if (database.getUser(username) === {}) {
+    let temp = database.getUser(username);
+    console.log(temp);
+    if (temp === {}) {
         return false;
     } else {
         return true;
