@@ -1,6 +1,7 @@
 
 let marker;
 let map;
+let replace_id = false;
 
 
 function createMap(){
@@ -100,6 +101,8 @@ function editSetUp(){
             document.getElementById('description').value = event['description'];
             document.getElementById('capacity').value = event['capacity'];
             placeMarker({lat: event['latitude'],lng: event['longitude']},map);
+            //this is so that we know the use update later on
+            replace_id = edit_event_id;
         });
         window.localStorage.removeItem('editedeventid');  
     }
@@ -119,14 +122,26 @@ function createEvent(){
     newEvent['longitude']= marker.getPosition().lng();
     newEvent['latitude']= marker.getPosition().lat();
 
+    //ik this looks dumb but I don't want event id 0 to be treated as false
+    if(replace_id !== false){
+        fetch('/user/createEvent', {
+            method: 'POST', 
+            headers: {'Content-Type': 'application/json',},
+            body: JSON.stringify(newEvent),
+        });
+        console.log("Created new event:");
+        console.log(newEvent);  
+    }
+    else{
+        newEvent['event_id'] = replace_id;
+        fetch('/user/editEvent', {
+            method: 'POST', 
+            headers: {'Content-Type': 'application/json',},
+            body: JSON.stringify(newEvent),
+        });
+    }
     //'http://localhost:8080/user/createEvent'
-    fetch('/user/createEvent', {
-        method: 'POST', 
-        headers: {'Content-Type': 'application/json',},
-        body: JSON.stringify(newEvent),
-    });
-    console.log("Created new event:");
-    console.log(newEvent);  
+    
 }
 
 window.addEventListener('load', createMap);

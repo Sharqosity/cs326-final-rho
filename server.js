@@ -236,7 +236,7 @@ app.post('/user/createEvent',
 app.post('/user/editEvent',
     checkLoggedIn,
     (req,res)=>{
-    database.userEdit();
+    database.userEdit(req.body['event_id'],req.body);
 });
 
 app.get('/user/getEvent',(req,res)=>{
