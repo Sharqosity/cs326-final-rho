@@ -217,9 +217,9 @@ app.post('/user/joinEvent',
 app.post('/user/leaveEvent',
     checkLoggedIn,
     (req, res) => {
-        const owner = req.body.owner;
-        const eventid = req.body.eid;
-        database.leaveEvent(owner, eventid);
+        const username = req.user;
+        const eventid = req.body.id;
+        database.leaveEvent(username, eventid);
         //res.redirect('/feed');
     });
 
