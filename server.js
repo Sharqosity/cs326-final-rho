@@ -170,7 +170,7 @@ app.get('/register', (req, res) => res.sendFile('register.html', { root: path.jo
 app.get('/profile',
 	checkLoggedIn, // If we are logged in (notice the comma!)...
 	(req, res) => {             // Go to the user's page.
-        res.sendFile('profile.html', { root: path.join(__dirname, './client') });
+        res.sendFile('profilePage.html', { root: path.join(__dirname, './client') });
 });
 
 //Create event
