@@ -42,7 +42,7 @@ function leaveEvent(id) {
 function getEvents() {
 
     //First fetch the events we are in so we can check with all global events after.
-    const myEvents = {};
+    let myEvents = {};
     const joinedEventsURL = '/user/getmyevents';
     fetch(joinedEventsURL).then(response => response.json()).then(data => {
         myEvents = data;
@@ -130,7 +130,7 @@ function getEvents() {
             //TODO: logic for already joined event (gray out button, say 'joined')
             const btndiv = document.createElement('div');
             const btn = document.createElement('button');
-            const btntext;
+            let btntext = document.createTextNode();
             btn.type = 'button';
             btn.classList.add('btn');
             btn.classList.add('btn-primary');
@@ -141,7 +141,7 @@ function getEvents() {
             //Check if we are in the event, to make the button
             let joined = false;
             for (const joinedEvent of myEvents) {
-                if (item.event_id === joinEvent.event_id) {
+                if (item.event_id === joinedEvent.event_id) {
                     joined = true;
                     break;
                 }
