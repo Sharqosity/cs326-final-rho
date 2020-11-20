@@ -40,18 +40,17 @@ function createMap(){
 
 function addMarker(eventobj,map){
 
-    var marker= new google.maps.Marker({
+    let marker= new google.maps.Marker({
         position:eventobj.coords,
         map:map
     });
-    var infoWindow= new google.maps.InfoWindow({
+    let infoWindow= new google.maps.InfoWindow({
         content: eventobj.content
     });
     marker.addListener('click',function(){
         infoWindow.open(map,marker);
     });
     console.log("addedmarker");
-
 }
 
 
