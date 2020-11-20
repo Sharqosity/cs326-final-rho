@@ -175,17 +175,14 @@ app.get('/profile',
 });
 
 //Create event
-/*
+
 app.get('/createEvent',
 	checkLoggedIn, // If we are logged in (notice the comma!)...
 	(req, res) => {             // Go to the create event page.
         res.sendFile('createEvent.html', { root: path.join(__dirname, './client') });
 });
-*/
-app.get('/createEvent',
-	(req, res) => {             // Go to the create event page.
-        res.sendFile('createEvent.html', { root: path.join(__dirname, './client') });
-});
+
+
 
 //feed URL
 app.get('/feed', (req, res) => res.sendFile('feed.html', { root: path.join(__dirname, './client') }));
@@ -206,8 +203,9 @@ app.get('/',(req,res)=>{
 
 
 app.post('/user/joinEvent',(req,res)=>{
-    const username = ''; //how do we get the username?
-    const id = req.body[id];
+    const username = req.user.username; //how do we get the username?
+    console.log(username);
+    const id = req.body.id;
 
     database.joinEvent(username, id);
     console.log("found");
@@ -220,7 +218,10 @@ app.post('/user/unjoinEvent',(req,res)=>{
 });
 
 app.post('/user/createEvent',(req,res)=>{
-    const username = 'george'; //how do we get the username?
+    const username = req.user.username; //how do we get the username?
+    console.log(username);
+    console.log(req.user);
+    console.log(req.params.userID);
     const body = req.body;
     database.userCreate(username, body);
     //redirect to created event on success?
