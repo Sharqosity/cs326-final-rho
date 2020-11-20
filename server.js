@@ -104,7 +104,8 @@ async function validatePassword(name, pwd) {
         return false;
     }
     //Check password
-	const user = JSON.parse(await database.getUser(name));
+    const user = JSON.parse(await database.getUser(name));
+    console.log(user);
 	const res = mc.check(pwd, user['salt'], user['hashed_pw']);
     return res;
 }
