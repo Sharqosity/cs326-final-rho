@@ -1,4 +1,4 @@
-
+import pgp from "pg-promise";
 
 export class DB{
 
@@ -11,7 +11,7 @@ export class DB{
         let connection = null;
     
         try {
-            connection = await db.connect();
+            connection = await this.db.connect();
             return await task(connection);
         } catch (e) {
             throw e;
@@ -25,25 +25,23 @@ export class DB{
     }
 
     //Login and authentication stuff
-    getUser(username) {
+    async getUser(username) {
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM users WHERE username = $1;", [username])));
     }
-    userRegister(username, salt, hash){
+    async userRegister(username, salt, hash){
         await this.connectAndRun(db => db.none("INSERT INTO users VALUES($1, $2, $3);",
         [username, salt,hash]));
     }
-
-
-    joinEvent(username, event_id){
+    async joinEvent(username, event_id){
         //add an entry in joined_events conatining the user and event id
         await this.connectAndRun(db => db.none("INSERT INTO joined_events VALUES($1, $2);", [username, event_id]));
 
     }
-    unjoinEvent(username,event_id){
+    async unjoinEvent(username, event_id){
         //delete the joined_events entry containing the appropriate user and event id's
         await this.connectAndRun(db => db.none("DELETE FROM joined_events WHERE username = $1 and event_id = $2;", [username, event_id]));
     }
-    userCreate(username, event_info){
+    async userCreate(username, event_info){
         //create a new event 
         // event_info should be a dictionary with the appropriate fields for us to get the information
         //don't supply an event id, we choose assign it sequentially 
@@ -51,32 +49,33 @@ export class DB{
         [username, -1, event_info.title, event_info.date, event_info.time, event_info.location, event_info.longitude, event_info.latitude, event_info.description, event_info.capacity]));
         //we insert event_id as -1 so that we can then adjust it to be whatever the next value should be
         await this.connectAndRun(db => db.none("UPDATE events SET event_id = 1+(SELECT MAX(event_id) FROM events) WHERE event_id = -1;"));
-        //now we need to update the created_events table with the appropriate value
-        await this.connectAndRun(db => db.none("INSERT INTO created_events(username, event_id) SELECT username, event_id FROM events WHERE event_id = (SELECT MAX(event_id) FROM events);"))
     }
-    userEdit(event_id, event_info){
+    async userEdit(event_id, event_info){
         //edit an event
         await this.connectAndRun(db => db.none("UPDATE events SET title = $1, date = $2, time = $3, location = $4, longitude = $5, latitude = $6, description = $7, capacity = $8 WHERE event_id = $9;",
         [event_info.title, event_info.date, event_info.time, event_info.location, event_info.longitude, event_info.latitude, event_info.description, event_info.capacity, event_id]));
     }
-    userDelete(event_id){
+    async userDelete(event_id){
         //delete the event from the events table
         //we should have this cascade to the created and joined events
         await this.connectAndRun(db => db.none("DELETE FROM events WHERE event_id = $1;",[event_id]));
     }
-    getEvent(event_id){
+    async getEvent(event_id){
         //get
         // this was a post in our server.js 
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE event_id = $1;",[event_id])));
 
+        /* Fake data
         let event = {"eventid":1,"owner ":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"};
         return JSON.stringify(event);
+        */
     }
-
-    userGetMyEvents(username){
+    async userGetMyEvents(username){
         //get
         //Owner Title date time location description capacity
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE username = $1;",[username])));
+        
+        /* Fake data
         const events = [
             {"eventid":1,"owner ":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"},
             {"eventid":2,"owner":"George","title":"Frisbee club","date":"11/20/20","time":"4:20pm","location":"Campus pond","description":"Lets toss the disc some.","capacity":"7/15"},
@@ -84,10 +83,13 @@ export class DB{
             {"eventid":4,"owner":"George","title":"Pokemon Go","date":"12/17/20","time":"2:20pm","location":"Isenberg","description":"We will be trying to catch Mew","capacity":"30/40"}
         ];
         return JSON.stringify(events);
+        */
     }
-    userGetJoinedEvents(username){
+    async userGetJoinedEvents(username){
         //get
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE event_id IN (SELECT event_id FROM joined_events WHERE username = $1);",[username])));
+        
+        /* Fake data
         const events = [
             {"eventid":5,"owner":"Prateek","title":"311 HW2","date":"11/21/20","time":"4:00PM","location":" Dubois library","description":"Doing the HW2 homework","capacity":"7/10"},
             {"eventid":6,"owner":"Aidan","title":" Soccer ","date":"11/26/20","time":"4:20PM","location":"East Soccer Fields","description":"5v5 pickup soccer game","capacity":"6/10"},
@@ -96,10 +98,13 @@ export class DB{
 
         ];
         return JSON.stringify(events);
+        */
     }
-    globalGetFeed(){
+    async globalGetFeed(){
         //get
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events;")));
+        
+        /* Fake data
         const events = [
             {"eventid":1,"owner":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"},
             {"eventid":2,"owner":"George","title":"Frisbee club","date":"11/20/20","time":"4:20pm","location":"Campus pond","description":"Lets toss the disc some.","capacity":"7/15"},
@@ -111,10 +116,13 @@ export class DB{
             {"eventid":7,"owner":"John","title":"Umass Real Estate Club","date":"12/20/20","time":"2:45","location":"Isenberg","description":"Group discussion of market","capacity":"11/50"}
         ];
         return JSON.stringify(events);
+        */
     }
-    globalGetFeedByLocation(location){
+    async globalGetFeedByLocation(location){
         //get
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = $1;",[location])));
+        
+        /* Fake data
         const event_dict = {
             "isenberg":[
                 {"eventid":4,"owner":"George","title":"Pokemon Go","date":"12/17/20","time":"2:20pm","location":"Isenberg","description":"We will be trying to catch Mew","capacity":"30/40"},
@@ -136,5 +144,6 @@ export class DB{
             ]
         };
         return  JSON.stringify(event_dict);
+        */
     }
 }

@@ -1,4 +1,51 @@
 
+let marker;
+let map;
+
+
+function createMap(){
+    let script= document.createElement('script');
+    script.src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBYiznhqifgK52B9Qj51nNR1NBZ_PCc3qg&callback=initMapPagemap';
+    script.defer=true;
+    document.head.appendChild(script);
+
+    window.initMapPagemap= function(){
+        let options={
+            zoom:16,
+            center:{lat:42.3868, lng:-72.5301}
+        }
+        map=  new google.maps.Map(document.getElementById("map2"),options);
+        google.maps.event.addListener(map, 'click', function(event) {
+            console.log(event.latLng);
+            placeMarker(event.latLng,map);     
+          });
+    }  
+}
+
+// function addMarker(eventobj,map){
+//     var marker= new google.maps.Marker({
+//         position:eventobj.coords,
+//         map:map
+//     });
+//     var infoWindow= new google.maps.InfoWindow({
+//         content: eventobj.content
+//     });
+//     marker.addListener('click',function(){
+//         infoWindow.open(map,marker);
+//     });
+// }
+
+function placeMarker(location,map) {
+
+    if ( marker ) {
+      marker.setPosition(location);
+    } else {
+      marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+    }
+  }
 
 
 function editSetUp(){
@@ -44,10 +91,8 @@ function editSetUp(){
             document.getElementById('time').value = time;
             document.getElementById('description').value = event['description'];
             document.getElementById('capacity').value = event['capacity'].split('/')[1];
-            
         });
-        window.localStorage.removeItem('editedeventid');
-        
+        window.localStorage.removeItem('editedeventid');  
     }
     console.log('we tried to edit the event');
 }
@@ -62,7 +107,8 @@ function createEvent(){
     newEvent['capacity'] = document.getElementById('capacity').value;
     newEvent['owner'] = "placeholder ownder";
     newEvent['eventid'] = -1;
-
+    newEvent['longitude']= marker.getPosition().lat();
+    newEvent['latitude']= marker.getPosition().lng();
 
     //'http://localhost:8080/user/createEvent'
     fetch('/user/createEvent', {
@@ -71,10 +117,10 @@ function createEvent(){
         body: JSON.stringify(newEvent),
     });
     console.log("Created new event:");
-    console.log(newEvent);
-    
+    console.log(newEvent);  
 }
 
+window.addEventListener('load', createMap);
 window.addEventListener('load', editSetUp);
 window.addEventListener('load',() =>{
     document.getElementById('submit').addEventListener('click',createEvent);

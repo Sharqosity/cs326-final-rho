@@ -22,6 +22,11 @@
   cursor: pointer;
 }
 
+.padding-0{
+    padding-right:0;
+    padding-left:0;
+}
+
 .scrolling-wrapper {
   overflow-x: scroll;
   overflow-y: hidden;
