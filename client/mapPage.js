@@ -3,6 +3,7 @@
 
 
 function createMap(){
+    console.log("And the data is1");
     let script= document.createElement('script');
     script.src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBYiznhqifgK52B9Qj51nNR1NBZ_PCc3qg&callback=initMapPagemap';
     script.defer=true;
@@ -13,7 +14,7 @@ function createMap(){
             zoom:16,
             center:{lat:42.3868, lng:-72.5301}
         }
-        console.log("And the data is1");
+        console.log("And the data is2");
         let map=  new google.maps.Map(document.getElementById("map"),options);
         const feedurl = '/globalgetfeed';
         fetch(feedurl)
