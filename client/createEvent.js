@@ -123,7 +123,7 @@ function createEvent(){
     newEvent['latitude']= marker.getPosition().lat();
 
     //ik this looks dumb but I don't want event id 0 to be treated as false
-    if(replace_id !== false){
+    if(replace_id === false){
         fetch('/user/createEvent', {
             method: 'POST', 
             headers: {'Content-Type': 'application/json',},
