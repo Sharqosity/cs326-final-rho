@@ -3,7 +3,7 @@ users:
 - salt varchar(20)
 - hashed_password varchar(255)
 
-CREATE TABLE users (username VARCHAR(32), salt VARCHAR(20), hashed_password varchar(255), PRIMARY KEY(username));
+CREATE TABLE users (username VARCHAR(32), salt VARCHAR(255), hashed_password varchar(255), PRIMARY KEY(username));
 
 events:
 - username varchar(32)

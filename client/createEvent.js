@@ -63,15 +63,16 @@ function editSetUp(){
             let event = null;
             edit_event_id = parseInt(edit_event_id);
             data.forEach(element => {
-                if(element['eventid'] === edit_event_id){
+                if(element['event_id'] === edit_event_id){
                     event = element;
                     console.log('matched!');
                 }
             });
             //now set the approprite values
             console.log(event);
-            document.getElementById('title').value = event['title'];
+            
             // need to parse the date a little
+            /*
             let temp = event['date'].split('/');
             if(temp.length === 3){
                 const date = "20" + temp[2] + "-" + temp[0] + "-" + temp[1];
@@ -87,10 +88,15 @@ function editSetUp(){
             if(temp[1].includes('pm')){
                 timeDiff = 12;
             }
+            
             time += String((parseInt(temp[0])+timeDiff)) + ":" + String(parseInt(temp[1]));
-            document.getElementById('time').value = time;
+            */
+            document.getElementById('title').value = event['title'];
+            document.getElementById('date') = event['date'];
+            document.getElementById('time').value = event['time'];
             document.getElementById('description').value = event['description'];
-            document.getElementById('capacity').value = event['capacity'].split('/')[1];
+            document.getElementById('capacity').value = event['capacity'];
+            placeMarker({lat: event['latitude'],lng: event['longitude']},map);
         });
         window.localStorage.removeItem('editedeventid');  
     }

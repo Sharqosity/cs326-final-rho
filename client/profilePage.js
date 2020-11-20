@@ -18,6 +18,7 @@ postJoinedCards();
 }
 
 function EditButton(eventid){
+    console.log("we are editing event: ${eventid}")
     if(window.localStorage.getItem('editedeventid')!==null){
         window.localStorage.removeItem('editedeventid');
     }
