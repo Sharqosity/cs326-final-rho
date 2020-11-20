@@ -47,6 +47,10 @@ function getEvents() {
     fetch(joinedEventsURL).then(response => response.json()).then(data => {
         myEvents = data;
     });
+    console.log('myEvents: ');
+    console.log(myEvents);
+    console.log(typeof myEvents);
+
 
 
     const feedCol = document.getElementById('feedCol');
@@ -71,7 +75,7 @@ function getEvents() {
             empty.appendChild(emptyText);
             feedCol.appendChild(empty);
         }
-        console.log(data);
+        
         for (const item of data) {
             
             const row = document.createElement('div');
