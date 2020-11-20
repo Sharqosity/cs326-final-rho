@@ -12,7 +12,7 @@
  */
 //const c = require('crypto');
 import * as _c from "crypto";
-const c = _c["default"]
+const c = _c["default"];
 /**
   @module miniCrypt
   @desc A tiny crypto lib for the 326 kids.
@@ -60,4 +60,4 @@ export function foo() {
   };
 
   return MiniCrypt;
-};
+}

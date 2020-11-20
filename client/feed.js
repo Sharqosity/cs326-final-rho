@@ -1,12 +1,34 @@
 
 
-function joinEvent(id) {
+function joinEvent(errorTextDiv, id) {
     const body = {
         id: id
     };
 
     // const fetchurl = 'http://localhost:8080/user/joinEvent';
     const fetchurl = '/user/joinEvent';
+    const res = fetch(fetchurl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+    });
+
+    //TODO: if res not ok, add something to the html
+    if (false) {
+        errorTextDiv.innerHTML = '';
+        const errorText = document.createTextNode('');
+        errorTextDiv.appendChild(errorText);
+    }
+    
+}
+
+function leaveEvent(id) {
+    const body = {
+        id: id
+    };
+    const fetchurl = '/user/leaveEvent';
     fetch(fetchurl, {
         method: 'POST',
         headers: {
@@ -14,9 +36,18 @@ function joinEvent(id) {
         },
         body: JSON.stringify(body),
     });
+
 }
 
 function getEvents() {
+
+    //First fetch the events we are in so we can check with all global events after.
+    const myEvents;
+    const joinedEventsURL = '/user/getmyevents';
+    fetch(joinedEventsURL).then(response => response.json()).then(data => {
+        myEvents = data;
+    });
+
 
     const feedCol = document.getElementById('feedCol');
     feedCol.innerHTML = '';
@@ -33,7 +64,7 @@ function getEvents() {
         return response;
     }).then(response => response.json())
     .then(data => {
-        if (JSON.stringify(data) === {}) {
+        if (data.length === 0) {
             const empty = document.createElement('h5');
 
             const emptyText = document.createTextNode('There are no upcoming events!');
@@ -99,12 +130,36 @@ function getEvents() {
             //TODO: logic for already joined event (gray out button, say 'joined')
             const btndiv = document.createElement('div');
             const btn = document.createElement('button');
-            const btntext = document.createTextNode('Join');
+            const btntext;
             btn.type = 'button';
             btn.classList.add('btn');
             btn.classList.add('btn-primary');
 
-            btn.addEventListener('click', () => {joinEvent(item.event_id);});
+            const errorTextDiv = document.createElement('div');
+            errorTextDiv.classList.add('errorText');
+
+            //Check if we are in the event, to make the button
+            let joined = false;
+            for (const joinedEvent of myEvents) {
+                if (item.event_id === joinEvent.event_id) {
+                    joined = true;
+                    break;
+                }
+            }
+
+            if (joined) {
+                btn.addEventListener('click', () => {leaveEvent(item.event_id);});
+                btntext = document.createTextNode('Leave');
+
+            } else { //event not joined
+                btn.addEventListener('click', () => {joinEvent(errorTextDiv, item.event_id);});
+                btntext = document.createTextNode('Join');
+            }
+
+
+            
+
+
 
             btn.appendChild(btntext);
             btndiv.appendChild(btn);
@@ -117,6 +172,7 @@ function getEvents() {
             cardBody.appendChild(desc);
             cardBody.appendChild(cap);
             cardBody.appendChild(btndiv);
+            cardBody.appendChild(errorTextDiv);
 
             cardTextLeft.appendChild(cardBody);
             card.appendChild(cardTextLeft);

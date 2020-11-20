@@ -37,9 +37,13 @@ export class DB{
         await this.connectAndRun(db => db.none("INSERT INTO joined_events VALUES($1, $2);", [username, event_id]));
 
     }
-    async unjoinEvent(username, event_id){
+    async leaveEvent(username, event_id){
         //delete the joined_events entry containing the appropriate user and event id's
         await this.connectAndRun(db => db.none("DELETE FROM joined_events WHERE username = $1 and event_id = $2;", [username, event_id]));
+    }
+    async getEventCurrentJoined(event_id) {
+        return await this.connectAndRun(db => db.any("SELECT COUNT(event_id) FROM joined_events WHERE event_id = $1;", [event_id]));
+
     }
     async userCreate(username, event_info){
         //create a new event 

@@ -22,3 +22,7 @@
     width: 30%;
     padding-bottom: 3%;
 }
+
+.errorText {
+    color: red;
+}
