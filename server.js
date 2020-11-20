@@ -111,7 +111,8 @@ async function addUser(name, pwd) {
     if (await findUser(name)) {
         return false;
     }
-	// TODO SAVE THE SALT AND HASH
+    // TODO SAVE THE SALT AND HASH
+    console.log('attempting to register user');
     const userInfo = mc.hash(pwd);
     const salt = userInfo[0];
     const hashed_pw = userInfo[1];
