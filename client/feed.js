@@ -38,15 +38,20 @@ function leaveEvent(id) {
     });
 
 }
+async function getMyEvents() {
+    const joinedEventsURL = '/user/getmyevents';
 
-function getEvents() {
+    fetch(joinedEventsURL).then(response => response.json()).then(data => {
+        return data;
+    });
+}
+
+async function getEvents() {
 
     //First fetch the events we are in so we can check with all global events after.
-    let myEvents = {};
-    const joinedEventsURL = '/user/getmyevents';
-    fetch(joinedEventsURL).then(response => response.json()).then(data => {
-        myEvents = data;
-    });
+    
+    const myEvents = await getMyEvents();
+    
     console.log('myEvents: ');
     console.log(myEvents);
     console.log(typeof myEvents);
