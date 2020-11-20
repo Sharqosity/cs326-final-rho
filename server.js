@@ -89,8 +89,8 @@ passport.deserializeUser((uid, done) => {
 
 async function findUser(username) {
     let temp = await database.getUser(username);
-    console.log(typeof temp);
-    console.log(temp);
+    // console.log(typeof temp);
+    // console.log(temp);
     if (JSON.parse(temp).length === 0) {
         return false;
     } else {
@@ -105,7 +105,7 @@ async function validatePassword(name, pwd) {
     }
     //Check password
     const user = JSON.parse(await database.getUser(name))[0];
-    console.log(pwd);
+    // console.log(pwd);
 	const res = mc.check(pwd, user.salt, user.hashed_password);
     return res;
 }
@@ -125,7 +125,7 @@ async function addUser(name, pwd) {
 }
 
 function checkLoggedIn(req, res, next) {
-    console.log(req);
+    // console.log(req);
     if (req.isAuthenticated()) {
 	// If we are authenticated, run the next route.
 	next();
@@ -155,7 +155,7 @@ app.post('/register',
     async (req, res) => {
         const username = req.body['username'];
         const password = req.body['password'];
-        console.log('$1 : $2',[username,password]);
+        // console.log('$1 : $2',[username,password]);
         if (await addUser(username, password)) {
             res.redirect('/login');
         } else {
@@ -206,11 +206,11 @@ app.post('/user/joinEvent',
     checkLoggedIn,
     (req,res)=>{
     const username = req.user; //how do we get the username?
-    console.log(username);
+    // console.log(username);
     const id = req.body.id;
 
     database.joinEvent(username, id);
-    console.log("found");
+    // console.log("found");
 });
 
 app.post('/user/unjoinEvent',
