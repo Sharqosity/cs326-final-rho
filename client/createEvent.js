@@ -113,8 +113,8 @@ function createEvent(){
     newEvent['capacity'] = document.getElementById('capacity').value;
     newEvent['owner'] = "placeholder ownder";
     newEvent['eventid'] = -1;
-    newEvent['longitude']= marker.getPosition().lat();
-    newEvent['latitude']= marker.getPosition().lng();
+    newEvent['longitude']= marker.getPosition().lng();
+    newEvent['latitude']= marker.getPosition().lat();
 
     //'http://localhost:8080/user/createEvent'
     fetch('/user/createEvent', {

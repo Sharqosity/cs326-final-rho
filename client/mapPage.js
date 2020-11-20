@@ -3,6 +3,7 @@
 
 
 function createMap(){
+    console.log("And the data is1");
     let script= document.createElement('script');
     script.src= 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBYiznhqifgK52B9Qj51nNR1NBZ_PCc3qg&callback=initMapPagemap';
     script.defer=true;
@@ -13,32 +14,43 @@ function createMap(){
             zoom:16,
             center:{lat:42.3868, lng:-72.5301}
         }
+        console.log("And the data is2");
         let map=  new google.maps.Map(document.getElementById("map"),options);
-        let  a= 5;
-        let obj1 = { coords:{lat:42.3868, lng:-72.5301} , content: `<h4> The marker works ${a}</h4>`}
-        addMarker(obj1, map); 
-        //get the relevent dict,
-        //then populate with add marker
+        const feedurl = '/globalgetfeed';
+        fetch(feedurl)
+        .then(response=> response.json())
+        .then(data=> {
+            console.log("And the data is");
+            console.log(data);
+            for(let i=0;i<data.length;i++){
+                const title= data[i].title;
+                const date= data[i].date;
+                const time= data[i].time;
+                const location= data[i].location;
+                const description= data[i].description;
+                const capacity= data[i].capacity;
+        let obj1 = { coords:{lat: data[i].latitude, lng:data[i].longitude},content: `<h3> ${title}</h3><br><h5> on ${date} at ${time}</h5><br><h5>@ ${location}</h5><br><h5>${description}</h5>`};
+        addMarker(obj1,map);
+            }
+        }  
+        )
     }  
 }
 
 
-
-
-
 function addMarker(eventobj,map){
 
-    var marker= new google.maps.Marker({
+    let marker= new google.maps.Marker({
         position:eventobj.coords,
         map:map
     });
-    var infoWindow= new google.maps.InfoWindow({
+    let infoWindow= new google.maps.InfoWindow({
         content: eventobj.content
     });
     marker.addListener('click',function(){
         infoWindow.open(map,marker);
     });
-
+    console.log("addedmarker");
 }
 
 
@@ -102,8 +114,10 @@ function populateDropdown(){
     });
 }
 
-window.addEventListener('load', populateDropdown);
+
 window.addEventListener('load', createMap);
+window.addEventListener('load', populateDropdown);
+
 
 
 
