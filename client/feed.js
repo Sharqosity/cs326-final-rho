@@ -130,7 +130,7 @@ function getEvents() {
             //TODO: logic for already joined event (gray out button, say 'joined')
             const btndiv = document.createElement('div');
             const btn = document.createElement('button');
-            let btntext = document.createTextNode();
+            let btntext = document.createTextNode('');
             btn.type = 'button';
             btn.classList.add('btn');
             btn.classList.add('btn-primary');
