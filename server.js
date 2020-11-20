@@ -199,11 +199,13 @@ app.post('/user/joinEvent',
 
         const event = await database.getEvent(id);
         //check if we need to do [0] here
-        console.log('event: ');
-        console.log(event);
+        //console.log('event: ');
+        //console.log(event);
         const parsedEvent = JSON.parse(event)[0];
         const currentJoined = await database.getEventCurrentJoined(id);
-        console.log(typeof currentJoined);
+        console.log(currentJoined);
+        console.log(parsedEvent.capacity);
+        console.log(typeof parsedEvent.capacity);
         if (currentJoined < parsedEvent.capacity) {
             database.joinEvent(username, id);
             res.redirect('/feed');
