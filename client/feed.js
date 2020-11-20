@@ -40,6 +40,7 @@ function getEvents() {
             empty.appendChild(emptyText);
             feedCol.appendChild(empty);
         }
+        console.log(data);
         for (const item of data) {
             
             const row = document.createElement('div');
