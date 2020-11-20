@@ -201,7 +201,7 @@ app.post('/user/joinEvent',
         //check if we need to do [0] here
         console.log('event: ');
         console.log(event);
-        const parsedEvent = JSON.parse(event[0]);
+        const parsedEvent = JSON.parse(event)[0];
         const currentJoined = await database.getEventCurrentJoined(id);
         console.log(typeof currentJoined);
         if (currentJoined < parsedEvent.capacity) {
