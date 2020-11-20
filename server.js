@@ -30,7 +30,7 @@ import {DB} from './database.js';
 
 const url = process.env.DATABASE_URL;
 
-let database = new DB(url);
+let database = new DB(pgp()(url));
 //let database = new DB('hi');
 
 // Session configuration
