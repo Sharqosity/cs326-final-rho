@@ -104,7 +104,7 @@ function getEvents() {
             btn.classList.add('btn');
             btn.classList.add('btn-primary');
 
-            btn.addEventListener('click', () => {joinEvent(item.id);});
+            btn.addEventListener('click', () => {joinEvent(item.event_id);});
 
             btn.appendChild(btntext);
             btndiv.appendChild(btn);

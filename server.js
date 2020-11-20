@@ -225,9 +225,9 @@ app.post('/user/createEvent',
     checkLoggedIn,
     (req,res)=>{
     const username = req.user; //how do we get the username?
-    console.log(username);
-    console.log(req.user);
-    console.log(req.params.userID);
+    //console.log(username);
+    //console.log(req.user);
+    //console.log(req.params.userID);
     const body = req.body;
     database.userCreate(username, body);
     //redirect to created event on success?
