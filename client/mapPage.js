@@ -13,6 +13,7 @@ function createMap(){
             zoom:16,
             center:{lat:42.3868, lng:-72.5301}
         }
+        console.log("And the data is1");
         let map=  new google.maps.Map(document.getElementById("map"),options);
         const feedurl = '/globalgetfeed';
         fetch(feedurl)
