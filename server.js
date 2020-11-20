@@ -125,6 +125,7 @@ async function addUser(name, pwd) {
 }
 
 function checkLoggedIn(req, res, next) {
+    console.log(req);
     if (req.isAuthenticated()) {
 	// If we are authenticated, run the next route.
 	next();
