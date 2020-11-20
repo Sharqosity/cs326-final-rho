@@ -90,7 +90,7 @@ passport.deserializeUser((uid, done) => {
 async function findUser(username) {
     let temp = await database.getUser(username);
     console.log(temp);
-    if (temp === {}) {
+    if (temp === []) {
         return false;
     } else {
         return true;
