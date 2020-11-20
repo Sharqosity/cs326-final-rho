@@ -30,4 +30,4 @@ function loginSetup() {
 
 
 
-//window.addEventListener('load', loginSetup);
+window.addEventListener('load', loginSetup);
