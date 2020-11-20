@@ -89,8 +89,9 @@ passport.deserializeUser((uid, done) => {
 
 async function findUser(username) {
     let temp = await database.getUser(username);
+    console.log(typeof temp);
     console.log(temp);
-    if (temp.length === 0) {
+    if (JSON.parse(temp).length === 0) {
         return false;
     } else {
         return true;
@@ -148,11 +149,11 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/register',
-    (req, res) => {
+    async (req, res) => {
         const username = req.body['username'];
         const password = req.body['password'];
         console.log('$1 : $2',[username,password]);
-        if (addUser(username, password)) {
+        if (await addUser(username, password)) {
             res.redirect('/login');
         } else {
             res.redirect('/register');
