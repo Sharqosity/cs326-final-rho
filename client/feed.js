@@ -42,12 +42,11 @@ function leaveEvent(id) {
 
 }
 async function getMyEvents() {
-    const joinedEventsURL = '/user/getmyevents';
+    const joinedEventsURL = '/user/getjoinedevents';
 
     const res = await fetch(joinedEventsURL);
     const json = await res.json();
-    console.log('json: ');
-    console.log(json);
+
     return json;
     
     /*
@@ -58,7 +57,6 @@ async function getMyEvents() {
 }
 
 async function getEvents() {
-    console.log('getEvents in feed called! --------');
     //First fetch the events we are in so we can check with all global events after.
     
     const myEvents = await getMyEvents();
