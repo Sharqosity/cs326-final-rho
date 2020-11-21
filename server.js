@@ -205,12 +205,9 @@ app.post('/user/joinEvent',
         const id = req.body.id;
 
         const event = await database.getEvent(id);
-
         const parsedEvent = JSON.parse(event)[0];
         const currentJoined = await database.getEventCurrentJoined(id);
-        console.log(currentJoined[0].count);
-        console.log(parsedEvent.capacity);
-        console.log(typeof parsedEvent.capacity);
+
         if (currentJoined[0].count < parsedEvent.capacity) {
             database.joinEvent(username, id);
         } else {
@@ -238,8 +235,17 @@ app.post('/user/createEvent',
 
 app.post('/user/editEvent',
     checkLoggedIn,
-    (req, res) => {
-        database.userEdit(req.body['event_id'], req.body);
+    async (req, res) => {
+        const username = req.user;
+        const id = req.body.id;
+
+        const event = await database.getEvent(id);
+        const parsedEvent = JSON.parse(event)[0];
+        if (username === parsedEvent.username) {
+            database.userEdit(req.body['event_id'], req.body);
+        } else {
+            res.status(403).send('Unauthorized');
+        }
     });
 
 app.get('/user/getEvent', (req, res) => {
@@ -247,10 +253,21 @@ app.get('/user/getEvent', (req, res) => {
     database.getEvent(eventid);
 });
 
-app.post('/user/deleteEvent', (req, res) => {
-    const eventid = req.body.id;
-    database.userDelete(eventid);
-});
+app.post('/user/deleteEvent', 
+    checkLoggedIn,
+    async (req, res) => {
+        const username = req.user;
+        const id = req.body.id;
+
+        const event = await database.getEvent(id);
+        const parsedEvent = JSON.parse(event)[0];
+        if (username === parsedEvent.username) {
+            database.userDelete(id);
+        } else {
+            res.status(403).send('Unauthorized');
+        }
+    });
+
 
 app.get('/user/getmyevents', async (req, res) => {
     res.end(await database.userGetMyEvents(req.user));
@@ -263,6 +280,12 @@ app.get('/user/getjoinedevents', async (req, res) => {
 app.get('/globalgetfeed', async (req, res) => {
     res.send(await database.globalGetFeed());
 });
+
+app.get('/user/getEventCurrentJoined', async (req, res) => {
+    const event_id = req.body.id;
+    res.send(await database.getEventCurrentJoined(event_id));
+});
+
 
 /*
 app.get('/globalgetfeed/bylocation',async (req,res)=>{
