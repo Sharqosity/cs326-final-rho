@@ -72,8 +72,6 @@ async function getNumerator(event_id) {
     });
     const json = await res.json();
 
-    console.log('id: ' + event_id + 'count: ' + json[0].count);
-
     return json[0].count;
 
 }
