@@ -13,7 +13,7 @@
 .card{
     display: inline-block;
     width:400px;
-    height: 250px;
+    height: 300px;
     border-radius: 4px;
     background: #fff; 
     box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
