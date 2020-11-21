@@ -127,10 +127,17 @@ function checkLoggedIn(req, res, next) {
         next();
     } else {
         // Otherwise, redirect to the login page.
-        res.redirect('/login');
+        res.redirect(307, '/login');
     }
 }
 
+function checkLoggedInJoin(req, res, next) {
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        res.status(401).send('Please log in first!');
+    }
+}
 
 // Handle post data from login.js
 app.post('/login',

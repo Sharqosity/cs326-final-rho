@@ -21,7 +21,7 @@ function joinEvent(errorTextDiv, id) {
         const errorText = document.createTextNode('');
         errorTextDiv.appendChild(errorText);
     } else { //res ok
-        //getEvents();
+        getEvents();
     }
     
 }
@@ -38,7 +38,7 @@ function leaveEvent(id) {
         },
         body: JSON.stringify(body),
     });
-    //getEvents();
+    getEvents();
 
 }
 async function getMyEvents() {
