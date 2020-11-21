@@ -125,25 +125,32 @@ function createEvent(){
     newEvent['longitude']= marker.getPosition().lng();
     newEvent['latitude']= marker.getPosition().lat();
 
-    //ik this looks dumb but I don't want event id 0 to be treated as false
-    if(replace_id === false){
-        fetch('/user/createEvent', {
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json',},
-            body: JSON.stringify(newEvent),
-        });
-        console.log("Created new event:");
-        console.log(newEvent);  
+    if(validInput(newEvent['title'],newEvent['description'])){
+        //ik this looks dumb but I don't want event id 0 to be treated as false
+        if(replace_id === false){
+            fetch('/user/createEvent', {
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json',},
+                body: JSON.stringify(newEvent),
+            });
+            console.log("Created new event:");
+            console.log(newEvent);  
+        }
+        else{
+            newEvent['event_id'] = window.localStorage.getItem('editedeventid');   
+            window.localStorage.removeItem('editedeventid');  
+            fetch('/user/editEvent', {
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json',},
+                body: JSON.stringify(newEvent),
+            });
+        }
     }
     else{
-        newEvent['event_id'] = window.localStorage.getItem('editedeventid');   
-        window.localStorage.removeItem('editedeventid');  
-        fetch('/user/editEvent', {
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json',},
-            body: JSON.stringify(newEvent),
-        });
+        document.getElementById('sumbit_warning').innerHTML = "Your description or title is too long, please shorten one or both then submit again.";
     }
+    
+    
     //'http://localhost:8080/user/createEvent'
     
 }
@@ -153,3 +160,13 @@ window.addEventListener('load', editSetUp);
 window.addEventListener('load',() =>{
     document.getElementById('submit').addEventListener('click',createEvent);
 });
+
+function validInput(title,description){
+    if(title.length > 48){
+        return false;
+    }
+    if(description.length > 1000){
+        return false;
+    }
+    return true;
+};
