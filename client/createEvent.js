@@ -122,28 +122,39 @@ function createEvent(){
     newEvent['capacity'] = document.getElementById('capacity').value;
     newEvent['owner'] = "placeholder ownder";
     newEvent['eventid'] = -1;
-    newEvent['longitude']= marker.getPosition().lng();
-    newEvent['latitude']= marker.getPosition().lat();
-
-    //ik this looks dumb but I don't want event id 0 to be treated as false
-    if(replace_id === false){
-        fetch('/user/createEvent', {
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json',},
-            body: JSON.stringify(newEvent),
-        });
-        console.log("Created new event:");
-        console.log(newEvent);  
+    if(marker !== undefined){
+        newEvent['longitude']= marker.getPosition().lng();
+        newEvent['latitude']= marker.getPosition().lat();
+    }
+    const validity = validInput(newEvent['title'],newEvent['date'],newEvent['time'],newEvent['location'],newEvent['description'], marker);
+    if(validity === 0){
+        //ik this looks dumb but I don't want event id 0 to be treated as false
+        if(replace_id === false){
+            fetch('/user/createEvent', {
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json',},
+                body: JSON.stringify(newEvent),
+            });
+            console.log("Created new event:");
+            console.log(newEvent);  
+        }
+        else{
+            newEvent['event_id'] = window.localStorage.getItem('editedeventid');   
+            window.localStorage.removeItem('editedeventid');  
+            fetch('/user/editEvent', {
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json',},
+                body: JSON.stringify(newEvent),
+            });
+        }
+        document.getElementById('submit_warning').innerHTML = "Event created.";
     }
     else{
-        newEvent['event_id'] = window.localStorage.getItem('editedeventid');   
-        window.localStorage.removeItem('editedeventid');  
-        fetch('/user/editEvent', {
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json',},
-            body: JSON.stringify(newEvent),
-        });
+        console.log("hello");
+        document.getElementById('submit_warning').innerHTML = validity + " And click submit again.";
     }
+    
+    
     //'http://localhost:8080/user/createEvent'
     
 }
@@ -153,3 +164,31 @@ window.addEventListener('load', editSetUp);
 window.addEventListener('load',() =>{
     document.getElementById('submit').addEventListener('click',createEvent);
 });
+
+function validInput(title,date,time,location,description, marker){
+    if(title.length > 48){
+        return "Your title is too long. Please shorten to less than 48 characters.";
+    }
+    if(title.length === 0){
+        return "Please enter a title!";
+    }
+    if(date.length === 0){
+        return "Please enter a date!";
+    }
+    if(time.length === 0){
+        return "Please enter a time!";
+    }
+    if(location.length === 0){
+        return "Please pick a location!";
+    }
+    if(marker === undefined){
+        return "Please select a location on the map."
+    }
+    if(description.length > 1000){
+        return "Your description is too long. Please shorten to less than 1000 characters."
+    }
+    if(description.length === 0){
+        return "Please enter a description!";
+    }
+    return 0;
+};
