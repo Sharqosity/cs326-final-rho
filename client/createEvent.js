@@ -105,9 +105,9 @@ function editSetUp(){
             document.getElementById('location').value = event['location'];
             placeMarker({lat: event['latitude'],lng: event['longitude']},map);
             //this is so that we know the use update later on
-            replace_id = edit_event_id;
+            replace_id = true;
         });
-        window.localStorage.removeItem('editedeventid');  
+        // window.localStorage.removeItem('editedeventid');  
     }
     console.log('we tried to edit the event');
 }
@@ -136,7 +136,8 @@ function createEvent(){
         console.log(newEvent);  
     }
     else{
-        newEvent['event_id'] = replace_id;
+        newEvent['event_id'] = window.localStorage.getItem('editedeventid');   
+        window.localStorage.removeItem('editedeventid');  
         fetch('/user/editEvent', {
             method: 'POST', 
             headers: {'Content-Type': 'application/json',},
