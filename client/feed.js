@@ -56,6 +56,26 @@ async function getMyEvents() {
     */
 }
 
+async function getNumerator(event_id) {
+    const body = {
+        id: event_id
+    };
+
+    const url = '/user/getEventCurrentJoined';
+
+    const res = await fetch(url,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+    });
+    const json = await res.json();
+
+    return json[0].count;
+
+}
+
 async function getEvents() {
     //First fetch the events we are in so we can check with all global events after.
     
@@ -81,7 +101,7 @@ async function getEvents() {
         }
         return response;
     }).then(response => response.json())
-    .then(data => {
+    .then(async data => {
         if (data.length === 0) {
             const empty = document.createElement('h5');
 
@@ -140,9 +160,12 @@ async function getEvents() {
             descPar.appendChild(descText);
             desc.appendChild(descPar);
 
+            //Capacity
+            const numerator = await getNumerator(item.event_id);
+
             const cap = document.createElement('p');
             cap.classList.add('card-text');
-            const capText = document.createTextNode('Capacity: ' + item.capacity);
+            const capText = document.createTextNode('Capacity: ' + numerator + '/' + item.capacity);
             cap.appendChild(capText);
 
             //TODO: logic for already joined event (gray out button, say 'joined')
