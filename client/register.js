@@ -2,7 +2,7 @@
 
 
 function regSetup() {
-    document.getElementById("registerButton").addEventListener('click', () => {
+    document.getElementById("registerButton").addEventListener('click', async () => {
         const body = {
             username: document.getElementById("username").value,
             password: document.getElementById("password").value
@@ -11,7 +11,7 @@ function regSetup() {
     
         const fetchurl = '/register';
         
-        const res = fetch(fetchurl, {
+        const res = await fetch(fetchurl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
