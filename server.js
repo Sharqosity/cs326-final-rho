@@ -183,8 +183,6 @@ app.get('/createEvent',
         res.sendFile('createEvent.html', { root: path.join(__dirname, './client') });
     });
 
-
-
 //feed URL
 app.get('/feed', (req, res) => res.sendFile('feed.html', { root: path.join(__dirname, './client') }));
 
@@ -287,11 +285,11 @@ app.post('/user/getEventCurrentJoined', async (req, res) => {
 });
 
 
-/*
+
 app.get('/globalgetfeed/bylocation',async (req,res)=>{
     res.end(await database.globalGetFeedByLocation());
 });
-*/
+
 
 app.get('*', (req, res) => {
     res.send(JSON.stringify({ result: 'command-not-found' }));
