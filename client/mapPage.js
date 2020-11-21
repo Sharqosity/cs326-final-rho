@@ -36,7 +36,6 @@ function createMap(){
 
 
 function addMarker(eventobj,map){
-
     let marker= new google.maps.Marker({
         position:eventobj.coords,
         map:map

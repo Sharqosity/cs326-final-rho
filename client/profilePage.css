@@ -32,6 +32,8 @@
   overflow-y: hidden;
 }
 
+.navbar-custom { color: rgba(255, 0, 76, 0.568) !important; }
+
 
 
 .scrollable{

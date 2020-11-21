@@ -25,7 +25,6 @@ const path = _path["default"];
 const app = express();
 const mc = new minicrypt();
 
-
 app.use(express.json());
 app.use(express.urlencoded({ 'extended': true })); // allow URLencoded data
 
