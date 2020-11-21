@@ -124,8 +124,8 @@ function createEvent(){
     newEvent['eventid'] = -1;
     newEvent['longitude']= marker.getPosition().lng();
     newEvent['latitude']= marker.getPosition().lat();
-
-    if(validInput(newEvent['title'],newEvent['description'])){
+    const validity = validInput(newEvent['title'],newEvent['date'],newEvent['time'],newEvent['location'],newEvent['description']);
+    if(validity === 0){
         //ik this looks dumb but I don't want event id 0 to be treated as false
         if(replace_id === false){
             fetch('/user/createEvent', {
@@ -147,7 +147,7 @@ function createEvent(){
         }
     }
     else{
-        document.getElementById('sumbit_warning').innerHTML = "Your description or title is too long, please shorten one or both then submit again.";
+        document.getElementById('submit_warning').innerHTML = validity + " And click submit again.";
     }
     
     
@@ -161,12 +161,27 @@ window.addEventListener('load',() =>{
     document.getElementById('submit').addEventListener('click',createEvent);
 });
 
-function validInput(title,description){
+function validInput(title,date,time,location,description){
     if(title.length > 48){
-        return false;
+        return "Your title is too long. Please shorten to less than 48 characters.";
+    }
+    if(title.length === 0){
+        return "Please enter a title!";
+    }
+    if(date.length === 0){
+        return "Please enter a date!";
+    }
+    if(time.length === 0){
+        return "Please enter a time!";
+    }
+    if(location.length === 0){
+        return "Please pick a location!";
     }
     if(description.length > 1000){
-        return false;
+        return "Your description is too long. Please shorten to less than 1000 characters."
     }
-    return true;
+    if(description.length === 0){
+        return "Please enter a description!";
+    }
+    return 0;
 };
