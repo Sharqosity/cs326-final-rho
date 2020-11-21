@@ -205,9 +205,7 @@ app.post('/user/joinEvent',
         const id = req.body.id;
 
         const event = await database.getEvent(id);
-        //check if we need to do [0] here
-        //console.log('event: ');
-        //console.log(event);
+
         const parsedEvent = JSON.parse(event)[0];
         const currentJoined = await database.getEventCurrentJoined(id);
         console.log(currentJoined[0].count);
@@ -215,9 +213,8 @@ app.post('/user/joinEvent',
         console.log(typeof parsedEvent.capacity);
         if (currentJoined[0].count < parsedEvent.capacity) {
             database.joinEvent(username, id);
-            //res.redirect('/feed');
         } else {
-            //TODO: send res not ok
+            //TODO: send max capacity reached in res
         }
     });
 
@@ -246,8 +243,8 @@ app.post('/user/editEvent',
     });
 
 app.get('/user/getEvent', (req, res) => {
-    // why 5?
-    database.getEvent(5);
+    const eventid = req.body.id;
+    database.getEvent(eventid);
 });
 
 app.post('/user/deleteEvent', (req, res) => {
