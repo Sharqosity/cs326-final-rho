@@ -238,7 +238,7 @@ app.post('/user/editEvent',
     checkLoggedIn,
     async (req, res) => {
         const username = req.user;
-        const id = req.body.id;
+        const id = req.body.event_id;
 
         const event = await database.getEvent(id);
         const parsedEvent = JSON.parse(event)[0];
