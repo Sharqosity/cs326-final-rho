@@ -142,8 +142,10 @@ export class DB{
         let list_locations= ["Campus Pond", "Orchard Hill", "North East", "Sylvan","Central","South West", "Honors College","Library","Worcester","Frank","Hampshire","Berkshire","Totman","Boyden","Other"];
         
         // JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = $1;",[location])));
-        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events GROUP BY location"))); 
-
+        let a= JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events GROUP BY location"))); 
+        console.log(a);
+        return a;
+        
         /* Fake data
         const event_dict = {
             "isenberg":[
