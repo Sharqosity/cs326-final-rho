@@ -68,7 +68,9 @@ function populateDropdown(){
     .then( data=> { 
         const placeslist= Object.keys(data);
         for(let i=0;i<placeslist.length;i++){
-            
+            if(data[placeslist[i]].length===0){
+                continue;
+            }
             const list1= document.createElement('div');
             list1.classList.add('dropdown');
             list1.classList.add('show');
@@ -88,9 +90,7 @@ function populateDropdown(){
             list2.setAttribute("aria-labelledby","dropdownMenuLink");
            
             for(let j=0;j<data[placeslist[i]].length;j++){
-                if(data[placeslist[i]].length===0){
-                    continue;
-                }
+              
                 const dropitem= document.createElement('a');
                 dropitem.classList.add("dropdown-item");
                 dropitem.appendChild(document.createTextNode( data[placeslist[i]][j].title.concat( " on ",data[placeslist[i]][j].date,"@",data[placeslist[i]][j].time)));
