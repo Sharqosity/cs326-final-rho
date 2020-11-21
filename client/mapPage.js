@@ -76,9 +76,7 @@ function populateDropdown(){
     .then(response=> response.json())
     .then( data=> { 
         const placeslist= Object.keys(data);
-        
         for(let i=0;i<placeslist.length;i++){
-            
             const list1= document.createElement('div');
             list1.classList.add('dropdown');
             list1.classList.add('show');
@@ -111,8 +109,6 @@ function populateDropdown(){
         }   
     });
 }
-
-
 window.addEventListener('load', createMap);
 window.addEventListener('load', populateDropdown);
 
