@@ -159,12 +159,12 @@ app.post('/register',
         const password = req.body['password'];
         if (await addUser(username, password)) {
             console.log("login redirect");
-            // res.send('/login');
-            res.sendFile('login.html', { root: path.join(__dirname, './client') });
+            res.redirect(307,'/login');
+            // res.sendFile('login.html', { root: path.join(__dirname, './client') });
         } else {
             console.log("register redirect");
-            // res.send('/register');
-            res.sendFile('register.html', { root: path.join(__dirname, './client') });
+            res.redirect(307,'/register');
+            // res.sendFile('register.html', { root: path.join(__dirname, './client') });
         }
     });
 
@@ -200,7 +200,7 @@ app.get('/', (req, res) => {
 
 
 app.post('/user/joinEvent',
-    checkLoggedIn,
+    checkLoggedInJoin,
     async (req, res) => {
         const username = req.user;
         const id = req.body.id;
