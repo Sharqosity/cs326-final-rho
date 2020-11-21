@@ -281,7 +281,7 @@ app.get('/globalgetfeed', async (req, res) => {
     res.send(await database.globalGetFeed());
 });
 
-app.get('/user/getEventCurrentJoined', async (req, res) => {
+app.post('/user/getEventCurrentJoined', async (req, res) => {
     const event_id = req.body.id;
     res.send(await database.getEventCurrentJoined(event_id));
 });
