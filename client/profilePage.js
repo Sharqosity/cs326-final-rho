@@ -5,7 +5,7 @@
 
 function DeleteButton(eventid){
 
-const deleteEvent= {"eid": eventid };
+const deleteEvent= {"id": eventid };
 // fetch('http://localhost:8080/user/deleteEvent', {
     fetch('/user/deleteEvent', {
         method: 'POST', 

@@ -248,7 +248,7 @@ app.get('/user/getEvent', (req, res) => {
 });
 
 app.post('/user/deleteEvent', (req, res) => {
-    const eventid = req.body.eid;
+    const eventid = req.body.id;
     database.userDelete(eventid);
 });
 
