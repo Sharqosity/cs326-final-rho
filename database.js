@@ -121,31 +121,14 @@ export class DB{
         */
     }
     async globalGetFeedByLocation(){
-        //get
-
-         // <option>Campus Pond</option>
-        // <option>Orchard Hill</option>
-        // <option>North East</option>
-        // <option>Sylvan</option>
-        // <option>Central</option>
-        // <option>South West</option>
-        // <option>Honors College</option>
-        // <option>Library</option>
-        // <option>Worcester</option>
-        // <option>Frank</option>
-        // <option>Hampshire</option>
-        // <option>Berkshire</option>
-        // <option>Totman</option>
-        // <option>Boyden</option>
-        // <option>Other</option>
-
-        let list_locations= ["Campus Pond", "Orchard Hill", "North East", "Sylvan","Central","South West", "Honors College","Library","Worcester","Frank","Hampshire","Berkshire","Totman","Boyden","Other"];
+        let list_locations= ['Campus Pond', 'Orchard Hill', 'North East', 'Sylvan','Central','South West', 'Honors College','Library','Worcester','Frank','Hampshire','Berkshire','Totman','Boyden','Other'];
         
         let locationdict= {};
         for(let i=0;i<list_locations.length;i++){
         let cur_list= await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = $1;",[list_locations[i]]));
         locationdict[list_locations[i]]=cur_list;
         }
+        console.log(locationdict);
        
         return JSON.stringify(locationdict);
         

@@ -14,7 +14,6 @@ function createMap(){
             zoom:16,
             center:{lat:42.3868, lng:-72.5301}
         }
-        console.log("And the data is2");
         let map=  new google.maps.Map(document.getElementById("map"),options);
         const feedurl = '/globalgetfeed';
         fetch(feedurl)
@@ -75,7 +74,6 @@ function populateDropdown(){
     fetch(myeventsurl)
     .then(response=> response.json())
     .then( data=> { 
-        console.log(data);
         const placeslist= Object.keys(data);
         for(let i=0;i<placeslist.length;i++){
             const list1= document.createElement('div');
