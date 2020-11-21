@@ -20,6 +20,8 @@ function regSetup() {
         });
 
         console.log(res);
+        window.location.href = res.url;
+
 
         
     });
