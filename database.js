@@ -124,13 +124,10 @@ export class DB{
         let list_locations= ['Campus Pond', 'Orchard Hill', 'North East', 'Sylvan','Central','South West', 'Honors College','Library','Worcester','Frank','Hampshire','Berkshire','Totman','Boyden','Other'];
         
         let locationdict= {};
-        // for(let i=0;i<list_locations.length;i++){
-        // let cur_list= await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = $1;",['Sylvan']));
-        let cur_list= await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = 'Sylvan' " ));
-        locationdict['Sylvan']=cur_list;
-        // }
-        console.log(locationdict);
-       
+        for(let i=0;i<list_locations.length;i++){
+        let cur_list= await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = $1;",[list_locations[i]]));
+        locationdict[list_locations[i]]=cur_list;
+        }
         return JSON.stringify(locationdict);
         
         /* Fake data
