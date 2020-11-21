@@ -159,8 +159,10 @@ app.post('/register',
         const username = req.body['username'];
         const password = req.body['password'];
         if (await addUser(username, password)) {
+            console.log("login redirect");
             res.redirect('/login');
         } else {
+            console.log("register redirect");
             res.redirect('/register');
         }
     });
@@ -229,6 +231,7 @@ app.post('/user/createEvent',
         const body = req.body;
         database.userCreate(username, body);
         //redirect to created event on success?
+        
     });
 
 app.post('/user/editEvent',
