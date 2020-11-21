@@ -20,8 +20,6 @@ function createMap(){
         fetch(feedurl)
         .then(response=> response.json())
         .then(data=> {
-            console.log("And the data is");
-            console.log(data);
             for(let i=0;i<data.length;i++){
                 const title= data[i].title;
                 const date= data[i].date;
@@ -77,6 +75,8 @@ function populateDropdown(){
     fetch(myeventsurl)
     .then(response=> response.json())
     .then( data=> { 
+        console.log(data);
+
         const placeslist= Object.keys(data);
         
         for(let i=0;i<placeslist.length;i++){

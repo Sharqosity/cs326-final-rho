@@ -68,7 +68,6 @@ export class DB{
         //get
         // this was a post in our server.js 
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE event_id = $1;",[event_id])));
-
         /* Fake data
         let event = {"eventid":1,"owner ":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"};
         return JSON.stringify(event);
@@ -78,7 +77,6 @@ export class DB{
         //get
         //Owner Title date time location description capacity
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE username = $1;",[username])));
-        
         /* Fake data
         const events = [
             {"eventid":1,"owner ":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"},
@@ -122,10 +120,30 @@ export class DB{
         return JSON.stringify(events);
         */
     }
-    async globalGetFeedByLocation(location){
+    async globalGetFeedByLocation(){
         //get
-        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = $1;",[location])));
+
+         // <option>Campus Pond</option>
+        // <option>Orchard Hill</option>
+        // <option>North East</option>
+        // <option>Sylvan</option>
+        // <option>Central</option>
+        // <option>South West</option>
+        // <option>Honors College</option>
+        // <option>Library</option>
+        // <option>Worcester</option>
+        // <option>Frank</option>
+        // <option>Hampshire</option>
+        // <option>Berkshire</option>
+        // <option>Totman</option>
+        // <option>Boyden</option>
+        // <option>Other</option>
+
+        let list_locations= ["Campus Pond", "Orchard Hill", "North East", "Sylvan","Central","South West", "Honors College","Library","Worcester","Frank","Hampshire","Berkshire","Totman","Boyden","Other"];
         
+        // JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = $1;",[location])));
+        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events GROUP BY location"))); 
+
         /* Fake data
         const event_dict = {
             "isenberg":[
