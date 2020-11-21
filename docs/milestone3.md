@@ -173,6 +173,6 @@ Heroku Link: events-umass.herokuapp.com
 
 
 
-*   Prateek: mapPage, profilePage, Helped some server backend
+*   Prateek: mapPage, profilePage, Helped with some server backend
 *   Aidan: createEvent Page, Login/Register,Database backend.
 *   George: feed Page, Login/Register, Server backend.
