@@ -125,7 +125,8 @@ export class DB{
         
         let locationdict= {};
         // for(let i=0;i<list_locations.length;i++){
-        let cur_list= await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = $1;",['Sylvan']));
+        // let cur_list= await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = $1;",['Sylvan']));
+        let cur_list= await this.connectAndRun(db => db.any("SELECT * FROM events WHERE location = 'Sylvan' " ));
         locationdict['Sylvan']=cur_list;
         // }
         console.log(locationdict);
