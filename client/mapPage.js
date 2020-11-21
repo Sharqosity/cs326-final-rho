@@ -75,6 +75,7 @@ function populateDropdown(){
     fetch(myeventsurl)
     .then(response=> response.json())
     .then( data=> { 
+        console.log(data);
         const placeslist= Object.keys(data);
         for(let i=0;i<placeslist.length;i++){
             const list1= document.createElement('div');
