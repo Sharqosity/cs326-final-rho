@@ -127,7 +127,7 @@ function checkLoggedIn(req, res, next) {
         next();
     } else {
         // Otherwise, redirect to the login page.
-        res.redirect(307, '/login');
+        res.redirect(302, '/login');
     }
 }
 
