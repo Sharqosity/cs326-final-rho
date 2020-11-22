@@ -222,7 +222,7 @@ app.post('/user/leaveEvent',
         const username = req.user;
         const eventid = req.body.id;
         await database.leaveEvent(username, eventid);
-        res.status(200);
+        res.send("200");
         //res.redirect('/feed');
     });
 
@@ -268,7 +268,7 @@ app.post('/user/deleteEvent',
         const parsedEvent = JSON.parse(event)[0];
         if (username === parsedEvent.username) {
             await database.userDelete(id);
-            res.status(200);
+            res.send("200");
         } else {
             res.status(403).send('Unauthorized');
         }
