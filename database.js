@@ -56,7 +56,7 @@ export class DB{
         let event_id = await this.connectAndRun(db => db.any("SELECT event_id FROM events ORDER BY event_id DESC LIMIT 1;"));
         console.log(event_id);
         console.log(typeof event_id);
-        this.joinEvent(username,event_id);
+        this.joinEvent(username,event_id[0].event_id);
 
     }
     async userEdit(event_id, event_info){
