@@ -3,11 +3,11 @@
 //1. Need to fetch the resources for the cards from the server , then added to the 
 // rows quickly  
 
-function DeleteButton(eventid) {
+async function DeleteButton(eventid) {
 
     const deleteEvent = { "id": eventid };
     // fetch('http://localhost:8080/user/deleteEvent', {
-    fetch('/user/deleteEvent', {
+    await fetch('/user/deleteEvent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
         body: JSON.stringify(deleteEvent),
@@ -26,13 +26,13 @@ function EditButton(eventid) {
     window.localStorage.setItem('editedeventid', eventid);
 }
 
-function LeaveButton(eventid) {
+async function LeaveButton(eventid) {
 
     //const leaveEvent= {"owner":"Aidan" , "eid": eventid };
     const body = {
         id: eventid
     };
-    fetch('/user/leaveEvent', {
+    await fetch('/user/leaveEvent', {
         // fetch('http://localhost:8080/user/unjoinEvent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },

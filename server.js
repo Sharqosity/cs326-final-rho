@@ -218,10 +218,11 @@ app.post('/user/joinEvent',
 
 app.post('/user/leaveEvent',
     checkLoggedIn,
-    (req, res) => {
+    async (req, res) => {
         const username = req.user;
         const eventid = req.body.id;
-        database.leaveEvent(username, eventid);
+        await database.leaveEvent(username, eventid);
+        res.status(200);
         //res.redirect('/feed');
     });
 
@@ -266,7 +267,8 @@ app.post('/user/deleteEvent',
         const event = await database.getEvent(id);
         const parsedEvent = JSON.parse(event)[0];
         if (username === parsedEvent.username) {
-            database.userDelete(id);
+            await database.userDelete(id);
+            res.status(200);
         } else {
             res.status(403).send('Unauthorized');
         }

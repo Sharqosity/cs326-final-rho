@@ -40,6 +40,7 @@ export class DB{
     async leaveEvent(username, event_id){
         //delete the joined_events entry containing the appropriate user and event id's
         await this.connectAndRun(db => db.none("DELETE FROM joined_events WHERE username = $1 and event_id = $2;", [username, event_id]));
+        return true;
     }
     async getEventCurrentJoined(event_id) {
         return await this.connectAndRun(db => db.any("SELECT COUNT(event_id) FROM joined_events WHERE event_id = $1;", [event_id]));
@@ -68,6 +69,7 @@ export class DB{
         //delete the event from the events table
         //we should have this cascade to the created and joined events
         await this.connectAndRun(db => db.none("DELETE FROM events WHERE event_id = $1;",[event_id]));
+        return true;
     }
     async getEvent(event_id){
         //get
