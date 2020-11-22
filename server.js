@@ -232,6 +232,7 @@ app.post('/user/createEvent',
         const body = req.body;
         database.userCreate(username, body);
         //redirect to created event on success?
+        res.redirect(303,'/profile');
         
     });
 

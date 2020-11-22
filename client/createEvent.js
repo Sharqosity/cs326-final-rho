@@ -2,6 +2,7 @@
 let marker;
 let map;
 let replace_id = false;
+let event_id = -1;
 
 
 function createMap(){
@@ -104,15 +105,16 @@ function editSetUp(){
             document.getElementById('capacity').value = event['capacity'];
             document.getElementById('location').value = event['location'];
             placeMarker({lat: event['latitude'],lng: event['longitude']},map);
+            event_id = window.localStorage.getItem('editedeventid');
             //this is so that we know the use update later on
             replace_id = true;
         });
-        // window.localStorage.removeItem('editedeventid');  
+        window.localStorage.removeItem('editedeventid');  
     }
     console.log('we tried to edit the event');
 }
 
-function createEvent(){
+async function createEvent(){
     let newEvent = {};
     newEvent['title'] = document.getElementById('title').value;
     newEvent['date'] = document.getElementById('date').value;
@@ -130,22 +132,27 @@ function createEvent(){
     if(validity === 0){
         //ik this looks dumb but I don't want event id 0 to be treated as false
         if(replace_id === false){
-            fetch('/user/createEvent', {
+            let res = await fetch('/user/createEvent', {
                 method: 'POST', 
                 headers: {'Content-Type': 'application/json',},
                 body: JSON.stringify(newEvent),
             });
             console.log("Created new event:");
             console.log(newEvent);  
+
+            window.location.href = res.url;
         }
         else{
-            newEvent['event_id'] = window.localStorage.getItem('editedeventid');   
-            window.localStorage.removeItem('editedeventid');  
-            fetch('/user/editEvent', {
+            //newEvent['event_id'] = window.localStorage.getItem('editedeventid');   
+            newEvent['event_id'] = event_id;   
+            //window.localStorage.removeItem('editedeventid');  
+            let res = await fetch('/user/editEvent', {
                 method: 'POST', 
                 headers: {'Content-Type': 'application/json',},
                 body: JSON.stringify(newEvent),
             });
+            
+            window.location.href = res.url;
         }
         document.getElementById('submit_warning').innerHTML = "Event created.";
     }
