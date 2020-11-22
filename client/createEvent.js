@@ -146,12 +146,13 @@ async function createEvent(){
             //newEvent['event_id'] = window.localStorage.getItem('editedeventid');   
             newEvent['event_id'] = event_id;   
             //window.localStorage.removeItem('editedeventid');  
+            console.log(newEvent['event_id']);
             let res = await fetch('/user/editEvent', {
                 method: 'POST', 
                 headers: {'Content-Type': 'application/json',},
                 body: JSON.stringify(newEvent),
             });
-            
+
             window.location.href = res.url;
         }
         document.getElementById('submit_warning').innerHTML = "Event created.";

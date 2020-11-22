@@ -246,6 +246,7 @@ app.post('/user/editEvent',
         const parsedEvent = JSON.parse(event)[0];
         if (username === parsedEvent.username) {
             database.userEdit(req.body['event_id'], req.body);
+            res.redirect(303,'/profile');
         } else {
             res.status(403).send('Unauthorized');
         }
