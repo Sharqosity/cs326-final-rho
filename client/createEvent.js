@@ -105,7 +105,7 @@ function editSetUp(){
             document.getElementById('capacity').value = event['capacity'];
             document.getElementById('location').value = event['location'];
             placeMarker({lat: event['latitude'],lng: event['longitude']},map);
-            event_id = window.localStorage.getItem('editedeventid');
+            event_id = edit_event_id;
             //this is so that we know the use update later on
             replace_id = true;
         });
