@@ -284,7 +284,6 @@ app.get('/user/getjoinedevents', async (req, res) => {
 });
 
 app.get('/globalgetfeed',
-    checkLoggedIn,
     async (req, res) => {
     res.send(await database.globalGetFeed());
 });
