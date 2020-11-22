@@ -96,7 +96,7 @@ export class DB{
     }
     async userGetJoinedEvents(username){
         //get
-        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE event_id IN (SELECT event_id FROM joined_events WHERE username = $1);",[username])));
+        return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE event_id IN (SELECT event_id FROM joined_events WHERE username = $1) and username != $2;",[username,username])));
         
         /* Fake data
         const events = [
