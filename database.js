@@ -53,6 +53,11 @@ export class DB{
         [username, -1, event_info.title, event_info.date, event_info.time, event_info.location, event_info.longitude, event_info.latitude, event_info.description, event_info.capacity]));
         //we insert event_id as -1 so that we can then adjust it to be whatever the next value should be
         await this.connectAndRun(db => db.none("UPDATE events SET event_id = 1+(SELECT MAX(event_id) FROM events) WHERE event_id = -1;"));
+        let event_id = await this.connectAndRun(db => db.any("SELECT event_id FROM events ORDER BY event_id DESC LIMIT 1;"));
+        console.log(event_id);
+        console.log(typeof event_id);
+        this.joinEvent(username,event_id);
+
     }
     async userEdit(event_id, event_info){
         //edit an event
