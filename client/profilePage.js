@@ -117,6 +117,14 @@ function postMyEventsCards() {
                 cardtxt.appendChild(document.createTextNode(data[i].description));
                 cardtxtdiv.appendChild(cardtxt);
 
+
+                const name = document.createElement('h6');
+                name.classList.add('card-subtitle');
+                name.classList.add('mb-2');
+                name.classList.add('text-muted');
+                const str3 = "                  Created By: You ";
+
+
                 //get numerator
                 const numerator = await getNumerator(data[i].event_id);
 
@@ -160,6 +168,7 @@ function postMyEventsCards() {
                 listitem4.appendChild(cardtxtdiv);
                 listitem4.appendChild(capacity);
                 listitem4.appendChild(buttons);
+                listitem4.appendChild(name);
 
                 listitem3.appendChild(listitem4);
                 listitem2.appendChild(listitem3);

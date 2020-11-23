@@ -175,6 +175,19 @@ async function getEvents() {
             btn.type = 'button';
             btn.classList.add('btn');
             btn.classList.add('btn-primary');
+            btn.classList.add('button_fill');
+
+
+
+            const name = document.createElement('h6');
+            name.classList.add('card-subtitle');
+            name.classList.add('mb-2');
+            name.classList.add('text-muted');
+            const str3 = "                  Created By: ";
+            name.appendChild(document.createTextNode(str3.concat(data[i].username)));
+
+
+
 
             const errorTextDiv = document.createElement('div');
             errorTextDiv.classList.add('errorText');
@@ -210,6 +223,10 @@ async function getEvents() {
             cardBody.appendChild(cap);
             cardBody.appendChild(errorTextDiv);
             cardBody.appendChild(btndiv);
+            cardBody.appendChild(document.createElement('br'));
+            cardBody.appendChild(name);
+
+
            
 
             cardTextLeft.appendChild(cardBody);
