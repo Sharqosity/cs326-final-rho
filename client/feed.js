@@ -145,7 +145,7 @@ async function getEvents() {
             dateTime.appendChild(dateTimeText);
 
             const loc = document.createElement('h6');
-            const locText = document.createTextNode(item.location);
+            const locText = document.createTextNode("📍".concat(item.location));
             loc.classList.add('card-subtitle');
             loc.classList.add('mb-2');
             loc.classList.add('text-muted');

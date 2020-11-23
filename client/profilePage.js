@@ -76,7 +76,7 @@ function postMyEventsCards() {
         .then(async data => {
             for (let i = 0; i < data.length; i = i + 1) {
                 const listitem1 = document.createElement('div');
-                listitem1.classList.add('col-md-3');
+                listitem1.classList.add('col-md-4');
 
 
                 const listitem2 = document.createElement('div');
@@ -194,7 +194,7 @@ function postJoinedCards() {
         .then(async data => {
             for (let i = 0; i < data.length; i = i + 1) {
                 const listitem1 = document.createElement('div');
-                listitem1.classList.add('col-md-3');
+                listitem1.classList.add('col-md-4');
 
                 const listitem2 = document.createElement('div');
                 listitem2.classList.add('card');
