@@ -117,10 +117,8 @@ function postMyEventsCards() {
                 cardtxt.appendChild(document.createTextNode(data[i].description));
                 cardtxtdiv.appendChild(cardtxt);
 
-
                 //get numerator
                 const numerator = await getNumerator(data[i].event_id);
-
 
                 const capacity = document.createElement('p');
                 const str2 = 'Capacity: ' + numerator + '/' + data[i].capacity;
@@ -234,12 +232,12 @@ function postJoinedCards() {
                 capacity.appendChild(document.createTextNode(str2));
 
 
-                const location = document.createElement('h6');
-                location.classList.add('card-subtitle');
-                location.classList.add('mb-2');
-                location.classList.add('text-muted');
-                const str = "Created By:";
-                location.appendChild(document.createTextNode(str.concat(data[i].username)));
+                const name = document.createElement('h6');
+                name.classList.add('card-subtitle');
+                name.classList.add('mb-2');
+                name.classList.add('text-muted');
+                const str = "                  Created By:";
+                name.appendChild(document.createTextNode(str.concat(data[i].username)));
 
 
 
@@ -260,7 +258,7 @@ function postJoinedCards() {
                 listitem4.appendChild(cardtxtdiv);
                 listitem4.appendChild(capacity);
                 listitem4.appendChild(buttons);
-                listitem4.appendChild( );
+                listitem4.appendChild(name);
 
                 listitem3.appendChild(listitem4);
                 listitem2.appendChild(listitem3);
