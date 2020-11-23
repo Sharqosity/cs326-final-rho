@@ -84,48 +84,15 @@ export class DB{
         //get
         //Owner Title date time location description capacity
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE username = $1;",[username])));
-        /* Fake data
-        const events = [
-            {"eventid":1,"owner ":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"},
-            {"eventid":2,"owner":"George","title":"Frisbee club","date":"11/20/20","time":"4:20pm","location":"Campus pond","description":"Lets toss the disc some.","capacity":"7/15"},
-            {"eventid":3,"owner":"George","title":"Seltzer Sampling","date":"12/9/20","time":"10:00am","location":"New Worcester","description":"Quality inspection on the new facilities","capacity":"3/5"},
-            {"eventid":4,"owner":"George","title":"Pokemon Go","date":"12/17/20","time":"2:20pm","location":"Isenberg","description":"We will be trying to catch Mew","capacity":"30/40"}
-        ];
-        return JSON.stringify(events);
-        */
+        
     }
     async userGetJoinedEvents(username){
         //get
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events WHERE event_id IN (SELECT event_id FROM joined_events WHERE username = $1) and username != $2;",[username,username])));
-        
-        /* Fake data
-        const events = [
-            {"eventid":5,"owner":"Prateek","title":"311 HW2","date":"11/21/20","time":"4:00PM","location":" Dubois library","description":"Doing the HW2 homework","capacity":"7/10"},
-            {"eventid":6,"owner":"Aidan","title":" Soccer ","date":"11/26/20","time":"4:20PM","location":"East Soccer Fields","description":"5v5 pickup soccer game","capacity":"6/10"},
-            {"eventid":7,"owner":"John","title":"Umass Real Estate Club","date":"12/20/20","time":"2:45","location":"Isenberg","description":"Group discussion of market","capacity":"11/50"},
-            {"eventid":8,"owner":"Gerald","title":"377 HW 3","date":"11/31/20","time":"3:40","location":"OHill oak common room","description":"HW3 discussion","capacity":"7/15"}
-
-        ];
-        return JSON.stringify(events);
-        */
     }
     async globalGetFeed(){
         //get
         return JSON.stringify(await this.connectAndRun(db => db.any("SELECT * FROM events;")));
-        
-        /* Fake data
-        const events = [
-            {"eventid":1,"owner":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"},
-            {"eventid":2,"owner":"George","title":"Frisbee club","date":"11/20/20","time":"4:20pm","location":"Campus pond","description":"Lets toss the disc some.","capacity":"7/15"},
-            {"eventid":5,"owner":"Prateek","title":"311 HW2","date":"11/21/20","time":"4:00PM","location":"Dubois library","description":"Doing the HW2 homework","capacity":"7/10"},
-            {"eventid":6,"owner":"Aidan","title":" Soccer ","date":"11/26/20","time":"4:20PM","location":"East Soccer Fields","description":"5v5 pickup soccer game","capacity":"6/10"},
-            {"eventid":8,"owner":"Gerald","title":"377 HW 3","date":"11/31/20","time":"3:40","location":"OHill","description":"HW3 discussion","capacity":"7/15"},
-            {"eventid":3,"owner":"George","title":"Seltzer Sampling","date":"12/9/20","time":"10:00am","location":"OHill","description":"Quality inspection on the new facilities","capacity":"3/5"},
-            {"eventid":4,"owner":"George","title":"Pokemon Go","date":"12/17/20","time":"2:20pm","location":"Isenberg","description":"We will be trying to catch Mew","capacity":"30/40"},
-            {"eventid":7,"owner":"John","title":"Umass Real Estate Club","date":"12/20/20","time":"2:45","location":"Isenberg","description":"Group discussion of market","capacity":"11/50"}
-        ];
-        return JSON.stringify(events);
-        */
     }
     async globalGetFeedByLocation(){
         let list_locations= ['Campus Pond', 'Orchard Hill', 'North East', 'Sylvan','Central','South West', 'Honors College','Library','Worcester','Frank','Hampshire','Berkshire','Totman','Boyden','Other'];
@@ -136,29 +103,5 @@ export class DB{
         locationdict[list_locations[i]]=cur_list;
         }
         return JSON.stringify(locationdict);
-        
-        /* Fake data
-        const event_dict = {
-            "isenberg":[
-                {"eventid":4,"owner":"George","title":"Pokemon Go","date":"12/17/20","time":"2:20pm","location":"Isenberg","description":"We will be trying to catch Mew","capacity":"30/40"},
-                {"eventid":7,"owner":"John","title":"Umass Real Estate Club","date":"12/20/20","time":"2:45","location":"Isenberg","description":"Group discussion of market","capacity":"11/50"}
-            ],
-            "OHill":[
-                {"eventid":8,"owner":"Gerald","title":"377 HW 3","date":"11/31/20","time":"3:40","location":"OHill","description":"HW3 discussion","capacity":"7/15"},
-            {"eventid":3,"owner":"George","title":"Seltzer Sampling","date":"12/9/20","time":"10:00am","location":"OHill","description":"Quality inspection on the new facilities","capacity":"3/5"}
-            ],
-            "Dubois library":[
-                {"eventid":1,"owner":"George","title":"Book club","date":"11/16/20","time":"2:20pm","location":"Dubois library","description":"Lets talk about 1984","capacity":"5/10"},
-                {"eventid":5,"owner":"Prateek","title":"311 HW2","date":"11/21/20","time":"4:00PM","location":"Dubois library","description":"Doing the HW2 homework","capacity":"7/10"}
-            ],
-            "Campus pond":[
-                {"eventid":2,"owner":"George","title":"Frisbee club","date":"11/20/20","time":"4:20pm","location":"Campus pond","description":"Lets toss the disc some.","capacity":"7/15"}
-            ],
-            "East Soccer Fields":[
-                {"eventid":6,"owner":"Aidan","title":" Soccer ","date":"11/26/20","time":"4:20PM","location":"East Soccer Fields","description":"5v5 pickup soccer game","capacity":"6/10"}
-            ]
-        };
-        return  JSON.stringify(event_dict);
-        */
     }
 }
