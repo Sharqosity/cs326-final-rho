@@ -259,7 +259,6 @@ function postJoinedCards() {
                 listitem4.appendChild(capacity);
                 listitem4.appendChild(buttons);
                 listitem4.appendChild(document.createElement('br'));
-                listitem4.appendChild(document.createElement('br'));
                 listitem4.appendChild(name);
 
                 listitem3.appendChild(listitem4);
