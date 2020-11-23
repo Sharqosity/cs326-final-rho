@@ -236,7 +236,7 @@ function postJoinedCards() {
                 name.classList.add('card-subtitle');
                 name.classList.add('mb-2');
                 name.classList.add('text-muted');
-                const str3 = "                  Created By:";
+                const str3 = "                  Created By: ";
                 name.appendChild(document.createTextNode(str3.concat(data[i].username)));
 
 
@@ -258,6 +258,8 @@ function postJoinedCards() {
                 listitem4.appendChild(cardtxtdiv);
                 listitem4.appendChild(capacity);
                 listitem4.appendChild(buttons);
+                listitem4.appendChild(document.createElement('br'));
+                listitem4.appendChild(document.createElement('br'));
                 listitem4.appendChild(name);
 
                 listitem3.appendChild(listitem4);
