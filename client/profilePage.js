@@ -236,8 +236,8 @@ function postJoinedCards() {
                 name.classList.add('card-subtitle');
                 name.classList.add('mb-2');
                 name.classList.add('text-muted');
-                const str = "                  Created By:";
-                name.appendChild(document.createTextNode(str.concat(data[i].username)));
+                const str3 = "                  Created By:";
+                name.appendChild(document.createTextNode(str3.concat(data[i].username)));
 
 
 
