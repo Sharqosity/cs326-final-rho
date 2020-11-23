@@ -107,7 +107,7 @@ function postMyEventsCards() {
                 location.classList.add('card-subtitle');
                 location.classList.add('mb-2');
                 location.classList.add('text-muted');
-                const str = "@";
+                const str = "📍";
                 location.appendChild(document.createTextNode(str.concat(data[i].location)));
 
                 const cardtxtdiv = document.createElement('div');
