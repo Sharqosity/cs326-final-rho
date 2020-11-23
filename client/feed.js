@@ -81,9 +81,9 @@ async function getEvents() {
     
     const myEvents = await getMyEvents();
     
-    console.log('myEvents: ');
-    console.log(myEvents);
-    console.log(typeof myEvents);
+    // console.log('myEvents: ');
+    // console.log(myEvents);
+    // console.log(typeof myEvents);
 
 
 
@@ -193,7 +193,7 @@ async function getEvents() {
             errorTextDiv.classList.add('errorText');
 
             //Check if we are in the event, to make the button
-            console.log('item.event_id: ' + item.event_id);
+            // console.log('item.event_id: ' + item.event_id);
             let joined = false;
             for (const joinedEvent of myEvents) {
                 if (item.event_id === joinedEvent.event_id) {
@@ -242,5 +242,5 @@ async function getEvents() {
 
 
 window.addEventListener('load', getEvents);
-console.log('hello ');
+// console.log('hello ');
 

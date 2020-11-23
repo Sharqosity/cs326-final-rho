@@ -123,6 +123,7 @@ function postMyEventsCards() {
                 name.classList.add('mb-2');
                 name.classList.add('text-muted');
                 const str3 = "                  Created By: You ";
+                name.appendChild(document.createTextNode(str3));
 
 
                 //get numerator

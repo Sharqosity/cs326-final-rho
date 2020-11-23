@@ -26,7 +26,7 @@ function createMap(){
                 const location= data[i].location;
                 const description= data[i].description;
                 const capacity= data[i].capacity;
-        let obj1 = { coords:{lat: data[i].latitude, lng:data[i].longitude},content: `<h3> ${title}</h3><br><h5> on ${date} at ${time}</h5><br><h5>@ ${location}</h5><br><h5>${description}</h5>`};
+        let obj1 = { coords:{lat: data[i].latitude, lng:data[i].longitude},content: `<h3> ${title}</h3><p> on ${date} at ${time}</p><p>@ ${location}</p><p>${description}</p>`};
         addMarker(obj1,map);
             }
         }  
