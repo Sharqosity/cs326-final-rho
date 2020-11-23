@@ -184,7 +184,7 @@ async function getEvents() {
             name.classList.add('mb-2');
             name.classList.add('text-muted');
             const str3 = "                  Created By: ";
-            name.appendChild(document.createTextNode(str3.concat(data[i].username)));
+            name.appendChild(document.createTextNode(str3.concat(item.username)));
 
 
 

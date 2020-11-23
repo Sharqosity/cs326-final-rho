@@ -94,7 +94,7 @@ function populateDropdown(){
               
                 const dropitem= document.createElement('a');
                 dropitem.classList.add("dropdown-item");
-                dropitem.appendChild(document.createTextNode( data[placeslist[i]][j].title.concat( " on ",data[placeslist[i]][j].date,"@ ",data[placeslist[i]][j].time)));
+                dropitem.appendChild(document.createTextNode( data[placeslist[i]][j].title.concat( " on ",data[placeslist[i]][j].date," @ ",data[placeslist[i]][j].time)));
                 list2.appendChild(dropitem);
             }
             list1.appendChild(maina);
