@@ -132,6 +132,7 @@ function postMyEventsCards() {
                 button1.classList.add('btn');
                 button1.classList.add('btn-primary');
                 button1.classList.add('button_fill');
+                button1.classList.add('mr-1');
                 button1.appendChild(document.createTextNode("Delete"));
                 button1.onclick = function () {
                     DeleteButton(data[i].event_id);
@@ -144,6 +145,7 @@ function postMyEventsCards() {
                 button2.classList.add('btn');
                 button2.classList.add('btn-primary');
                 button2.classList.add('button_fill');
+                button2.classList.add('mr-1');
                 button2.appendChild(document.createTextNode("Edit"));
                 button2.onclick = function () {
                     EditButton(data[i].event_id);
@@ -213,7 +215,7 @@ function postJoinedCards() {
                 location.classList.add('card-subtitle');
                 location.classList.add('mb-2');
                 location.classList.add('text-muted');
-                const str = "@";
+                const str = "📍";
                 location.appendChild(document.createTextNode(str.concat(data[i].location)));
 
                 const cardtxtdiv = document.createElement('div');
@@ -231,6 +233,16 @@ function postJoinedCards() {
                 capacity.classList.add('card-text');
                 capacity.appendChild(document.createTextNode(str2));
 
+
+                const location = document.createElement('h6');
+                location.classList.add('card-subtitle');
+                location.classList.add('mb-2');
+                location.classList.add('text-muted');
+                const str = "Created By:";
+                location.appendChild(document.createTextNode(str.concat(data[i].username)));
+
+
+
                 const buttons = document.createElement('div');
                 const button1 = document.createElement('button');
                 button1.classList.add('btn');
@@ -240,7 +252,6 @@ function postJoinedCards() {
                 button1.onclick = function () {
                     LeaveButton(data[i].event_id);
                 };
-
                 buttons.appendChild(button1);
 
                 listitem4.appendChild(title);
@@ -249,6 +260,7 @@ function postJoinedCards() {
                 listitem4.appendChild(cardtxtdiv);
                 listitem4.appendChild(capacity);
                 listitem4.appendChild(buttons);
+                listitem4.appendChild( );
 
                 listitem3.appendChild(listitem4);
                 listitem2.appendChild(listitem3);
