@@ -1,6 +1,6 @@
 'use strict';
 
-
+/*
 function loginSetup() {
     document.getElementById("loginButton").addEventListener('click', () => {
         const body = {
@@ -10,7 +10,7 @@ function loginSetup() {
 
 
         const fetchurl = '/login';
-        
+
         const res = fetch(fetchurl, {
             method: 'POST',
             headers: {
@@ -21,10 +21,10 @@ function loginSetup() {
 
         console.log(res);
 
-        
+
     });
 }
-
+*/
 
 
 

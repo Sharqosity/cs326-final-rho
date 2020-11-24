@@ -1,3 +1,5 @@
+'use strict';
+
 import pgp from "pg-promise";
 
 export class DB{

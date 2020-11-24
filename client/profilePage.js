@@ -1,4 +1,4 @@
-
+'use strict';
 
 //1. Need to fetch the resources for the cards from the server , then added to the 
 // rows quickly  
@@ -50,7 +50,7 @@ async function getNumerator(event_id) {
 
     const url = '/user/getEventCurrentJoined';
 
-    const res = await fetch(url,{
+    const res = await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
