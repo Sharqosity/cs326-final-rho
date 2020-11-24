@@ -36,13 +36,6 @@ async function joinEvent(errorTextDiv, id) {
         }
     });
 
-    //TODO: if res not ok, add something to the html
-    if (false) {
-        errorTextDiv.innerHTML = '';
-        const errorText = document.createTextNode('');
-        errorTextDiv.appendChild(errorText);
-    } else { //res ok
-    }
     
 }
 

@@ -161,12 +161,17 @@ app.post('/register',
         const username = req.body['username'];
         const password = req.body['password'];
         if (await addUser(username, password)) {
-            console.log("login redirect");
+            //console.log("login redirect");
             res.redirect(303,'/login');
             // res.sendFile('login.html', { root: path.join(__dirname, './client') });
         } else {
-            console.log("register redirect");
-            res.redirect(303,'/register');
+            //console.log("register redirect");
+            //res.redirect(303,'/register');
+
+            res.writeHead(401, {"Content-Type" : "text/plain"});
+            res.write('userexists');
+            res.end();
+
             // res.sendFile('register.html', { root: path.join(__dirname, './client') });
         }
     });
