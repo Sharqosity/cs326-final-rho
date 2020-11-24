@@ -126,17 +126,20 @@ function checkLoggedIn(req, res, next) {
         next();
     } else {
         // Otherwise, redirect to the login page.
-        res.redirect(302, '/login');
+        res.redirect(303, '/login');
     }
 }
 
-function checkLoggedInJoin(req, res, next) {
+function checkLoggedInFeed(req, res, next) {
     if (req.isAuthenticated()) {
         next();
     } else {
-        res.status(401).send('Please log in first!');
+        res.writeHead(200, {"Content-Type" : "text/plain"});
+        res.write('nologin');
+        res.end();
     }
 }
+
 
 // Handle post data from login.js
 app.post('/login',
@@ -200,7 +203,7 @@ app.get('/', (req, res) => {
 
 
 app.post('/user/joinEvent',
-    checkLoggedInJoin,
+    checkLoggedInFeed,
     async (req, res) => {
         const username = req.user;
         const id = req.body.id;
@@ -211,8 +214,14 @@ app.post('/user/joinEvent',
 
         if (currentJoined[0].count < parsedEvent.capacity) {
             database.joinEvent(username, id);
+            res.writeHead(200, {"Content-Type" : "text/plain"});
+            res.write('OK');
+            res.end();
         } else {
             //TODO: send max capacity reached in res
+            res.writeHead(200, {"Content-Type" : "text/plain"});
+            res.write('maxcap');
+            res.end();
         }
     });
 

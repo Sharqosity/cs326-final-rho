@@ -1,18 +1,37 @@
-
-
-function joinEvent(errorTextDiv, id) {
+async function joinEvent(errorTextDiv, id) {
     const body = {
         id: id
     };
 
     // const fetchurl = 'http://localhost:8080/user/joinEvent';
     const fetchurl = '/user/joinEvent';
-    const res = fetch(fetchurl, {
+    const res = await fetch(fetchurl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
+    });
+
+    res.text().then(function(text) {
+        if (text === 'nologin') {
+            const alert = document.getElementById('errorAlert');
+            alert.innerHTML = '';
+            alert.classList.add('alert');
+            alert.classList.add('alert-danger');
+            alert.setAttribute('role', 'alert');
+            alert.innerHTML = 'You must be logged in to join an event! <a href="/login">Log in</a>';
+        } else if (text === 'maxcap') {
+            const alert = document.getElementById('errorAlert');
+            alert.innerHTML = '';
+            alert.classList.add('alert');
+            alert.classList.add('alert-danger');
+            alert.setAttribute('role', 'alert');
+            alert.innerHTML = 'This event is full!';
+        
+        } else if (text === 'OK') {
+            getEvents();
+        }
     });
 
     //TODO: if res not ok, add something to the html
@@ -21,7 +40,6 @@ function joinEvent(errorTextDiv, id) {
         const errorText = document.createTextNode('');
         errorTextDiv.appendChild(errorText);
     } else { //res ok
-        getEvents();
     }
     
 }
@@ -77,13 +95,12 @@ async function getNumerator(event_id) {
 }
 
 async function getEvents() {
-    //First fetch the events we are in so we can check with all global events after.
     
+
+
+    //First fetch the events we are in so we can check with all global events after.
     const myEvents = await getMyEvents();
     
-    // console.log('myEvents: ');
-    // console.log(myEvents);
-    // console.log(typeof myEvents);
 
 
 
@@ -241,6 +258,7 @@ async function getEvents() {
 
 
 
+//Load feed
 window.addEventListener('load', getEvents);
-// console.log('hello ');
+
 
