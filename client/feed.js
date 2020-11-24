@@ -21,6 +21,8 @@ async function joinEvent(errorTextDiv, id) {
             alert.classList.add('alert-danger');
             alert.setAttribute('role', 'alert');
             alert.innerHTML = 'You must be logged in to join an event! <a href="/login">Log in</a>';
+            window.scrollTo(0, 0);
+
         } else if (text === 'maxcap') {
             const alert = document.getElementById('errorAlert');
             alert.innerHTML = '';
@@ -28,7 +30,7 @@ async function joinEvent(errorTextDiv, id) {
             alert.classList.add('alert-danger');
             alert.setAttribute('role', 'alert');
             alert.innerHTML = 'This event is full!';
-        
+            window.scrollTo(0, 0);
         } else if (text === 'OK') {
             getEvents();
         }
