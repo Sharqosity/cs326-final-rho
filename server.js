@@ -131,7 +131,7 @@ function checkLoggedInFeed(req, res, next) {
 app.post('/login',
     passport.authenticate('local', {     // use username/password authentication
         'successRedirect': '/profile',   // when we login, go to /private 
-        'failureRedirect': '/login'      // otherwise, back to login
+        'failureRedirect': '/login?message=error'      // otherwise, back to login
     }));
 
 app.get('/login', (req, res) => res.sendFile('login.html', { root: path.join(__dirname, './client') }));

@@ -3,9 +3,9 @@
 
 function loginSetup() {
     const urlParams = new URLSearchParams(window.location.search);
-    const info = urlParams.get('info');
+    const message = urlParams.get('message');
 
-    if (info) {
+    if (message) {
         const alert = document.getElementById("errorAlert");
         alert.innerHTML = '';
         alert.classList.add('alert');
