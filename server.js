@@ -1,17 +1,11 @@
 'use strict';
-//require('dotenv').config();
 import * as _dotenv from "dotenv";
 import pgp from "pg-promise";
 import express from 'express';
-//const expressSession = require('express-session');  // for managing session state
 import * as _expressSession from "express-session";
-//const passport = require('passport');               // handles authentication
 import * as _passport from "passport";
-//const LocalStrategy = require('passport-local').Strategy; // username/password strategy
 import * as _LocalStrategy from 'passport-local';
-//onst minicrypt = require('./miniCrypt');
 import * as _minicrypt from "./miniCrypt.js";
-//const path = require('path');
 import * as _path from "path";
 
 const dotenv = _dotenv["default"];
@@ -29,22 +23,15 @@ app.use(express.json());
 app.use(express.urlencoded({ 'extended': true })); // allow URLencoded data
 
 app.use('/', express.static('./client'));
-//app.use(express.static(__dirname + '/client'));
 
 const __dirname = process.cwd();
-//console.log(__dirname);
 
 
-// import {createServer} from 'http';
-// import {parse} from 'url';
-// import {join} from 'path';
-// import {writeFile, readFileSync, existsSync} from 'fs';
 import { DB } from './database.js';
 
 const url = process.env.DATABASE_URL;
 
 const database = new DB(pgp()(url));
-//let database = new DB('hi');
 
 // Session configuration
 const session = {
@@ -61,7 +48,6 @@ const strategy = new LocalStrategy(
         }
         if (! await validatePassword(username, password)) {
             // invalid password
-            // should disable logins after N messages
             // delay return to rate-limit brute-force attacks
             await new Promise((r) => setTimeout(r, 2000)); // two second delay
             return done(null, false, { 'message': 'Wrong password' });
@@ -161,18 +147,11 @@ app.post('/register',
         const username = req.body['username'];
         const password = req.body['password'];
         if (await addUser(username, password)) {
-            //console.log("login redirect");
             res.redirect(303,'/login');
-            // res.sendFile('login.html', { root: path.join(__dirname, './client') });
         } else {
-            //console.log("register redirect");
-            //res.redirect(303,'/register');
-
             res.writeHead(401, {"Content-Type" : "text/plain"});
             res.write('userexists');
             res.end();
-
-            // res.sendFile('register.html', { root: path.join(__dirname, './client') });
         }
     });
 
@@ -267,10 +246,6 @@ app.post('/user/editEvent',
         }
     });
 
-app.get('/user/getEvent', (req, res) => {
-    const eventid = req.body.id;
-    database.getEvent(eventid);
-});
 
 app.post('/user/deleteEvent', 
     checkLoggedIn,
@@ -326,5 +301,3 @@ if (port === null || port === "" || port === undefined) {
 app.listen(port, () => {
     console.log(`app listening at http://localhost:${port}`);
 });
-
-
