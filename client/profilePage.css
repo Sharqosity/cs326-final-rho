@@ -1,15 +1,18 @@
 .content {
     margin-top: 64px;
 }
+
 .fixed-top {
     position: fixed;
     top: 0;
 }
+
 .row {
     margin-left: 0;
     margin-right: 0;
     height:335px;
 }
+
 .card{
     display: inline-block;
     width:400px;
@@ -17,9 +20,9 @@
     border-radius: 4px;
     background: #fff; 
     box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
-      transition: .1s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
-  padding : 0px !important;
-  cursor: pointer;
+    transition: .1s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+    padding : 0px !important;
+    cursor: pointer;
 }
 
 .padding-0{
@@ -28,8 +31,8 @@
 }
 
 .scrolling-wrapper {
-  overflow-x: scroll;
-  overflow-y: hidden;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 

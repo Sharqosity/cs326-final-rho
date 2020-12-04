@@ -49,31 +49,10 @@ function regSetup() {
             body: JSON.stringify(body),
         });
 
-        //console.log(res);
         window.location.href = res.url;
-
-        /* This doesn't work right now, it shows the error then the page redirects
-        res.text().then(function(text) {
-            if (text === 'userexists') {
-                const alert = document.getElementById('errorAlert');
-                alert.innerHTML = '';
-                alert.classList.add('alert');
-                alert.classList.add('alert-danger');
-                alert.setAttribute('role', 'alert');
-                alert.innerHTML = 'User already exists!';
-            
-            }
-        });
-        */
-
-
 
     });
 }
-
-
-
-
 
 
 window.addEventListener('load', regSetup);

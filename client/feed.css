@@ -8,11 +8,10 @@
     max-height: 100%;
 }
 
-
 .vertical-scrolling-wrapper {
     overflow-x: scroll;
     overflow-y: hidden;
-  }
+}
 
 .eventcard {
     width: 32rem;

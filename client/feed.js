@@ -5,7 +5,6 @@ async function joinEvent(id) {
         id: id
     };
 
-    // const fetchurl = 'http://localhost:8080/user/joinEvent';
     const fetchurl = '/user/joinEvent';
     const res = await fetch(fetchurl, {
         method: 'POST',
@@ -37,8 +36,6 @@ async function joinEvent(id) {
             getEvents();
         }
     });
-
-
 }
 
 function leaveEvent(id) {
@@ -54,21 +51,13 @@ function leaveEvent(id) {
         body: JSON.stringify(body),
     });
     getEvents();
-
 }
+
 async function getMyEvents() {
     const joinedEventsURL = '/user/getjoinedevents';
-
     const res = await fetch(joinedEventsURL);
     const json = await res.json();
-
     return json;
-
-    /*
-    .then(response => response.json()).then(data => {
-        return data;
-    });
-    */
 }
 
 async function getNumerator(event_id) {
@@ -86,16 +75,13 @@ async function getNumerator(event_id) {
         body: JSON.stringify(body),
     });
     const json = await res.json();
-
     return json[0].count;
-
 }
 
 async function getEvents() {
 
     //First fetch the events we are in so we can check with all global events after.
     const myEvents = await getMyEvents();
-
 
     const feedCol = document.getElementById('feedCol');
     feedCol.innerHTML = '';
@@ -131,21 +117,16 @@ async function getEvents() {
                 card.classList.add('eventcard');
                 card.classList.add('mb-2');
 
-
-
                 const cardTextLeft = document.createElement('div');
                 cardTextLeft.classList.add('card');
                 cardTextLeft.classList.add('text-left');
                 const cardBody = document.createElement('div');
                 cardBody.classList.add('card-body');
 
-
-                //TODO: add href to title?
                 const title = document.createElement('h5');
                 const titleText = document.createTextNode(item.title);
                 title.appendChild(titleText);
                 title.classList.add('card-title');
-
 
                 const dateTime = document.createElement('h6');
                 const dateTimeText = document.createTextNode(item.date + ", " + item.time);
@@ -186,8 +167,6 @@ async function getEvents() {
                 btn.classList.add('btn-primary');
                 btn.classList.add('button_fill');
 
-
-
                 const name = document.createElement('h6');
                 name.classList.add('card-subtitle');
                 name.classList.add('mb-2');
@@ -195,11 +174,7 @@ async function getEvents() {
                 const str3 = "                  Created By: ";
                 name.appendChild(document.createTextNode(str3.concat(item.username)));
 
-
-
-
                 //Check if we are in the event, to make the button
-                // console.log('item.event_id: ' + item.event_id);
                 let joined = false;
                 for (const joinedEvent of myEvents) {
                     if (item.event_id === joinedEvent.event_id) {
@@ -217,10 +192,8 @@ async function getEvents() {
                     btntext = document.createTextNode('Join');
                 }
 
-
                 btn.appendChild(btntext);
                 btndiv.appendChild(btn);
-
 
                 cardBody.appendChild(title);
                 cardBody.appendChild(dateTime);
@@ -231,22 +204,15 @@ async function getEvents() {
                 cardBody.appendChild(document.createElement('br'));
                 cardBody.appendChild(name);
 
-
-
-
                 cardTextLeft.appendChild(cardBody);
                 card.appendChild(cardTextLeft);
                 row.appendChild(card);
 
                 feedCol.appendChild(row);
             }
-
         });
 }
 
 
-
 //Load feed
 window.addEventListener('load', getEvents);
-
-

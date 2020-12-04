@@ -6,7 +6,6 @@
 async function DeleteButton(eventid) {
 
     const deleteEvent = { "id": eventid };
-    // fetch('http://localhost:8080/user/deleteEvent', {
     await fetch('/user/deleteEvent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
@@ -14,11 +13,9 @@ async function DeleteButton(eventid) {
     });
     postMyEventsCards();
     postJoinedCards();
-    //postrequests
 }
 
 function EditButton(eventid) {
-    console.log("we are editing event: ${eventid}");
     if (window.localStorage.getItem('editedeventid') !== null) {
         window.localStorage.removeItem('editedeventid');
     }
@@ -28,12 +25,10 @@ function EditButton(eventid) {
 
 async function LeaveButton(eventid) {
 
-    //const leaveEvent= {"owner":"Aidan" , "eid": eventid };
     const body = {
         id: eventid
     };
     await fetch('/user/leaveEvent', {
-        // fetch('http://localhost:8080/user/unjoinEvent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
         body: JSON.stringify(body),
@@ -41,7 +36,6 @@ async function LeaveButton(eventid) {
     postMyEventsCards();
     postJoinedCards();
 }
-
 
 async function getNumerator(event_id) {
     const body = {
@@ -58,26 +52,20 @@ async function getNumerator(event_id) {
         body: JSON.stringify(body),
     });
     const json = await res.json();
-
     return json[0].count;
-
 }
 
 function postMyEventsCards() {
     // clear the row 
     const row = document.getElementById('my_events');
     row.innerHTML = '';
-
-    // const myeventsurl = 'http://localhost:8080/user/getmyevents';
     const myeventsurl = '/user/getmyevents';
-    // const myeventsurl = '/user/getmyevents';
     fetch(myeventsurl)
         .then(response => response.json())
         .then(async data => {
             for (let i = 0; i < data.length; i = i + 1) {
                 const listitem1 = document.createElement('div');
                 listitem1.classList.add('col-md-4');
-
 
                 const listitem2 = document.createElement('div');
                 listitem2.classList.add('card');
@@ -102,7 +90,6 @@ function postMyEventsCards() {
                 dandt.classList.add('text-muted');
                 dandt.appendChild(document.createTextNode(data[i].date.concat(' @', data[i].time)));
 
-
                 const location = document.createElement('h6');
                 location.classList.add('card-subtitle');
                 location.classList.add('mb-2');
@@ -117,14 +104,12 @@ function postMyEventsCards() {
                 cardtxt.appendChild(document.createTextNode(data[i].description));
                 cardtxtdiv.appendChild(cardtxt);
 
-
                 const name = document.createElement('h6');
                 name.classList.add('card-subtitle');
                 name.classList.add('mb-2');
                 name.classList.add('text-muted');
                 const str3 = "                  Created By: You ";
                 name.appendChild(document.createTextNode(str3));
-
 
                 //get numerator
                 const numerator = await getNumerator(data[i].event_id);
@@ -157,7 +142,6 @@ function postMyEventsCards() {
                 button2.onclick = function () {
                     EditButton(data[i].event_id);
                 };
-                // button2.onclick= "location.href='createEvent.html'";
                 buttonfil.appendChild(button2);
 
                 buttons.appendChild(button1);
@@ -182,12 +166,10 @@ function postMyEventsCards() {
 }
 
 
-
 function postJoinedCards() {
     // clear the row 
     const row = document.getElementById('joined_events');
     row.innerHTML = '';
-    // const myeventsurl = 'http://localhost:8080/user/getjoinedevents';
     const myeventsurl = '/user/getjoinedevents';
     fetch(myeventsurl)
         .then(response => response.json())
@@ -206,7 +188,6 @@ function postJoinedCards() {
                 listitem3.classList.add('text-left');
 
                 const listitem4 = document.createElement('div');
-                // listitem4.classList.add('card');
                 listitem4.classList.add('card-body');
 
                 const title = document.createElement('h5');
@@ -218,7 +199,6 @@ function postJoinedCards() {
                 dandt.classList.add('mb-2');
                 dandt.classList.add('text-muted');
                 dandt.appendChild(document.createTextNode(data[i].date.concat(' @', data[i].time)));
-
 
                 const location = document.createElement('h6');
                 location.classList.add('card-subtitle');
@@ -242,15 +222,12 @@ function postJoinedCards() {
                 capacity.classList.add('card-text');
                 capacity.appendChild(document.createTextNode(str2));
 
-
                 const name = document.createElement('h6');
                 name.classList.add('card-subtitle');
                 name.classList.add('mb-2');
                 name.classList.add('text-muted');
                 const str3 = "                  Created By: ";
                 name.appendChild(document.createTextNode(str3.concat(data[i].username)));
-
-
 
                 const buttons = document.createElement('div');
                 const button1 = document.createElement('button');
@@ -281,7 +258,6 @@ function postJoinedCards() {
         });
 }
 
+
 window.addEventListener('load', postMyEventsCards);
 window.addEventListener('load', postJoinedCards);
-
-

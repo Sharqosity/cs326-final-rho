@@ -1,4 +1,5 @@
 'use strict';
+
 import * as _dotenv from "dotenv";
 import pgp from "pg-promise";
 import express from 'express';
@@ -7,6 +8,8 @@ import * as _passport from "passport";
 import * as _LocalStrategy from 'passport-local';
 import * as _minicrypt from "./miniCrypt.js";
 import * as _path from "path";
+import { DB } from './database.js';
+
 
 const dotenv = _dotenv["default"];
 dotenv.config();
@@ -25,9 +28,6 @@ app.use(express.urlencoded({ 'extended': true })); // allow URLencoded data
 app.use('/', express.static('./client'));
 
 const __dirname = process.cwd();
-
-
-import { DB } from './database.js';
 
 const url = process.env.DATABASE_URL;
 
@@ -61,7 +61,6 @@ app.use(expressSession(session));
 passport.use(strategy);
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 // Convert user object to a unique identifier.
 passport.serializeUser((user, done) => {
@@ -97,7 +96,6 @@ async function addUser(name, pwd) {
         return false;
     }
     //Save the salt and hash
-    console.log('attempting to register user');
     const userInfo = mc.hash(pwd);
     const salt = userInfo[0];
     const hashed_pw = userInfo[1];
@@ -120,7 +118,7 @@ function checkLoggedInFeed(req, res, next) {
     if (req.isAuthenticated()) {
         next();
     } else {
-        res.writeHead(200, {"Content-Type" : "text/plain"});
+        res.writeHead(200, { "Content-Type": "text/plain" });
         res.write('nologin');
         res.end();
     }
@@ -131,7 +129,7 @@ function checkLoggedInFeed(req, res, next) {
 app.post('/login',
     passport.authenticate('local', {     // use username/password authentication
         'successRedirect': '/profile',   // when we login, go to /private 
-        'failureRedirect': '/login?message=error'      // otherwise, back to login
+        'failureRedirect': '/login?message=error'   // otherwise, back to login
     }));
 
 app.get('/login', (req, res) => res.sendFile('login.html', { root: path.join(__dirname, './client') }));
@@ -147,9 +145,9 @@ app.post('/register',
         const username = req.body['username'];
         const password = req.body['password'];
         if (await addUser(username, password)) {
-            res.redirect(303,'/login');
+            res.redirect(303, '/login');
         } else {
-            res.writeHead(401, {"Content-Type" : "text/plain"});
+            res.writeHead(401, { "Content-Type": "text/plain" });
             res.write('userexists');
             res.end();
         }
@@ -198,12 +196,11 @@ app.post('/user/joinEvent',
 
         if (currentJoined[0].count < parsedEvent.capacity) {
             database.joinEvent(username, id);
-            res.writeHead(200, {"Content-Type" : "text/plain"});
+            res.writeHead(200, { "Content-Type": "text/plain" });
             res.write('OK');
             res.end();
         } else {
-            //TODO: send max capacity reached in res
-            res.writeHead(200, {"Content-Type" : "text/plain"});
+            res.writeHead(200, { "Content-Type": "text/plain" });
             res.write('maxcap');
             res.end();
         }
@@ -216,7 +213,6 @@ app.post('/user/leaveEvent',
         const eventid = req.body.id;
         await database.leaveEvent(username, eventid);
         res.send("200");
-        //res.redirect('/feed');
     });
 
 app.post('/user/createEvent',
@@ -225,9 +221,7 @@ app.post('/user/createEvent',
         const username = req.user;
         const body = req.body;
         database.userCreate(username, body);
-        //redirect to created event on success?
-        res.redirect(303,'/profile');
-        
+        res.redirect(303, '/profile');
     });
 
 app.post('/user/editEvent',
@@ -240,14 +234,14 @@ app.post('/user/editEvent',
         const parsedEvent = JSON.parse(event)[0];
         if (username === parsedEvent.username) {
             database.userEdit(req.body['event_id'], req.body);
-            res.redirect(303,'/profile');
+            res.redirect(303, '/profile');
         } else {
             res.status(403).send('Unauthorized');
         }
     });
 
 
-app.post('/user/deleteEvent', 
+app.post('/user/deleteEvent',
     checkLoggedIn,
     async (req, res) => {
         const username = req.user;
@@ -274,8 +268,8 @@ app.get('/user/getjoinedevents', async (req, res) => {
 
 app.get('/globalgetfeed',
     async (req, res) => {
-    res.send(await database.globalGetFeed());
-});
+        res.send(await database.globalGetFeed());
+    });
 
 app.post('/user/getEventCurrentJoined', async (req, res) => {
     const event_id = req.body.id;
@@ -284,7 +278,7 @@ app.post('/user/getEventCurrentJoined', async (req, res) => {
 
 
 
-app.get('/globalgetfeed/bylocation',async (req,res)=>{
+app.get('/globalgetfeed/bylocation', async (req, res) => {
     res.end(await database.globalGetFeedByLocation());
 });
 

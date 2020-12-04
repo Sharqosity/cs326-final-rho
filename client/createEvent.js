@@ -19,27 +19,12 @@ function createMap() {
         };
         map = new google.maps.Map(document.getElementById("map2"), options);
         google.maps.event.addListener(map, 'click', function (event) {
-            console.log(event.latLng);
             placeMarker(event.latLng, map);
         });
     };
 }
 
-// function addMarker(eventobj,map){
-//     var marker= new google.maps.Marker({
-//         position:eventobj.coords,
-//         map:map
-//     });
-//     var infoWindow= new google.maps.InfoWindow({
-//         content: eventobj.content
-//     });
-//     marker.addListener('click',function(){
-//         infoWindow.open(map,marker);
-//     });
-// }
-
 function placeMarker(location, map) {
-
     if (marker) {
         marker.setPosition(location);
     } else {
@@ -50,7 +35,6 @@ function placeMarker(location, map) {
     }
 }
 
-
 function editSetUp() {
     let edit_event_id = window.localStorage.getItem('editedeventid');
     //signifies that we are editing an event instead of creating one
@@ -60,45 +44,18 @@ function editSetUp() {
         //now a get request for the actual information contained in that specific id 
 
         //with a real server we would obviously pass in an actual value for what event
-        //const eventurl = 'http://localhost:8080/user/getmyevents';
         const eventurl = '/user/getmyevents';
         fetch(eventurl)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 let event = null;
                 edit_event_id = parseInt(edit_event_id);
-                console.log(edit_event_id);
                 data.forEach(element => {
-                    console.log(element['event_id']);
                     if (element['event_id'] === edit_event_id) {
                         event = element;
-                        console.log('matched!');
                     }
                 });
-                //now set the approprite values
-                console.log(event);
-
-                // need to parse the date a little
-                /*
-                let temp = event['date'].split('/');
-                if(temp.length === 3){
-                    const date = "20" + temp[2] + "-" + temp[0] + "-" + temp[1];
-                    document.getElementById('date').value = date;
-                }
-                else{
-                    //the vote was in an invalid format
-                }
-                //need to parse the time a little 
-                let time = "";
-                temp = event['time'].split(':');
-                let timeDiff = 0;
-                if(temp[1].includes('pm')){
-                    timeDiff = 12;
-                }
                 
-                time += String((parseInt(temp[0])+timeDiff)) + ":" + String(parseInt(temp[1]));
-                */
                 document.getElementById('title').value = event['title'];
                 document.getElementById('date').value = event['date'];
                 document.getElementById('time').value = event['time'];
@@ -112,7 +69,6 @@ function editSetUp() {
             });
         window.localStorage.removeItem('editedeventid');
     }
-    console.log('we tried to edit the event');
 }
 
 async function createEvent() {
@@ -138,16 +94,11 @@ async function createEvent() {
                 headers: { 'Content-Type': 'application/json', },
                 body: JSON.stringify(newEvent),
             });
-            console.log("Created new event:");
-            console.log(newEvent);
 
             window.location.href = res.url;
         }
         else {
-            //newEvent['event_id'] = window.localStorage.getItem('editedeventid');   
             newEvent['event_id'] = event_id;
-            //window.localStorage.removeItem('editedeventid');  
-            console.log(newEvent['event_id']);
             const res = await fetch('/user/editEvent', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', },
@@ -164,7 +115,6 @@ async function createEvent() {
     }
 
 
-    //'http://localhost:8080/user/createEvent'
 
 }
 

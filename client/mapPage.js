@@ -1,8 +1,6 @@
 'use strict';
 
-
 function createMap() {
-    //console.log("And the data is1");
     const script = document.createElement('script');
     script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBYiznhqifgK52B9Qj51nNR1NBZ_PCc3qg&callback=initMapPagemap';
     script.defer = true;
@@ -32,7 +30,6 @@ function createMap() {
     };
 }
 
-
 function addMarker(eventobj, map) {
     const marker = new google.maps.Marker({
         position: eventobj.coords,
@@ -44,23 +41,13 @@ function addMarker(eventobj, map) {
     marker.addListener('click', function () {
         infoWindow.open(map, marker);
     });
-    console.log("addedmarker");
 }
 
 
-
-// // create map for createvent page
-// google.maps.event(addEventListener(map,'click',
-// addMarker({coords:event.latLng} )
-
-// ))
-
 function populateDropdown() {
-    console.log("hello");
     const row = document.getElementById('dropdownmenus');
     row.innerHTML = '';
     const myeventsurl = '/globalgetfeed/bylocation';
-    // const myeventsurl = '/user/getmyevents';
     fetch(myeventsurl)
         .then(response => response.json())
         .then(data => {
@@ -103,10 +90,7 @@ function populateDropdown() {
             }
         });
 }
+
+
 window.addEventListener('load', createMap);
 window.addEventListener('load', populateDropdown);
-
-
-
-
-
