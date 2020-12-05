@@ -1,12 +1,8 @@
 
-# <span style="text-decoration:underline;">Team Rho - Fall 2020</span>
+# <span style="text-decoration:underline;">Team Rho - Fall 2020- Events@UMass</span>
 
 
-## 
-                Events@UMass
-
-Fall  2020
-
+             
 Team Members:
 
 By Aidan Nuzum Clark -  Github alias: AidanNC
