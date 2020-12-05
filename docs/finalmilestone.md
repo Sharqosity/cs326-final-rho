@@ -44,7 +44,7 @@ This page allows users to view the events on a map view as well as sort the even
 <p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
-![alt_text](images/image2.png "image_tooltip")
+![alt_text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Final_Milestone_Images/map.png)
 
 
 **Create Event**
@@ -56,7 +56,7 @@ This page allows the user to create a new event, where they specify the name, da
 <p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
-![alt_text](images/image3.png "image_tooltip")
+![alt_text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Final_Milestone_Images/CreateEvent.png)
 
 
 **Edit Event**
@@ -68,7 +68,7 @@ This page looks the same as the create event page but all the information is pre
 <p id="gdcalert4" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image4.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
-![alt_text](images/image4.png "image_tooltip")
+![alt_text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Final_Milestone_Images/UpdateEvent.png)
 
 
 **Profile**
@@ -80,7 +80,7 @@ This page allows users to see the events that they have created, as well as the 
 <p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image5.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
-![alt_text](images/image5.png "image_tooltip")
+![alt_text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Final_Milestone_Images/myEvents.png)
 
 
 **Login/Register**
@@ -92,7 +92,7 @@ These pages allow the user to either register a new account  or log into an exis
 <p id="gdcalert6" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image6.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert7">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
-![alt_text](images/image6.png "image_tooltip")
+![alt_text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Final_Milestone_Images/login.png)
 
 
 
@@ -100,7 +100,7 @@ These pages allow the user to either register a new account  or log into an exis
 <p id="gdcalert7" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image7.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert8">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
-![alt_text](images/image7.png "image_tooltip")
+![alt_text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Final_Milestone_Images/register.png)
 
 
 
