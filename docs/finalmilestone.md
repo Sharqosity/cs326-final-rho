@@ -247,7 +247,7 @@ These pages allow the user to either register a new account  or log into an exis
 
 /profile
 
-Serves the profile page html, if the user is logged in. Otherwise	 redirects to login.
+	Serves the profile page html, if the user is logged in. Otherwise	 redirects to login.
 
 /feed
 
