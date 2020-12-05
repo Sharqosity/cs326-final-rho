@@ -25,8 +25,6 @@ This page contains all of the upcoming events that different users have created.
 
 
 
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
 
 ![alt_text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Final_Milestone_Images/Events.png)
 
@@ -35,9 +33,6 @@ This page contains all of the upcoming events that different users have created.
 
 This page allows users to view the events on a map view as well as sort the events by different common locations such as the library or campus pond.
 
-
-
-<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
 ![alt_text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Final_Milestone_Images/map.png)
@@ -49,9 +44,6 @@ This page allows the user to create a new event, where they specify the name, da
 
 
 
-<p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Final_Milestone_Images/CreateEvent.png)
 
 
@@ -60,8 +52,6 @@ This page allows the user to create a new event, where they specify the name, da
 This page looks the same as the create event page but all the information is pre-populated with existing information from the event that is being edited. Once the user clicks the update button at the bottom,  it will update the existing event instead of creating a new one.
 
 
-
-<p id="gdcalert4" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image4.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
 ![alt_text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Final_Milestone_Images/UpdateEvent.png)
@@ -73,7 +63,6 @@ This page allows users to see the events that they have created, as well as the 
 
 
 
-<p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image5.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
 ![alt_text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Final_Milestone_Images/myEvents.png)
@@ -85,15 +74,10 @@ These pages allow the user to either register a new account  or log into an exis
 
 
 
-<p id="gdcalert6" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image6.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert7">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
 
 ![alt_text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Final_Milestone_Images/login.png)
 
 
-
-
-<p id="gdcalert7" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image7.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert8">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
 ![alt_text](https://github.com/Sharqosity/cs326-final-rho/blob/main/Final_Milestone_Images/register.png)
